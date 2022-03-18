@@ -1,0 +1,80 @@
+<div class="container">
+
+    <mat-stepper linear #stepper>
+        <mat-step [stepControl]="firstFormGroup" [editable]="true">
+            <ng-template matStepLabel>Fill out the form</ng-template>
+            <div class="symptomsForm">
+                
+                <mat-form-field class="example-form" appearance="fill">
+                    <mat-label>Age</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+    
+                <mat-form-field appearance="fill" class="example-form">
+                    <mat-label>Choose a gender</mat-label>
+                    <mat-select>
+                        <mat-option value="female">Female</mat-option>
+                        <mat-option value="male">Male</mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <form class="example-form">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Symptoms</mat-label>
+                        <input type="text" placeholder="Select Your Symptoms" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #symptomInput>
+                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selected($event)">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                {{option}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+    
+    
+                <h4><b>My Symptoms:</b></h4>
+                <mat-card *ngFor="let symptom of selectedSymptoms">
+                    {{symptom}}
+                    <button mat-icon-button aria-label="Remove Symptom" (click)="remove(symptom)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-card>
+    
+                <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
+    
+                <button mat-raised-button matStepperNext color="primary">Continue</button>
+            </div>
+            
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="false">
+            <ng-template matStepLabel>Check Your Results</ng-template>
+
+            <div class="container2">
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
+                        <mat-cell mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-card class="diagnosis-card">
+                    <mat-card-subtitle>Most Possible Diagnosis</mat-card-subtitle>
+                    <mat-card-title class="title">Diabetes</mat-card-title>
+                    <mat-card-content>
+                        <p>Diabetes is a chronic (long-lasting) health condition that affects how your body turns food into energy.</p>
+                        <p>Diabetes is a serious condition and the treatment process of it should be started as soon as possible.</p>
+                    </mat-card-content>
+                    <mat-divider inset></mat-divider>
+                    <mat-card-actions>
+                        <button mat-button routerLink="/recommendation">Recommendation</button>
+                        <button mat-button (click)="getResult()">Get Result</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+
+        </mat-step>
+    </mat-stepper>
+
+
+</div>
