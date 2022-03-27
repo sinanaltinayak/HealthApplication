@@ -41,15 +41,16 @@
     
                 <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
     
-                <button mat-raised-button matStepperNext color="primary">Continue</button>
+                <button mat-raised-button matStepperNext color="primary" (click)='getResult()'>Continue</button>
             </div>
             
         </mat-step>
+
         <mat-step [stepControl]="secondFormGroup" [editable]="false">
             <ng-template matStepLabel>Check Your Results</ng-template>
 
             <div class="container2">
-                <mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+                <mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
                     <ng-container matColumnDef="name">
                         <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
                         <mat-cell mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
