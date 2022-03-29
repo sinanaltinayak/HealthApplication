@@ -46,14 +46,13 @@ export class HomeComponent{
   
   @ViewChild('symptomInput') symptomInput!: ElementRef<HTMLInputElement>;
 
-  constructor(
-    public _service: FlaskService, ) {
+  constructor( public _service: FlaskService ) 
+  {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(null),
       map((symptom: string | null) => (symptom ? this._filter(symptom) : this.options.slice())),
     );
 
-    this.getSymptoms();
     console.log(this.selectedSymptomsIndex);
   }
 
@@ -88,16 +87,10 @@ export class HomeComponent{
     }
   }
 
-
-  getSymptoms(){
-
-  }
-
   getResult(){
 
-    this._service.sendSymptoms(this.selectedSymptomsIndex).subscribe(data => {
-      console.log(data);
-
-    });
+    let xd = this._service.getResult(this.selectedSymptomsIndex);
+    console.log(xd);
+    
   }
 }
