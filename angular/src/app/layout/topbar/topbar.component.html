@@ -5,7 +5,71 @@
     <button mat-button aria-label="New Test Button"  routerLink="../home">
       <mat-icon>assignment</mat-icon> New Test
     </button>
-    <button mat-button aria-label="Sign In Button">
-      <mat-icon>input</mat-icon> Sign In
-    </button>
+    <div>
+      <ul class="nav nav-pills flex-column mb-auto">
+          <div *ngIf="userType=='default'; then login; else logout"></div>
+          <ng-template #login>
+            <button [matMenuTriggerFor]="menu" mat-button aria-label="Sign In Button">
+              <mat-icon>input</mat-icon> Sign In
+            </button>
+              <mat-menu #menu="matMenu">
+                  <div (click)="$event.stopPropagation()" class="login-container">
+                      <div *ngIf="signMode=='signin'">
+                          <mat-form-field>
+                              <mat-label>Email</mat-label>
+                              <input matInput [(ngModel)]="email" required>
+                              <mat-hint>{{emailErrorMessage}}</mat-hint>
+                          </mat-form-field>
+                          <mat-form-field>
+                              <mat-label>Password</mat-label>
+                              <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'" required>
+                              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                              <mat-hint>{{passwordErrorMessage}}</mat-hint>
+                            </button>
+                          </mat-form-field>
+                          <button mat-button (click)='loginUser()'>Log In</button>
+                          <div class="dropdown-divider"></div>
+                          <button mat-button ngbDropdownItem (click)="changeSignMode()">Sign up</button>
+                      </div>
+                      <div *ngIf="signMode=='signup'">
+                          <mat-form-field>
+                              <mat-label>Email</mat-label>
+                              <input matInput [(ngModel)]="email" required>
+                              <mat-hint>{{emailRegisterErrorMessage}}</mat-hint>
+                          </mat-form-field>
+                          <mat-form-field>
+                              <mat-label>Full Name</mat-label>
+                              <input matInput [(ngModel)]="fullname" required>
+                          </mat-form-field>
+                          <mat-form-field>
+                              <mat-label>Password</mat-label>
+                              <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'" required>
+                              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                  <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                              </button>
+                              <mat-hint>{{passwordErrorMessage}}</mat-hint>
+                          </mat-form-field>
+                          <mat-form-field>
+                              <mat-label>Confirm Password</mat-label>
+                              <input matInput [(ngModel)]="confirmPassword" [type]="hidePassword ? 'password' : 'text'" required>
+                              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                  <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                              </button>
+                          </mat-form-field>
+                          <button mat-button (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword ">Sign up</button>
+                          <div class="dropdown-divider"></div>
+                          <button mat-button ngbDropdownItem (click)="changeSignMode()">Already have an account? Sign in</button>
+                      </div>
+                  </div>
+              </mat-menu>
+
+          </ng-template>
+          <ng-template #logout>
+              <button mat-button (click)="logoutUser()">
+                <mat-icon>output</mat-icon> Log Out
+              </button>
+          </ng-template>
+      </ul>
+  </div>
 </mat-toolbar>

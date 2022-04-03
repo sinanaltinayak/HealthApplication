@@ -8,6 +8,12 @@ import { RouterModule } from "@angular/router";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -16,6 +22,12 @@ import { MatButtonModule } from '@angular/material/button';
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
+        MatSnackBarModule,
+        MatListModule,
+        MatFormFieldModule,
+        MatMenuModule,
+        MatInputModule,
+        FormsModule
     ],
     exports: [
         PageLayoutComponent,

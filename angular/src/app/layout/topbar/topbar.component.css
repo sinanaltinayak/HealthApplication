@@ -4,3 +4,25 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+
+
+
+.login-container {
+    margin: 25px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+mat-hint {
+    color: red!important;
+}
+
+mat-form-field {
+    margin-bottom: 15px;
+}
