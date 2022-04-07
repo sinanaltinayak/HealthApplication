@@ -1,0 +1,48 @@
+<div class="container">
+    <h1>TESTS</h1>
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Pending Tests">
+            <div>
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" matSort>
+    
+    
+                        <!-- Progress Column -->
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                            <td mat-cell *matCellDef="let row"> {{row.date}} </td>
+                        </ng-container>
+    
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="patient">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient </th>
+                            <td mat-cell *matCellDef="let row"> {{row.patient}} </td>
+                        </ng-container>
+    
+                        <!-- Fruit Column -->
+                        <ng-container matColumnDef="symptoms">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symptoms </th>
+                            <td mat-cell *matCellDef="let row"> {{row.symptoms}} </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="result">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Result </th>
+                            <td mat-cell *matCellDef="let row"> {{row.result}}
+                            </td>
+                        </ng-container>
+    
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+                    </table>
+    
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                </div>
+
+            </div>
+        </mat-tab>
+        <mat-tab label="Tests Reviewed by You">
+            
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -5,6 +5,9 @@
     <button mat-button aria-label="New Test Button"  routerLink="../home">
       <mat-icon>assignment</mat-icon> New Test
     </button>
+    <button mat-button aria-label="Review Tests Button"  routerLink="../tests">
+        <mat-icon>rate_review</mat-icon> Review Tests
+    </button>
     <div>
       <ul class="nav nav-pills flex-column mb-auto">
           <div *ngIf="userType=='default'; then login; else logout"></div>
@@ -17,12 +20,12 @@
                       <div *ngIf="signMode=='signin'">
                           <mat-form-field>
                               <mat-label>Email</mat-label>
-                              <input matInput [(ngModel)]="email" required>
+                              <input matInput [(ngModel)]="email" required tabindex="15">
                               <mat-hint>{{emailErrorMessage}}</mat-hint>
                           </mat-form-field>
                           <mat-form-field>
                               <mat-label>Password</mat-label>
-                              <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'" required>
+                              <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'" required tabindex="16">
                               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                               <mat-hint>{{passwordErrorMessage}}</mat-hint>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "health-app-ee23d": {
+      "hosting": {
+        "angular": [
+          "health-app-ee23d"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "health-app-ee23d"
+  }
+}

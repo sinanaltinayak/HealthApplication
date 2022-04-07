@@ -6,4 +6,8 @@ export class Diagnosis{
         this.name = name;
         this.probability = probability;
     }
+
+    ToString(){
+        return this.name + "," + this.probability;
+    }
 }

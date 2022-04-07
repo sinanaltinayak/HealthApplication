@@ -8,6 +8,8 @@ import { Doctor } from 'src/app/models/Doctor';
 import { PatientsService } from 'src/app/service/patients.service';
 import { map } from 'rxjs/operators';
 import { DoctorsService } from 'src/app/service/doctors.service';
+import { TestsService } from 'src/app/service/tests.service';
+import { Test } from 'src/app/models/test';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -41,6 +43,7 @@ export class TopbarComponent implements OnInit {
   constructor(
     public _patientService: PatientsService,
     public _doctorService: DoctorsService,
+    public _testsService: TestsService,
     public myapp: AppComponent, 
     private _router: Router) 
   { }
@@ -48,6 +51,7 @@ export class TopbarComponent implements OnInit {
   // ngOnInit function is called in launch
   ngOnInit(): void {
     this.getAllpatients();
+    this.getAllTests();
   }
 
   // loginUser function is for taking necessary information from the user and trying to find a user with those information.
@@ -90,7 +94,6 @@ export class TopbarComponent implements OnInit {
           this.userType = "doctor";
           AppModule.userDoctor = this.currentDoctor;
           AppModule.userType = this.userType;
-
           // gets necessary data from the database
           this.myapp.openSnackBar("Welcome "+data[0].fullname, "Continue");
         }
@@ -134,7 +137,6 @@ export class TopbarComponent implements OnInit {
   }
 
   // registerUser function is for creating a new patient account
-  // registerUser function is for creating a new patient account
   registerUser(){
 
     // checks for necessary conditions and changes error message variables accordingly
@@ -176,25 +178,57 @@ export class TopbarComponent implements OnInit {
     }
   }
 
-    // this function is for getting all the patients with their information and storing them globally
-    getAllpatients(){
-      this._patientService.getAll().snapshotChanges().pipe(
-        map(changes=> changes.map(c=>
-          ({id: c.payload.doc.id, 
-            fullname: c.payload.doc.data().fullname, 
-            email: c.payload.doc.data().email, 
-            password: c.payload.doc.data().password, })
-          )
+  // this function is for getting all the patients with their information and storing them globally
+  getAllpatients(){
+    this._patientService.getAll().snapshotChanges().pipe(
+      map(changes=> changes.map(c=>
+        ({id: c.payload.doc.id, 
+          fullname: c.payload.doc.data().fullname, 
+          email: c.payload.doc.data().email, 
+          password: c.payload.doc.data().password, })
         )
-      ).subscribe(data => { 
-        AppModule.allPatients.clear();
-        data.forEach(el=> {
-          this.allPatients.set(el.id, new Patient(el.fullname, el.email, el.password));
-          AppModule.allPatients.set(el.id, new Patient(el.fullname, el.email, el.password));
-          console.log(AppModule.allPatients);
-        }
-        );
-      });
-    }
+      )
+    ).subscribe(data => { 
+      AppModule.allPatients.clear();
+      data.forEach(el=> {
+        this.allPatients.set(el.id, new Patient(el.fullname, el.email, el.password));
+        AppModule.allPatients.set(el.id, new Patient(el.fullname, el.email, el.password));
+        console.log(AppModule.allPatients);
+      }
+      );
+    });
+  }
 
+  getAllTests(){
+
+    AppModule.testsInfo = [];
+
+    this._testsService.getAll().snapshotChanges().pipe(
+      map(changes=> changes.map(c=>
+        ({id: c.payload.doc.id, 
+          patientID: c.payload.doc.data().patientID,
+          date: c.payload.doc.data().date, 
+          doctorID: c.payload.doc.data().doctorID, 
+          result: c.payload.doc.data().result, 
+          symptoms: c.payload.doc.data().symptoms,
+        })
+        )
+      )
+    ).subscribe(data => { 
+      let result: Test[] = [];
+      data.forEach(el=> {
+        let row = ({
+          patientID: el.patientID, 
+          //studentName: this.getStudentName(el.studentID),
+          doctorID: el.doctorID, 
+          result: el.result, 
+          date: el.date, 
+          symptoms: el.symptoms
+        });
+        result.push(row);
+        });
+      AppModule.testsInfo = result; 
+    }); 
+
+  }
 }

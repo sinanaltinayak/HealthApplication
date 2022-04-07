@@ -12,7 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './pages/home/home.module';
 import { RecommendationModule } from './pages/recommendation/recommendation.module';
 import { MonitoringModule } from './pages/monitoring/monitoring.module';
+import { LoadingModule } from './pages/loading/loading.module';
 import { LayoutModule } from './layout/layout.module';
+import { TestsModule } from './pages/tests/tests.module';
 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
@@ -35,6 +37,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { Patient } from './models/patient';
 import { Doctor } from './models/Doctor';
+import { TestsComponent } from './pages/tests/tests.component';
+import { Test } from './models/test';
 
 const routes: Routes = [
   {
@@ -61,6 +65,9 @@ const routes: Routes = [
     RecommendationModule,
     MonitoringModule,
     LayoutModule,
+    LoadingModule,
+    TestsModule,
+    
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -82,4 +89,6 @@ export class AppModule {
    static userPatient = new Map<string, Patient>();
    static userDoctor = new Map<string, Doctor>();
    static allPatients = new Map<string, Patient>();
+
+   static testsInfo: Test[] = [];
 }

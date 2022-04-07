@@ -9,6 +9,9 @@ import { FlaskService } from '../../service/flask.service';
 import { Diagnosis } from 'src/app/models/diagnosis';
 
 import {MatTable} from '@angular/material/table';
+import { TestsService } from 'src/app/service/tests.service';
+import { Test } from 'src/app/models/test';
+import { AppModule } from 'src/app/app.module';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -45,7 +48,7 @@ export class HomeComponent{
   @ViewChild(MatTable) table!: MatTable<Diagnosis>;
   @ViewChild('symptomInput') symptomInput!: ElementRef<HTMLInputElement>;
 
-  constructor( public _service: FlaskService ) 
+  constructor( public _service: FlaskService, public _serviceTests: TestsService ) 
   {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(null),
@@ -53,6 +56,8 @@ export class HomeComponent{
     );
 
     console.log(this.selectedSymptomsIndex);
+
+    console.log(this.options.length);
   }
 
   private _filter(value: string): string[] {
@@ -62,9 +67,13 @@ export class HomeComponent{
   }
   
   selected(event: MatAutocompleteSelectedEvent): void {
+    console.log(event);
+
     this.selectedSymptoms.push(event.option.viewValue);
-    
-    this.selectedSymptomsIndex[Number(event.option.id.slice(11))-2] = 1;
+    this.selectedSymptomsIndex[this.options.indexOf(event.option.value)] = 1;
+
+    // loginleyince matoptionların sayıları değişiyor, selectedSymptomsIndex bozuluyor
+    //this.selectedSymptomsIndex[Number(event.option.id.slice(11))-2] = 1;
     
     console.log(this.selectedSymptomsIndex);
     this.symptomInput.nativeElement.value = '';
@@ -80,6 +89,8 @@ export class HomeComponent{
     var result = this.options.findIndex(finder);
 
     this.selectedSymptomsIndex[result] = 0;
+
+    console.log(this.selectedSymptomsIndex)
 
     if (index >= 0) {
       this.selectedSymptoms.splice(index, 1);
@@ -100,10 +111,25 @@ export class HomeComponent{
           diagnosis.push( new Diagnosis(Object.values(data)[i][0], Object.values(data)[i][1]))
         }
         this.possibleDiagnosis = diagnosis;
+        
+        if(AppModule.userType == "patient"){
+          console.log("xd",this.possibleDiagnosis.toString());
+          let newTest = new Test(Array.from(AppModule.userPatient.keys())[0], "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis))
+          this._serviceTests.create(newTest);
+        }
       }
     );
     console.log(this.possibleDiagnosis);
     this.table.renderRows();
     this.selectedDiagnosisIndex = 0;
+
+  }
+
+  diagnosisListToString(list: Diagnosis[]){
+    let result = "";
+    for(let i = 0; i< list.length; i++){
+      result += "[" + list[i].name + ", " + list[i].probability + "]";
+    }
+    return result;
   }
 }
