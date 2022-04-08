@@ -128,7 +128,12 @@ export class HomeComponent{
   diagnosisListToString(list: Diagnosis[]){
     let result = "";
     for(let i = 0; i< list.length; i++){
-      result += "[" + list[i].name + ", " + list[i].probability + "]";
+      if(i != list.length-1){
+        result += list[i].name + ", " + list[i].probability + "&";
+      }
+      else{
+        result += list[i].name + ", " + list[i].probability;
+      }
     }
     return result;
   }

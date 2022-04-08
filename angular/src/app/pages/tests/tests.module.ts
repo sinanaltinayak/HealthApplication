@@ -11,6 +11,10 @@ import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatRippleModule} from '@angular/material/core';
+
+import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
 
 
 // importing classes that is needed for home page
@@ -27,9 +31,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDialogModule,
+    MatRippleModule
     
 
   ],
-  declarations: [TestsComponent]
+  declarations: [TestsComponent, ConfirmTestComponent]
 })
 export class TestsModule { }

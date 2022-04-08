@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{currentTest.get(this.data.testID)?.patientID}}</h2>
+<mat-dialog-content class="mat-typography">
+
+    <div class="container2">
+        <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
+            <ng-container matColumnDef="name">
+                <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> - %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row matRipple *matRowDef="let row; columns: displayedColumns; let i = index" (click)="selectedDiagnosisIndex = i"></mat-row>
+        </table>
+        <mat-card class="diagnosis-card" *ngIf="possibleDiagnosis.length != 0">
+            <mat-card-subtitle *ngIf="selectedDiagnosisIndex == 0">Most Possible Diagnosis</mat-card-subtitle>
+            <mat-card-title class="title"> {{ possibleDiagnosis[selectedDiagnosisIndex].name }}</mat-card-title>
+            <mat-card-subtitle>%{{ (possibleDiagnosis[selectedDiagnosisIndex].probability* 100).toFixed(2) }}</mat-card-subtitle>
+            <mat-card-content>
+                <p>Diabetes is a chronic (long-lasting) health condition that affects how your body turns food into energy.</p>
+                <p>Diabetes is a serious condition and the treatment process of it should be started as soon as possible.</p>
+            </mat-card-content>
+            <mat-divider inset></mat-divider>
+            <mat-card-actions>
+                <button mat-button>Confirm</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -15,6 +15,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatRippleModule} from '@angular/material/core';
 
 // importing classes that is needed for home page
 
@@ -35,6 +36,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatDividerModule,
     MatInputModule,
     MatButtonModule,
+    MatRippleModule
 
 
   ],

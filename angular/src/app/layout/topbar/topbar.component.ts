@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { DoctorsService } from 'src/app/service/doctors.service';
 import { TestsService } from 'src/app/service/tests.service';
 import { Test } from 'src/app/models/test';
+import { Diagnosis } from 'src/app/models/diagnosis';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -215,13 +216,13 @@ export class TopbarComponent implements OnInit {
         )
       )
     ).subscribe(data => { 
-      let result: Test[] = [];
+      let result: any[] = [];
       data.forEach(el=> {
         let row = ({
-          patientID: el.patientID, 
-          //studentName: this.getStudentName(el.studentID),
+          id: el.id,
+          patientID: el.patientID,
           doctorID: el.doctorID, 
-          result: el.result, 
+          result: this.myapp.parseDiagnosis(el.result), 
           date: el.date, 
           symptoms: el.symptoms
         });
@@ -231,4 +232,6 @@ export class TopbarComponent implements OnInit {
     }); 
 
   }
+
+
 }

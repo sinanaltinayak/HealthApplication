@@ -28,6 +28,10 @@ mat-card {
     margin: 5px;
 }
 
-mat-form-field{
+mat-form-field {
     width: 350px;
 }
+
+mat-row {
+    cursor: pointer
+}   

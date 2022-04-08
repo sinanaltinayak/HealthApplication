@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AppModule } from './app.module';
+import { Diagnosis } from './models/diagnosis';
 
 @Component({
   selector: 'app-root',
@@ -30,5 +31,18 @@ export class AppComponent {
     },
     time);
     this.myRoute.navigateByUrl("/loading");
+  }
+
+  parseDiagnosis(txt: string){
+    let diagnosisList: Diagnosis[] = [];
+
+    let textSplitted = txt.split("&");
+
+    for(let i = 0; i< textSplitted.length; i++){
+      let textSplittedSplitted = textSplitted[i].split(",");
+      diagnosisList.push(new Diagnosis(textSplittedSplitted[0], parseFloat(textSplittedSplitted[1])));
+    }
+    
+    return diagnosisList;
   }
 }

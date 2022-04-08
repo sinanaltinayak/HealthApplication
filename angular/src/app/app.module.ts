@@ -90,5 +90,5 @@ export class AppModule {
    static userDoctor = new Map<string, Doctor>();
    static allPatients = new Map<string, Patient>();
 
-   static testsInfo: Test[] = [];
+   static testsInfo: any[] = [];
 }
