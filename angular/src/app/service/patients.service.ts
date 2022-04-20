@@ -24,8 +24,8 @@ export class PatientsService {
     return this.patientsRef;
   }
 
-  getPatient(studentId: string): AngularFirestoreDocument<Patient> {
-    return this.db.collection("patients").doc(studentId);
+  getPatient(patientId: string): AngularFirestoreDocument<Patient> {
+    return this.patientsRef.doc(patientId);
   }
 
   create(patient: Patient): any {

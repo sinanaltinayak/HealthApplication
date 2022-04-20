@@ -52,7 +52,6 @@ export class TopbarComponent implements OnInit {
   // ngOnInit function is called in launch
   ngOnInit(): void {
     this.getAllpatients();
-    this.getAllTests();
   }
 
   // loginUser function is for taking necessary information from the user and trying to find a user with those information.
@@ -94,9 +93,11 @@ export class TopbarComponent implements OnInit {
           this.currentDoctor.set(data[0].id, new Doctor(data[0].fullname, data[0].email, data[0].profession, data[0].password));
           this.userType = "doctor";
           AppModule.userDoctor = this.currentDoctor;
+          console.log(AppModule.userDoctor);
           AppModule.userType = this.userType;
           // gets necessary data from the database
           this.myapp.openSnackBar("Welcome "+data[0].fullname, "Continue");
+
         }
         // if there is not any user, displays error message
         else{
@@ -199,39 +200,5 @@ export class TopbarComponent implements OnInit {
       );
     });
   }
-
-  getAllTests(){
-
-    AppModule.testsInfo = [];
-
-    this._testsService.getAll().snapshotChanges().pipe(
-      map(changes=> changes.map(c=>
-        ({id: c.payload.doc.id, 
-          patientID: c.payload.doc.data().patientID,
-          date: c.payload.doc.data().date, 
-          doctorID: c.payload.doc.data().doctorID, 
-          result: c.payload.doc.data().result, 
-          symptoms: c.payload.doc.data().symptoms,
-        })
-        )
-      )
-    ).subscribe(data => { 
-      let result: any[] = [];
-      data.forEach(el=> {
-        let row = ({
-          id: el.id,
-          patientID: el.patientID,
-          doctorID: el.doctorID, 
-          result: this.myapp.parseDiagnosis(el.result), 
-          date: el.date, 
-          symptoms: el.symptoms
-        });
-        result.push(row);
-        });
-      AppModule.testsInfo = result; 
-    }); 
-
-  }
-
 
 }

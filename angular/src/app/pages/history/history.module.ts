@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 
-import { TestsRoutingModule } from './tests-routing.module';
-import { TestsComponent } from './tests.component';
+import { HistoryRoutingModule } from './history-routing.module';
+import { HistoryComponent } from './history.component';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
@@ -15,16 +15,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 
-
-import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
-
-
-// importing classes that is needed for home page
+// importing classes that is needed for history page
 
 @NgModule({
   imports: [
     CommonModule,
-    TestsRoutingModule,
+    HistoryRoutingModule,
     FormsModule,
 
     MatTabsModule,
@@ -36,9 +32,9 @@ import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
     MatDialogModule,
     MatRippleModule,
     MatInputModule
-    
+
 
   ],
-  declarations: [TestsComponent, ConfirmTestComponent]
+  declarations: [HistoryComponent]
 })
-export class TestsModule { }
+export class HistoryModule { }

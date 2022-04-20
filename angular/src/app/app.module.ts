@@ -15,6 +15,7 @@ import { MonitoringModule } from './pages/monitoring/monitoring.module';
 import { LoadingModule } from './pages/loading/loading.module';
 import { LayoutModule } from './layout/layout.module';
 import { TestsModule } from './pages/tests/tests.module';
+import { HistoryModule } from './pages/history/history.module';
 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
@@ -37,7 +38,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { Patient } from './models/patient';
 import { Doctor } from './models/Doctor';
-import { TestsComponent } from './pages/tests/tests.component';
 import { Test } from './models/test';
 
 const routes: Routes = [
@@ -67,6 +67,7 @@ const routes: Routes = [
     LayoutModule,
     LoadingModule,
     TestsModule,
+    HistoryModule,
     
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
@@ -90,5 +91,6 @@ export class AppModule {
    static userDoctor = new Map<string, Doctor>();
    static allPatients = new Map<string, Patient>();
 
-   static testsInfo: any[] = [];
+   static testsInfoPending: any[] = [];
+   static testsInfoHistory: any[] = [];
 }

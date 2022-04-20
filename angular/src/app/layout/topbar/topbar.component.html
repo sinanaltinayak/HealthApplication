@@ -8,6 +8,9 @@
     <button mat-button aria-label="Review Tests Button"  routerLink="../tests">
         <mat-icon>rate_review</mat-icon> Review Tests
     </button>
+    <button mat-button aria-label="Test History Button"  routerLink="../history">
+        <mat-icon>history</mat-icon> Test History
+    </button>
     <div>
       <ul class="nav nav-pills flex-column mb-auto">
           <div *ngIf="userType=='default'; then login; else logout"></div>

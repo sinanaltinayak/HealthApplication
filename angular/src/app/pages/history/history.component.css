@@ -1,0 +1,11 @@
+.container {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-form-field {
+    font-size: 14px;
+}

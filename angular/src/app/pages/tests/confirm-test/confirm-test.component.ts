@@ -4,6 +4,9 @@ import { Test } from 'src/app/models/test';
 import { TestsService } from 'src/app/service/tests.service';
 import { map } from 'rxjs';
 import { Diagnosis } from 'src/app/models/diagnosis';
+import { AppComponent } from 'src/app/app.component';
+import { PatientsService } from 'src/app/service/patients.service';
+import { AppModule } from 'src/app/app.module';
 
 @Component({
   selector: 'app-confirm-test',
@@ -15,45 +18,36 @@ export class ConfirmTestComponent implements OnInit {
 
   currentTest = new Map<string, Test>();
 
-  displayedColumns: string[] = ['name'];
+  currentPatientName!: string;
+  currentDate!: string;
+
+  note!:string;
+
+  displayedColumnsDiagnosis: string[] = ['name'];
   possibleDiagnosis: Diagnosis[] = [];
+
+  displayedColumnsSymptoms: string[] = ['name'];
+  symptoms: string[] = [];
+
   selectedDiagnosisIndex: number = 0;
 
   constructor(
     public dialog: MatDialogModule,
-    public _service: TestsService,
+    public _testsService: TestsService,
+    public _patientsService: PatientsService,
     @Inject(MAT_DIALOG_DATA) public data: {testID: string}
   ) { }
 
   ngOnInit(): void {
-    console.log(this.currentTest);
-    this.getTest();
-    console.log("xd",this.data.testID)
-  }
-
-  // function for finding the announcement data from its id
-  getTest(){
-    this._service.getAll().snapshotChanges().pipe(
-      map(changes=> changes.map(c=>
-        ({id: c.payload.doc.id, 
-          patientID: c.payload.doc.data().patientID,
-          doctorID: c.payload.doc.data().doctorID, 
-          date: c.payload.doc.data().date, 
-          symptoms: c.payload.doc.data().symptoms, 
-          result: c.payload.doc.data().result, 
-        })
-        )
-      )
-    ).subscribe(data => { 
-      data.forEach(el=> {
-        console.log("el", el.id, "data", this.data.testID);
-        if (el.id == this.data.testID) {
-          this.currentTest.set(el.id, new Test(el.patientID, el.doctorID, el.date, el.symptoms, el.result));
-          this.possibleDiagnosis = this.parseDiagnosis(el.result);
-        }
-        }
-      );
+    this._testsService.getTestByID(this.data.testID).valueChanges().subscribe(xd => {
+      
+      this.currentTest.set(this.data.testID, xd!);
+      this.symptoms = this.parseSymptoms(Array.from(this.currentTest.values())[0].symptoms);
+      this.possibleDiagnosis = this.parseDiagnosis(Array.from(this.currentTest.values())[0].resultString);
+      this.getPatient();
+      this.currentDate = Array.from(this.currentTest.values())[0].date;
     });
+
   }
 
   
@@ -70,6 +64,28 @@ export class ConfirmTestComponent implements OnInit {
     return diagnosisList;
   }
 
+  parseSymptoms(txt: string){
+    let symptomList = []
+
+    let textSplitted = txt.split(",");
+
+    for(let i = 0; i< textSplitted.length; i++){
+      symptomList.push(textSplitted[i]);
+    }
+
+    return symptomList;
+  }
+
+  getPatient(){
+
+    this._patientsService.getPatient(Array.from(this.currentTest.values())[0].patientID).valueChanges().subscribe(data => {
+      this.currentPatientName = data!.fullname;
+    })
+  }
+
+  updateTest(note: string){
+    this._testsService.update(this.data.testID, Array.from(AppModule.userDoctor.keys())[0], note);
+  }
 }
 
 

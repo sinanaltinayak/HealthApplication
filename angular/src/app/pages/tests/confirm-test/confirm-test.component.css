@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 20px;
+    padding: 10px;
 }
 
 .diagnosis-card{
@@ -13,3 +14,18 @@
 mat-row{
     cursor: pointer
 }
+.note-card{
+    padding: 30px;
+    margin: 10px;
+    width: 100%;
+}
+
+.text-area {
+    min-height: 150px;
+    width: 100%;
+  }
+  
+.example-full-width {
+    width: 100%;
+}
+

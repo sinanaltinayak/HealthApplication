@@ -7,6 +7,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
+import { map } from 'rxjs';
+import { AppComponent } from 'src/app/app.component';
+import { PatientsService } from 'src/app/service/patients.service';
 
 @Component({
   selector: 'app-tests',
@@ -15,26 +18,49 @@ import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
 })
 export class TestsComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['date', 'patient', 'symptoms', 'result', 'actions'];
-  dataSource!: MatTableDataSource<Test>;
+  displayedColumnsPending: string[] = ['date', 'patient', 'symptoms', 'result', 'actions'];
+  dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+
+  displayedColumnsHistory: string[] = ['date', 'patient', 'symptoms', 'result', 'actions'];
+  dataSourceHistory: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+
+
 
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public _serviceTests: TestsService,
-    public dialog: MatDialog) { 
-    this.dataSource = new MatTableDataSource(AppModule.testsInfo);
+  constructor(public _testsService: TestsService,
+    public _patientsService: PatientsService,
+    public dialog: MatDialog,
+    public myapp: AppComponent) { 
+      // this.getPendingTests();
+      // this.getTestsByDoctorID(Array.from(AppModule.userDoctor.keys())[0]);
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this._testsService.getPendingTests().valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+      data.forEach(el => {
+        el.result = this.myapp.parseDiagnosis(el.resultString);
+      });
+      this.dataSourcePending.data = data;
+    });
+
+    this._testsService.getTestsByDoctorId(Array.from(AppModule.userDoctor.keys())[0]).valueChanges().subscribe((data: Test[]) => {
+      data.forEach(el => {
+        el.result = this.myapp.parseDiagnosis(el.resultString);
+      });
+      this.dataSourceHistory.data = data;
+    });
+
+    // this.dataSourcePending.paginator = this.paginator;
+    // this.dataSourcePending.sort = this.sort;
+    // this.dataSourceHistory.paginator = this.paginator;
+    // this.dataSourceHistory.sort = this.sort;
   }
 
   openConfirmTestDialog(id: any) {
-
-    console.log("testid",id);
+    console.log("ididd",id);
     
     const dialogRef = this.dialog.open(ConfirmTestComponent, {
       width: "50%", 
@@ -43,4 +69,9 @@ export class TestsComponent implements AfterViewInit {
     });
   }
 
+  getPatient(id: string){
+
+    return AppModule.allPatients.get(id)?.fullname;
+  }
+  
 }
