@@ -1,8 +1,11 @@
 <div class="container">
-    <h1>TESTS</h1>
+    <div class="container2">
+        <h1>TESTS</h1>
+    </div>
+    
     <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Pending Tests">
-            <div>
+            <div class="container2">
                 <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSourcePending" matSort>
     
@@ -55,7 +58,7 @@
             </div>
         </mat-tab>
         <mat-tab label="Tests Reviewed by You">
-            <div>
+            <div class="container2">
                 <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSourceHistory" matSort>
     
@@ -105,4 +108,5 @@
             </div>
         </mat-tab>
     </mat-tab-group>
+   
 </div>

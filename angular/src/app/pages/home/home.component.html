@@ -67,12 +67,11 @@
                     <mat-card-title class="title"> {{ possibleDiagnosis[selectedDiagnosisIndex].name }}</mat-card-title>
                     <mat-card-subtitle>%{{ (possibleDiagnosis[selectedDiagnosisIndex].probability* 100).toFixed(2) }}</mat-card-subtitle>
                     <mat-card-content>
-                        <p>Diabetes is a chronic (long-lasting) health condition that affects how your body turns food into energy.</p>
-                        <p>Diabetes is a serious condition and the treatment process of it should be started as soon as possible.</p>
+                        {{getDescription(possibleDiagnosis[selectedDiagnosisIndex].name)}}
                     </mat-card-content>
                     <mat-divider inset></mat-divider>
                     <mat-card-actions>
-                        <button mat-button routerLink="/recommendation">Recommendation</button>
+                        <button mat-button [routerLink]="['/recommendation', { diagnosis: possibleDiagnosis[selectedDiagnosisIndex].name} ]">Recommendation</button>
                     </mat-card-actions>
                 </mat-card>
             </div>

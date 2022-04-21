@@ -12,6 +12,7 @@ import {MatTable} from '@angular/material/table';
 import { TestsService } from 'src/app/service/tests.service';
 import { Test } from 'src/app/models/test';
 import { AppModule } from 'src/app/app.module';
+import { DiagnosisService } from 'src/app/service/diagnosis.service';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -39,6 +40,8 @@ export class HomeComponent{
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
 
+  diagnosisDescription!: string;
+
   selectedSymptomsIndex: Array<number> = new Array<number>(132).fill(0);
 
   displayedColumns: string[] = ['name'];
@@ -48,7 +51,7 @@ export class HomeComponent{
   @ViewChild(MatTable) table!: MatTable<Diagnosis>;
   @ViewChild('symptomInput') symptomInput!: ElementRef<HTMLInputElement>;
 
-  constructor( public _service: FlaskService, public _serviceTests: TestsService ) 
+  constructor( public _service: FlaskService, public _serviceTests: TestsService,private _diagnosisService: DiagnosisService ) 
   {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(null),
@@ -136,5 +139,9 @@ export class HomeComponent{
       }
     }
     return result;
+  }
+  
+  getDescription(title: string){
+    return this._diagnosisService.diagnosisList.find(el => el.name == title)!.description;
   }
 }

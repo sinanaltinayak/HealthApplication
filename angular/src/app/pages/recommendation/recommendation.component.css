@@ -1,13 +1,14 @@
 .container {
-    padding-top: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-left: 400px;
-    padding-right: 400px;
+    padding: 100px;
 }
 
 mat-card{
     margin: 50px;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 12px;
 }

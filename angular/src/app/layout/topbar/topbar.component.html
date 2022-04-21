@@ -8,7 +8,7 @@
     <button mat-button aria-label="Review Tests Button"  routerLink="../tests">
         <mat-icon>rate_review</mat-icon> Review Tests
     </button>
-    <button mat-button aria-label="Test History Button"  routerLink="../history">
+    <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button"  routerLink="../history">
         <mat-icon>history</mat-icon> Test History
     </button>
     <div>
