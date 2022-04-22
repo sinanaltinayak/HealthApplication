@@ -14,3 +14,7 @@ td,
 th {
     width: 25%;
 }
+
+.errorNote{
+    padding: 25px;
+}

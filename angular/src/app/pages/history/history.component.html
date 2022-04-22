@@ -34,10 +34,12 @@
                     </td>
                 </ng-container>
 
+
                 <tr mat-header-row *matHeaderRowDef="displayedColumnsTests"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumnsTests;"></tr>
 
             </table>
+            <div *ngIf="dataSourceTests.data.length == 0" class="errorNote"> <p>You do not have a past test.</p></div>
 
            
         </div>

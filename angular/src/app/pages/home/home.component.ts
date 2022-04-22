@@ -41,6 +41,8 @@ export class HomeComponent{
   secondFormGroup!: FormGroup;
 
   diagnosisDescription!: string;
+  selectedGender = "";
+  selectedYear = "";
 
   selectedSymptomsIndex: Array<number> = new Array<number>(132).fill(0);
 
@@ -57,10 +59,6 @@ export class HomeComponent{
       startWith(null),
       map((symptom: string | null) => (symptom ? this._filter(symptom) : this.options.slice())),
     );
-
-    console.log(this.selectedSymptomsIndex);
-
-    console.log(this.options.length);
   }
 
   private _filter(value: string): string[] {
@@ -144,4 +142,5 @@ export class HomeComponent{
   getDescription(title: string){
     return this._diagnosisService.diagnosisList.find(el => el.name == title)!.description;
   }
+
 }

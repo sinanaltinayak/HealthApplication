@@ -32,6 +32,7 @@ export class HistoryComponent implements AfterViewInit {
     this.dataSourceTests.data = data;
   });
 
+    console.log(this.dataSourceTests.data.length);
   }
 
 }

@@ -14,7 +14,7 @@
                     <mat-divider inset></mat-divider>
 
                     <mat-card-actions>
-                        <button mat-button routerLink="/monitoring">Start Monitoring</button>
+                        <button mat-button routerLink="/monitoring" [disabled]="isDisabled">Start Monitoring</button>
                     </mat-card-actions>
                 </mat-card>
             </div>
@@ -34,7 +34,7 @@
                     <mat-divider inset></mat-divider><br>
                     
                     <mat-card-actions>
-                        <button mat-button routerLink="/monitoring">Start Monitoring</button>
+                        <button mat-button routerLink="/monitoring" [disabled]="isDisabled">Start Monitoring</button>
                     </mat-card-actions>
                 </mat-card>
             </div>

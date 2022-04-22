@@ -5,7 +5,7 @@
     <button mat-button aria-label="New Test Button"  routerLink="../home">
       <mat-icon>assignment</mat-icon> New Test
     </button>
-    <button mat-button aria-label="Review Tests Button"  routerLink="../tests">
+    <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button"  routerLink="../tests">
         <mat-icon>rate_review</mat-icon> Review Tests
     </button>
     <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button"  routerLink="../history">
@@ -22,7 +22,7 @@
                   <div (click)="$event.stopPropagation()" class="login-container">
                       <div *ngIf="signMode=='signin'">
                           <mat-form-field>
-                              <mat-label>Email</mat-label>
+                              <mat-label>Username</mat-label>
                               <input matInput [(ngModel)]="email" required tabindex="15">
                               <mat-hint>{{emailErrorMessage}}</mat-hint>
                           </mat-form-field>
@@ -40,7 +40,7 @@
                       </div>
                       <div *ngIf="signMode=='signup'">
                           <mat-form-field>
-                              <mat-label>Email</mat-label>
+                              <mat-label>Username</mat-label>
                               <input matInput [(ngModel)]="email" required>
                               <mat-hint>{{emailRegisterErrorMessage}}</mat-hint>
                           </mat-form-field>

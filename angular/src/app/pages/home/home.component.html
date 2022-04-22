@@ -1,20 +1,20 @@
 <div class="container">
 
     <mat-stepper linear #stepper>
-        <mat-step [stepControl]="firstFormGroup" [editable]="true">
+        <mat-step [stepControl]="firstFormGroup" [editable]="false">
             <ng-template matStepLabel>Fill out the form</ng-template>
             <div class="symptomsForm">
                 
                 <mat-form-field class="example-form" appearance="fill">
                     <mat-label>Birth Year</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="selectedYear" required>
                         <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
                     </mat-select>
                 </mat-form-field>
     
                 <mat-form-field appearance="fill" class="example-form">
                     <mat-label>Gender</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="selectedGender" required>
                         <mat-option value="female">Female</mat-option>
                         <mat-option value="male">Male</mat-option>
                     </mat-select>
@@ -44,7 +44,7 @@
     
                 <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
     
-                <button mat-raised-button matStepperNext color="primary" (click)='getResult()'>Continue</button>
+                <button mat-raised-button matStepperNext color="primary" (click)='getResult()' [disabled]="(selectedSymptoms.length == 0) || (selectedGender.length == 0) || (selectedYear.toString().length == 0)">Continue</button>
             </div>
             
         </mat-step>
