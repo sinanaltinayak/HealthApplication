@@ -39,7 +39,7 @@ export class HomeComponent{
   selectedSymptoms: string[] = [];
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
-
+  showLoader: boolean = false;
   diagnosisDescription!: string;
   selectedGender = "";
   selectedYear = "";
@@ -68,17 +68,24 @@ export class HomeComponent{
   }
   
   selected(event: MatAutocompleteSelectedEvent): void {
-    console.log(event);
 
-    this.selectedSymptoms.push(event.option.viewValue);
-    this.selectedSymptomsIndex[this.options.indexOf(event.option.value)] = 1;
+    if(this.selectedSymptoms.indexOf(event.option.viewValue) !== -1) {
+      console.log('Already exist');
+      this.myControl.setValue(null); 
+    }
+    else {
+      console.log(event);
 
-    // loginleyince matoptionların sayıları değişiyor, selectedSymptomsIndex bozuluyor
-    //this.selectedSymptomsIndex[Number(event.option.id.slice(11))-2] = 1;
-    
-    console.log(this.selectedSymptomsIndex);
-    this.symptomInput.nativeElement.value = '';
-    this.myControl.setValue(null);
+      this.selectedSymptoms.push(event.option.viewValue);
+      this.selectedSymptomsIndex[this.options.indexOf(event.option.value)] = 1;
+  
+      // loginleyince matoptionların sayıları değişiyor, selectedSymptomsIndex bozuluyor
+      //this.selectedSymptomsIndex[Number(event.option.id.slice(11))-2] = 1;
+      
+      console.log(this.selectedSymptomsIndex);
+      this.symptomInput.nativeElement.value = '';
+      this.myControl.setValue(null);      
+    }    
   }
 
   remove(symptom: string): void {
@@ -99,7 +106,7 @@ export class HomeComponent{
   }
 
   getResult(){
-
+    this.showLoader = true;
     let diagnosis: Diagnosis[] = [];
    
     // let subscribeData = this._service.getResult(this.selectedSymptomsIndex).subscribe( data => {
@@ -118,6 +125,7 @@ export class HomeComponent{
           let newTest = new Test(Array.from(AppModule.userPatient.keys())[0], "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis))
           this._serviceTests.create(newTest);
         }
+        this.showLoader = false;
       }
     );
     console.log(this.possibleDiagnosis);
