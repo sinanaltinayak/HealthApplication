@@ -51,9 +51,11 @@
 
         <mat-step [stepControl]="secondFormGroup" [editable]="false">
             <ng-container *ngIf="showLoader; else second">
-                <div class="mt-5 text-center">
+                <!-- <div class="mt-5 text-center">
                     <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"/>
-                </div>
+                </div> -->
+                
+                <mat-spinner></mat-spinner>
            </ng-container>
             <ng-template #second matStepLabel>Check Your Results</ng-template>
 

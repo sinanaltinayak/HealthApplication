@@ -16,7 +16,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // importing classes that is needed for home page
 
 @NgModule({
@@ -36,8 +36,8 @@ import {MatRippleModule} from '@angular/material/core';
     MatDividerModule,
     MatInputModule,
     MatButtonModule,
-    MatRippleModule
-
+    MatRippleModule,
+    MatProgressSpinnerModule
 
   ],
   declarations: [HomeComponent]
