@@ -1,3 +1,6 @@
+#loading {
+    size: 10px;
+}
 .container {
     padding-top: 100px;
     display: flex;
