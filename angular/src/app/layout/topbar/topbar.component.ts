@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
-import { AppModule } from 'src/app/app.module';
-import { LayoutModule } from '../layout.module';
 import { Patient } from 'src/app/models/patient';
 import { Doctor } from 'src/app/models/doctor';
 import { PatientsService } from 'src/app/service/patients.service';
 import { AuthService } from 'src/app/service/auth.service';
-import { map } from 'rxjs/operators';
 import { DoctorsService } from 'src/app/service/doctors.service';
 import { TestsService } from 'src/app/service/tests.service';
-import { Test } from 'src/app/models/test';
-import { Diagnosis } from 'src/app/models/diagnosis';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -33,8 +28,8 @@ export class TopbarComponent implements OnInit {
   passwordErrorMessage: string = "";
 
   // userType is for determining the accessibility of some features
-  userType:string = AppModule.userType; /* AppModule.userType; */
-  name:string = "";
+  userType:string = localStorage.getItem('role')!; /* AppModule.userType; */
+  name:string = localStorage.getItem('name')!;
   // signMode is for deciding which menu will be shown in the log in part
   signMode:string = "signin";
 
@@ -54,26 +49,16 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   ngOnInit(): void {
-    if(localStorage.getItem("email") == null){
 
-    }
-    else{
-      this.email = localStorage.getItem("email")!;
-      this.password = localStorage.getItem("password")!;
-      this.loginUser();      
-    }
   }
   loginUser(){
+    console.log(this.name);
     this._authService.login(this.email, this.password);
-    this._authService.getRole(this.email).then(d=> {
-      this.userType = d.valueOf();
-    });
-    this._authService.getName(this.email).then(n=> {
-      this.name = n.valueOf();
+    setTimeout(() => {
+      window.location.reload();
       this.myapp.openSnackBar("Welcome " +this.name, "Continue");
-    });
-/*     this._router.navigate(['home']); */
-/*     this.myapp.reload("home",150); */
+    },
+    1000);
   }  
 
   logoutUser(){
