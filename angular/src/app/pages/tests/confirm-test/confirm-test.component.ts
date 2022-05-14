@@ -7,7 +7,7 @@ import { Diagnosis } from 'src/app/models/diagnosis';
 import { AppComponent } from 'src/app/app.component';
 import { PatientsService } from 'src/app/service/patients.service';
 import { AppModule } from 'src/app/app.module';
-
+import { AuthService } from 'src/app/service/auth.service';
 @Component({
   selector: 'app-confirm-test',
   templateUrl: './confirm-test.component.html',
@@ -35,6 +35,7 @@ export class ConfirmTestComponent implements OnInit {
     public dialog: MatDialogModule,
     public _testsService: TestsService,
     public _patientsService: PatientsService,
+    public _authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: {testID: string}
   ) { }
 
@@ -78,13 +79,14 @@ export class ConfirmTestComponent implements OnInit {
 
   getPatient(){
 
-    this._patientsService.getPatient(Array.from(this.currentTest.values())[0].patientID).valueChanges().subscribe(data => {
+    this._authService.getUser(Array.from(this.currentTest.values())[0].patientID).valueChanges().subscribe(data=> {
       this.currentPatientName = data!.fullname;
-    })
+    });
   }
 
   updateTest(note: string){
-    this._testsService.update(this.data.testID, Array.from(AppModule.userDoctor.keys())[0], note);
+    this._testsService.update(this.data.testID, localStorage.getItem('id')!, note);
+    
   }
 }
 

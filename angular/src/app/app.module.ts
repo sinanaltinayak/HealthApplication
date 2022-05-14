@@ -37,7 +37,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 
 import { Patient } from './models/patient';
-import { Doctor } from './models/Doctor';
+import { Doctor } from './models/doctor';
 import { Test } from './models/test';
 
 const routes: Routes = [

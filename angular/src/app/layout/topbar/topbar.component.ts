@@ -4,8 +4,9 @@ import { AppComponent } from 'src/app/app.component';
 import { AppModule } from 'src/app/app.module';
 import { LayoutModule } from '../layout.module';
 import { Patient } from 'src/app/models/patient';
-import { Doctor } from 'src/app/models/Doctor';
+import { Doctor } from 'src/app/models/doctor';
 import { PatientsService } from 'src/app/service/patients.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { map } from 'rxjs/operators';
 import { DoctorsService } from 'src/app/service/doctors.service';
 import { TestsService } from 'src/app/service/tests.service';
@@ -24,6 +25,7 @@ export class TopbarComponent implements OnInit {
   password: string = "";
   confirmPassword: string = "";
   hidePassword = true;
+  isAuth: boolean = false;
 
   // Error messages
   emailErrorMessage: string = "";
@@ -31,8 +33,8 @@ export class TopbarComponent implements OnInit {
   passwordErrorMessage: string = "";
 
   // userType is for determining the accessibility of some features
-  userType:string = AppModule.userType;
-
+  userType:string = AppModule.userType; /* AppModule.userType; */
+  name:string = "";
   // signMode is for deciding which menu will be shown in the log in part
   signMode:string = "signin";
 
@@ -45,85 +47,48 @@ export class TopbarComponent implements OnInit {
     public _patientService: PatientsService,
     public _doctorService: DoctorsService,
     public _testsService: TestsService,
+    public _authService: AuthService,
     public myapp: AppComponent, 
     private _router: Router) 
   { }
 
   // ngOnInit function is called in launch
   ngOnInit(): void {
-    this.getAllpatients();
-  }
+    if(localStorage.getItem("email") == null){
 
-  // loginUser function is for taking necessary information from the user and trying to find a user with those information.
-  loginUser(){
-
-    // tries to find a patient first
-    this._patientService.loginPatient(this.email, this.password).snapshotChanges().pipe(map(changes=> changes.map(c=>
-      ({id: c.payload.doc.id, 
-        fullname: c.payload.doc.data().fullname, 
-        email: c.payload.doc.data().email, 
-        password: c.payload.doc.data().password, })
-      
-      )
-    )
-  ).subscribe(data => { 
-    // if there is a patient exist with those values, local and global variables are changed accordingly
-    if(data.length != 0){
-      this.currentPatient.set(data[0].id, new Patient(data[0].fullname, data[0].email, data[0].password));
-      this.userType = "patient";
-      AppModule.userPatient = this.currentPatient;
-      AppModule.userType = this.userType;
-      // welcome message
-      this.myapp.openSnackBar("Welcome "+data[0].fullname, "Continue");
-      this.myapp.reload("home",150);
     }
-    // if there is not a patient, it tries to find a Doctor
     else{
-      this._doctorService.loginDoctor(this.email, this.password).snapshotChanges().pipe(map(changes=>changes.map(c=>
-        ({id: c.payload.doc.id,
-          fullname: c.payload.doc.data().fullname, 
-          email: c.payload.doc.data().email, 
-          profession: c.payload.doc.data().profession, 
-          password: c.payload.doc.data().password,  })
-          )
-        )
-      ).subscribe(data => {
-        // if there is a Doctor exist with those values, local and global variables are changed accordingly
-        if(data.length != 0){
-          this.currentDoctor.set(data[0].id, new Doctor(data[0].fullname, data[0].email, data[0].profession, data[0].password));
-          this.userType = "doctor";
-          AppModule.userDoctor = this.currentDoctor;
-          console.log(AppModule.userDoctor);
-          AppModule.userType = this.userType;
-          // gets necessary data from the database
-          this.myapp.openSnackBar("Welcome "+data[0].fullname, "Continue");
-
-        }
-        // if there is not any user, displays error message
-        else{
-          this.emailErrorMessage = "Email or password is wrong."
-        }
-      })
+      this.email = localStorage.getItem("email")!;
+      this.password = localStorage.getItem("password")!;
+      this.loginUser();      
     }
-    
-  });
   }
+  loginUser(){
+    this._authService.login(this.email, this.password);
+    this._authService.getRole(this.email).then(d=> {
+      this.userType = d.valueOf();
+    });
+    this._authService.getName(this.email).then(n=> {
+      this.name = n.valueOf();
+      this.myapp.openSnackBar("Welcome " +this.name, "Continue");
+    });
+/*     this._router.navigate(['home']); */
+/*     this.myapp.reload("home",150); */
+  }  
 
-  // logoutUser function is for clearing the global variables and heading out to the home page
   logoutUser(){
+    this._authService.logout();
     if(this._router.url != "/home"){
       this._router.navigate(['home']);
     }
-    AppModule.userDoctor = new Map<string, Doctor>();
-    AppModule.userPatient = new Map<string, Patient>();
-    AppModule.userType = "default";
+    this.userType = "default";
     this.email = "";
     this.password = "";
-    this.emailErrorMessage = "";
-    if(this._router.url == "/home"){
+    this.emailErrorMessage = "";       
+/*     if(this._router.url == "/home"){
       window.location.reload();
-    }
-    this.myapp.openSnackBar("Successfully logged out.", "Continue");
+    } */
+    this.myapp.openSnackBar("Successfully logged out.", "Continue");    
   }
 
   // changeSignMode function is a switch for changing the log in menu
@@ -137,68 +102,11 @@ export class TopbarComponent implements OnInit {
     this.email = "";
     this.password = "";
   }
-
   // registerUser function is for creating a new patient account
   registerUser(){
 
-    // checks for necessary conditions and changes error message variables accordingly
-    if(Array.from(this.allPatients.values()).find(x => x.email == this.email)){
-      this.emailRegisterErrorMessage = "This user already has an account.";
-    }
-    else{
-      this.emailRegisterErrorMessage = "";
-    }
-    if(this.password != this.confirmPassword){
-      this.passwordErrorMessage = "Passwords do not match."
-    }
-    else{
-      this.passwordErrorMessage = "";
-    }
-
-    // if there is not a single error message, it creates a patient account and changes global&local variables
-    if(this.emailRegisterErrorMessage == "" && this.passwordErrorMessage == ""){
-      let registerpatient = new Patient(this.fullname, this.email, this.password);
-      this._patientService.create(registerpatient);
-      this._patientService.loginPatient(this.email, this.password).snapshotChanges().pipe(map(changes=> changes.map(c=>
-        ({id: c.payload.doc.id, 
-          fullname: c.payload.doc.data().fullname, 
-          email: c.payload.doc.data().email, 
-          password: c.payload.doc.data().password, })
-        
-        )
-      )
-    ).subscribe(data => {
-      if(data.length != 0){
-        this.currentPatient.set(data[0].id, new Patient(data[0].fullname, data[0].email, data[0].password));
-        this.userType = "patient";
-        AppModule.userPatient = this.currentPatient;
-        AppModule.userType = this.userType;
-        this.myapp.reload("home",150);
-        this.myapp.openSnackBar("Welcome "+data[0].fullname, "Continue");
-      }
-    });
-    }
-  }
-
-  // this function is for getting all the patients with their information and storing them globally
-  getAllpatients(){
-    this._patientService.getAll().snapshotChanges().pipe(
-      map(changes=> changes.map(c=>
-        ({id: c.payload.doc.id, 
-          fullname: c.payload.doc.data().fullname, 
-          email: c.payload.doc.data().email, 
-          password: c.payload.doc.data().password, })
-        )
-      )
-    ).subscribe(data => { 
-      AppModule.allPatients.clear();
-      data.forEach(el=> {
-        this.allPatients.set(el.id, new Patient(el.fullname, el.email, el.password));
-        AppModule.allPatients.set(el.id, new Patient(el.fullname, el.email, el.password));
-        console.log(AppModule.allPatients);
-      }
-      );
-    });
+    this._authService.register(this.email, this.password, this.fullname);
+/*     this.loginUser(); */
   }
 
 }

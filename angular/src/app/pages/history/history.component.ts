@@ -6,6 +6,7 @@ import { AppModule } from 'src/app/app.module';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { AppComponent } from 'src/app/app.component';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-history',
@@ -16,22 +17,36 @@ export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsTests: string[] = ['date', 'symptoms', 'result', 'note'];
   dataSourceTests: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  id: string | undefined;
+  role: string | undefined;
+  
   constructor(public _testsService: TestsService,
-    public myapp: AppComponent) { }
+    public myapp: AppComponent) {
+      this.id = localStorage.getItem('id')!;
+      this.role = localStorage.getItem('role')!;
+     }
 
-  ngAfterViewInit(): void {    
-    
-    this._testsService.getTestsByPatientId(Array.from(AppModule.userPatient.keys())[0]).valueChanges().subscribe((data: Test[]) => {
-    data.forEach(el => {
-      el.result = this.myapp.parseDiagnosis(el.resultString);
-    });
-    this.dataSourceTests.data = data;
-  });
+  ngAfterViewInit(): void {
 
+    console.log(this.role);
+    if (this.role == 'patient'){
+      this._testsService.getTestsByPatientId(this.id!).valueChanges().subscribe((data: Test[]) => {
+        data.forEach(el => {
+          el.result = this.myapp.parseDiagnosis(el.resultString);
+        });
+        this.dataSourceTests.data = data;
+      });
+    }
+/*     else {
+      this._testsService.getTestsByDoctorId(this.id!).valueChanges().subscribe((data: Test[]) => {
+        data.forEach(el => {
+          el.result = this.myapp.parseDiagnosis(el.resultString);
+        });
+        this.dataSourceTests.data = data;
+      });      
+    } */
     console.log(this.dataSourceTests.data.length);
   }
 
