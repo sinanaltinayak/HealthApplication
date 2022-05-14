@@ -17,7 +17,6 @@ def getResult():
 
     elif request.method == 'GET':
 
-        print("get'e hoşgeldiniz")
         result = model.getResultAmaGet()
         return result
     
