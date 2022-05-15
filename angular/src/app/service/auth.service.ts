@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AuthService {
   role: string = "";
   name: string = "";  
-
+  errorInRegister: boolean = false;
   constructor(
     private _snackBar: MatSnackBar,
     private afAuth: AngularFireAuth,
@@ -37,11 +37,43 @@ export class AuthService {
       })
       .catch(err => {
         console.log('Something went wrong: ', err.message);
-        this._snackBar.open("Email or password is invalid.", "Continue", {
-          horizontalPosition: "right",
-          verticalPosition: "bottom",
-          duration: 5000,
-        });
+        if (err.message.includes("Firebase: There is no user record corresponding to this identifier.")){
+          setTimeout(() => {
+            this._snackBar.open("There is no user corressponding to this email address.", "Continue", {
+              horizontalPosition: "right",
+              verticalPosition: "bottom",
+              duration: 5000,
+            }); 
+          },
+          150);
+        }
+        else if (err.message.includes("Firebase: The password is invalid or the user does not have a password.")){
+          setTimeout(() => {
+            this._snackBar.open("The password is invalid", "Continue", {
+              horizontalPosition: "right",
+              verticalPosition: "bottom",
+              duration: 5000,
+            }); 
+          },
+          150);
+        }
+        else if (err.message.includes("The email address is badly formatted")) {
+          setTimeout(() => {
+            this._snackBar.open("The email address is not a valid email address.", "Continue", {
+              horizontalPosition: "right",
+              verticalPosition: "bottom",
+              duration: 5000,
+            }); 
+          },
+          150);
+        }
+        else {
+          this._snackBar.open("Authentication failed, please try again.", "Continue", {
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            duration: 5000,
+          });
+        }
       });
     }
 
@@ -62,6 +94,7 @@ export class AuthService {
           role: 'patient'
         });
       }).catch(err => {
+        this.errorInRegister = true;
         console.log('Something went wrong: ',err.message);
         if(err.message.includes("Password should be at least 6 characters")) {
           setTimeout(() => {
@@ -71,7 +104,7 @@ export class AuthService {
               duration: 5000,
             }); 
           },
-          1000);         
+          150);         
         }
         else if (err.message.includes("The email address is already in use by another account")){
           setTimeout(() => {
@@ -81,7 +114,7 @@ export class AuthService {
               duration: 5000,
             }); 
           },
-          1000);
+          150);
         }
         else if (err.message.includes("The email address is badly formatted")) {
           setTimeout(() => {
@@ -91,7 +124,7 @@ export class AuthService {
               duration: 5000,
             }); 
           },
-          1000);
+          150);
         }
       })
     }

@@ -44,15 +44,28 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   ngOnInit(): void {
-    this.myapp.openSnackBar("Welcome " +this.name, "Continue");
   }
   loginUser(){
-    console.log(this.name);
-    this._authService.login(this.email, this.password);
+    if (this.checkPasswordEmpty() == false) {
+      this._authService.login(this.email, this.password);
+      this.myapp.openSnackBar("Welcome " +this.name, "Continue");
+    }
+    else{
+      this.myapp.openSnackBar("Password field can not be empty, please fill in.", "Continue");
+    }
   }
   
   checkPasswordMatch(password: string, confirmPassword: string){
     if(password == confirmPassword){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  checkPasswordEmpty(){
+    if(this.password == ""){
       return true;
     }
     else {
@@ -89,9 +102,11 @@ export class TopbarComponent implements OnInit {
     if(this.checkPasswordMatch(this.password, this.confirmPassword) == true){
       this._authService.register(this.email, this.password, this.fullname);
       setTimeout(() => {
-        this.loginUser();
+        if (this._authService.errorInRegister == false){
+          this.loginUser();
+        }
       },
-      150);
+      1000);      
     }
     else{
       this.myapp.openSnackBar("The passwords does not match, please check again.", "Continue");
