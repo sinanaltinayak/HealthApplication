@@ -48,7 +48,6 @@ export class TopbarComponent implements OnInit {
   loginUser(){
     if (this.checkPasswordEmpty() == false) {
       this._authService.login(this.email, this.password);
-      this.myapp.openSnackBar("Welcome " +this.name, "Continue");
     }
     else{
       this.myapp.openSnackBar("Password field can not be empty, please fill in.", "Continue");
@@ -64,6 +63,18 @@ export class TopbarComponent implements OnInit {
     }
   }
 
+  refresh(routerLink: string): void {
+    console.log(window.location.toString());
+    console.log(window.location.toString().endsWith(routerLink));
+    console.log(routerLink);
+    if (window.location.toString().endsWith(routerLink) == true){
+    window.location.reload();
+    }
+    else {
+      this._router.navigate([routerLink]);
+    }
+}
+
   checkPasswordEmpty(){
     if(this.password == ""){
       return true;
@@ -75,9 +86,7 @@ export class TopbarComponent implements OnInit {
 
   logoutUser(){
     this._authService.logout();
-    if(this._router.url != "/home"){
-      this._router.navigate(['home']);
-    }
+    this._router.navigate(['home']).then(a => {window.location.reload()});
     this.userType = "default";
     this.email = "";
     this.password = "";

@@ -2,13 +2,13 @@
     
     <span>Health Application</span>
     <span class="example-spacer"></span>
-<button mat-button aria-label="New Test Button" routerLink="../home">
+<button *ngIf="userType != 'doctor'" mat-button aria-label="New Test Button" routerLink="../home" (click)='refresh("/home")'>
       <mat-icon>assignment</mat-icon> New Test
     </button>
-    <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button"  routerLink="../tests">
+    <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button"  routerLink="../tests" (click)='refresh("/tests")'>
         <mat-icon>rate_review</mat-icon> Review Tests
     </button>
-    <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button"  routerLink="../history">
+    <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button"  routerLink="../history" (click)='refresh("/history")'>
         <mat-icon>history</mat-icon> Test History
     </button>
     <div>

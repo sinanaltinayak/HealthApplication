@@ -25,15 +25,25 @@ export class AuthService {
         const user$ =  this.db.collection('/user_roles').doc(value.user!.uid).snapshotChanges().pipe(take(1));
         this.role = (await firstValueFrom(user$)).payload.get("role");
         this.name = (await firstValueFrom(user$)).payload.get("fullname");
+        this._snackBar.open("Welcome " +this.name, "Continue", {
+          horizontalPosition: "right",
+          verticalPosition: "bottom",
+          duration: 5000,
+        });
         localStorage.setItem('role', this.role);
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
         localStorage.setItem('name', this.name);
         console.log('Nice, it worked!');
-        setTimeout(() => {
-          window.location.reload();
-        },
-        150);       
+        if(this.role == 'doctor'){
+          this.router.navigate(['tests']);
+        }
+        else{
+          setTimeout(() => {
+            window.location.reload();
+          },
+          500); 
+        }       
       })
       .catch(err => {
         console.log('Something went wrong: ', err.message);
