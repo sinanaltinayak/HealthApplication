@@ -21,29 +21,43 @@ export class AuthService {
 
       this.afAuth.signInWithEmailAndPassword(email, password)
       .then(async value => {
-        localStorage.setItem('id',value.user!.uid);
-        const user$ =  this.db.collection('/user_roles').doc(value.user!.uid).snapshotChanges().pipe(take(1));
-        this.role = (await firstValueFrom(user$)).payload.get("role");
-        this.name = (await firstValueFrom(user$)).payload.get("fullname");
-        this._snackBar.open("Welcome " +this.name, "Continue", {
-          horizontalPosition: "right",
-          verticalPosition: "bottom",
-          duration: 5000,
-        });
-        localStorage.setItem('role', this.role);
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
-        localStorage.setItem('name', this.name);
-        console.log('Nice, it worked!');
-        if(this.role == 'doctor'){
-          this.router.navigate(['tests']);
+        let v = true; /* value.user?.emailVerified; --> copy paste this command to v variable to activate the login with verified emails  */
+        if (v == true) {
+          localStorage.setItem('id',value.user!.uid);
+          const user$ =  this.db.collection('/user_roles').doc(value.user!.uid).snapshotChanges().pipe(take(1));
+          this.role = (await firstValueFrom(user$)).payload.get("role");
+          this.name = (await firstValueFrom(user$)).payload.get("fullname");
+          this.db.collection('user_roles').doc(value.user?.uid).update({
+            password: password
+          });
+          this._snackBar.open("Welcome " +this.name, "Continue", {
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            duration: 5000,
+          });
+          localStorage.setItem('role', this.role);
+          localStorage.setItem('email', email);
+          localStorage.setItem('password', password);
+          localStorage.setItem('name', this.name);
+          console.log('Nice, it worked!');
+          if(this.role == 'doctor'){
+            this.router.navigate(['tests']);
+          }
+          else{
+            setTimeout(() => {
+              window.location.reload();
+            },
+            500); 
+          } 
         }
-        else{
-          setTimeout(() => {
-            window.location.reload();
-          },
-          500); 
-        }       
+        else {
+          value.user?.sendEmailVerification();
+          this._snackBar.open("Your account is not verified, please verify your account. The verification link is re-sent.", "Continue", {
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            duration: 5000,
+          });          
+        }      
       })
       .catch(err => {
         console.log('Something went wrong: ', err.message);
@@ -87,16 +101,16 @@ export class AuthService {
       });
     }
 
-/*     resetPassword(email: string){
+    resetPassword(email: string){
 
       this.afAuth.sendPasswordResetEmail(email);
-      this.afAuth.confirmPasswordReset();
-    } */
+    }
 
     register(email: string, password: string, name: string) {
 
       this.afAuth.createUserWithEmailAndPassword(email, password).then(value => {
-        
+        value.user?.sendEmailVerification();
+        this.errorInRegister = false;
         this.db.collection('user_roles').doc(value.user?.uid).set({
           email: email,
           fullname: name,
