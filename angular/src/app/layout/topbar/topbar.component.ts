@@ -28,15 +28,10 @@ export class TopbarComponent implements OnInit {
   passwordErrorMessage: string = "";
 
   // userType is for determining the accessibility of some features
-  userType:string = localStorage.getItem('role')!; /* AppModule.userType; */
-  name:string = localStorage.getItem('name')!;
+  userType:string = localStorage.getItem('role') || 'default'; /* AppModule.userType; */
+  name:string = localStorage.getItem('name')! || 'Guest';
   // signMode is for deciding which menu will be shown in the log in part
   signMode:string = "signin";
-
-  // these maps store the user information with the format of <"User ID","User Information"> 
-  currentDoctor = new Map<string, Doctor>();
-  currentPatient = new Map<string, Patient>();
-  allPatients = new Map<string, Patient>();
 
   constructor(
     public _patientService: PatientsService,
@@ -49,17 +44,21 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   ngOnInit(): void {
-
+    this.myapp.openSnackBar("Welcome " +this.name, "Continue");
   }
   loginUser(){
     console.log(this.name);
     this._authService.login(this.email, this.password);
-    setTimeout(() => {
-      window.location.reload();
-      this.myapp.openSnackBar("Welcome " +this.name, "Continue");
-    },
-    1000);
-  }  
+  }
+  
+  checkPasswordMatch(password: string, confirmPassword: string){
+    if(password == confirmPassword){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   logoutUser(){
     this._authService.logout();
@@ -70,9 +69,6 @@ export class TopbarComponent implements OnInit {
     this.email = "";
     this.password = "";
     this.emailErrorMessage = "";       
-/*     if(this._router.url == "/home"){
-      window.location.reload();
-    } */
     this.myapp.openSnackBar("Successfully logged out.", "Continue");    
   }
 
@@ -90,8 +86,16 @@ export class TopbarComponent implements OnInit {
   // registerUser function is for creating a new patient account
   registerUser(){
 
-    this._authService.register(this.email, this.password, this.fullname);
-/*     this.loginUser(); */
+    if(this.checkPasswordMatch(this.password, this.confirmPassword) == true){
+      this._authService.register(this.email, this.password, this.fullname);
+      setTimeout(() => {
+        this.loginUser();
+      },
+      150);
+    }
+    else{
+      this.myapp.openSnackBar("The passwords does not match, please check again.", "Continue");
+    }
   }
 
 }
