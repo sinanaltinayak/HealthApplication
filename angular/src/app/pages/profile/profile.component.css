@@ -1,8 +1,29 @@
-.example-card {
-    max-width: 400px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+.form-control:focus {
+    box-shadow: none;
+}
+
+.profile-button {
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:focus {
+    box-shadow: none
+}
+
+.profile-button:active {
+    box-shadow: none
+}
+
+.back:hover {
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.vl {
+    border-left: 0.5px solid rgb(128, 126, 126);
+    height: 400px;
+}

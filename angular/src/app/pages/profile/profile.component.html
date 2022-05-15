@@ -1,1 +1,115 @@
-<p>profile works!</p>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-2 border-right">
+            <h3 class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Mehmet Öz</span>
+                <span class="text-black-50">mehmetoz@gmail.com</span>
+                <span class="text-black-50">Pediatrician</span>
+            </h3>
+        </div>
+        <div class="col-md-1">
+            <div class="vl"></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="text-right">Profile</h2>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput placeholder="">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput placeholder="">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-form" appearance="legacy">
+                            <mat-label>Birth Year</mat-label>
+                            <mat-select [(ngModel)]="selectedYear">
+                                <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="legacy" class="example-form">
+                            <mat-label>Gender</mat-label>
+                            <mat-select [(ngModel)]="selectedGender">
+                                <mat-option value="female">Female</mat-option>
+                                <mat-option value="male">Male</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Address Line 1</mat-label>
+                            <textarea matInput></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Address Line 2</mat-label>
+                            <textarea matInput></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>City</mat-label>
+                            <mat-select [(ngModel)]="selectedCity">
+                                <mat-option *ngFor="let option of cities" [value]="option">{{option}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Post Code</mat-label>
+                            <input matInput placeholder="">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="mt-5 text-center"><button mat-raised-button color="primary" type="button">Save Changes</button></div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="vl"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-3 py-5">
+                <h2 class="d-flex justify-content-between align-items-center"><span>Profession</span></h2><br>
+                <div class="col-md-12">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Title</mat-label>
+                        <input matInput placeholder="">
+                    </mat-form-field>
+                </div> <br>
+                <div class="col-md-12">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Profession</mat-label>
+                        <input matInput placeholder="">
+                    </mat-form-field>
+                </div> <br>
+                <div class="col-md-12">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Work Place</mat-label>
+                        <input matInput placeholder="">
+                    </mat-form-field>
+                </div> <br>
+                <div class="col-md-12"></div>
+            </div>
+        </div>
+    </div>
+</div>
