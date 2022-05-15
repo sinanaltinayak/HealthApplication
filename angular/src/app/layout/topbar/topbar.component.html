@@ -2,7 +2,7 @@
     
     <span>Health Application</span>
     <span class="example-spacer"></span>
-    <button mat-button aria-label="New Test Button"  routerLink="../home">
+<button mat-button aria-label="New Test Button" routerLink="../home">
       <mat-icon>assignment</mat-icon> New Test
     </button>
     <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button"  routerLink="../tests">
@@ -16,13 +16,13 @@
           <div *ngIf="userType=='default'; then login; else logout"></div>
           <ng-template #login>
             <button [matMenuTriggerFor]="menu" mat-button aria-label="Sign In Button">
-              <mat-icon>input</mat-icon> Sign In
+              <mat-icon>input</mat-icon> Log In
             </button>
               <mat-menu #menu="matMenu">
                   <div (click)="$event.stopPropagation()" class="login-container">
                       <div *ngIf="signMode=='signin'">
                           <mat-form-field>
-                              <mat-label>Username</mat-label>
+                              <mat-label>Email</mat-label>
                               <input matInput [(ngModel)]="email" required tabindex="15">
                               <mat-hint>{{emailErrorMessage}}</mat-hint>
                           </mat-form-field>
@@ -34,13 +34,12 @@
                               <mat-hint>{{passwordErrorMessage}}</mat-hint>
                             </button>
                           </mat-form-field>
-                          <button mat-button (click)='loginUser()'>Log In</button>
-                          <div class="dropdown-divider"></div>
-                          <button mat-button ngbDropdownItem (click)="changeSignMode()">Sign up</button>
+                          <button mat-raised-button color="primary" (click)='loginUser()' [disabled]="!email || !password">Log In</button>
+                          <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Don't you have an account? Sign Up</button>
                       </div>
                       <div *ngIf="signMode=='signup'">
                           <mat-form-field>
-                              <mat-label>Username</mat-label>
+                              <mat-label>Email</mat-label>
                               <input matInput [(ngModel)]="email" required>
                               <mat-hint>{{emailRegisterErrorMessage}}</mat-hint>
                           </mat-form-field>
@@ -63,9 +62,8 @@
                                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                               </button>
                           </mat-form-field>
-                          <button mat-button (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword ">Sign up</button>
-                          <div class="dropdown-divider"></div>
-                          <button mat-button ngbDropdownItem (click)="changeSignMode()">Already have an account? Sign in</button>
+                          <button mat-raised-button color="primary" (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword ">Sign Up</button>
+                          <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Already have an account? Log In</button>
                       </div>
                   </div>
               </mat-menu>

@@ -39,6 +39,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { Patient } from './models/patient';
 import { Doctor } from './models/doctor';
 import { Test } from './models/test';
+import { ProfileModule } from './pages/profile/profile.module';
 
 const routes: Routes = [
   {
@@ -60,7 +61,6 @@ const routes: Routes = [
     CommonModule,
     BrowserAnimationsModule,
     FormsModule,
-
     HomeModule,
     RecommendationModule,
     MonitoringModule,
@@ -68,6 +68,7 @@ const routes: Routes = [
     LoadingModule,
     TestsModule,
     HistoryModule,
+    ProfileModule,
     
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),

@@ -1,7 +1,7 @@
 <div class="container">
 
-    <mat-stepper linear #stepper>
-        <mat-step [stepControl]="firstFormGroup" [editable]="false">
+    <mat-stepper [linear]="true" #stepper id="toggle-linear">
+        <mat-step [stepControl]="firstFormGroup">
             <ng-template matStepLabel>Fill out the form</ng-template>
             <div class="symptomsForm">
                 
@@ -49,14 +49,13 @@
             
         </mat-step>
 
-        <mat-step [stepControl]="secondFormGroup" [editable]="false">
+        <mat-step [stepControl]="secondFormGroup">
             <ng-container *ngIf="showLoader; else second">
                 <div class="mt-5 text-center">
                     <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"/>
                 </div>
            </ng-container>
             <ng-template #second matStepLabel>Check Your Results</ng-template>
-
             <div class="container2" *ngIf="!showLoader">
                 <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
                     <ng-container matColumnDef="name">
