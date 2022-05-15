@@ -30,7 +30,7 @@ export class AppComponent {
       console.log(AppModule.userType);
     },
     time);
-    this.myRoute.navigateByUrl("/loading");
+    /* this.myRoute.navigateByUrl("/loading"); */
   }
 
   parseDiagnosis(txt: string){

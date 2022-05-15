@@ -46,7 +46,7 @@ export class TestsComponent implements AfterViewInit {
       this.dataSourcePending.data = data;
     });
 
-    this._testsService.getTestsByDoctorId(Array.from(AppModule.userDoctor.keys())[0]).valueChanges().subscribe((data: Test[]) => {
+    this._testsService.getTestsByDoctorId(localStorage.getItem('id')!).valueChanges().subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
       });

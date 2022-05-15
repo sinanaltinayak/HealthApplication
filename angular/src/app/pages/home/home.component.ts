@@ -120,9 +120,9 @@ export class HomeComponent{
         }
         this.possibleDiagnosis = diagnosis;
         
-        if(AppModule.userType == "patient"){
+        if(localStorage.getItem('role') == "patient"){
           console.log("xd",this.possibleDiagnosis.toString());
-          let newTest = new Test(Array.from(AppModule.userPatient.keys())[0], "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis))
+          let newTest = new Test(localStorage.getItem('id')!, "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis))
           this._serviceTests.create(newTest);
         }
         this.showLoader = false;
