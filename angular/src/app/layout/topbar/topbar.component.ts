@@ -21,6 +21,7 @@ export class TopbarComponent implements OnInit {
   confirmPassword: string = "";
   hidePassword = true;
   isAuth: boolean = false;
+  forgotMode: boolean = false;
 
   // Error messages
   emailErrorMessage: string = "";
@@ -28,15 +29,10 @@ export class TopbarComponent implements OnInit {
   passwordErrorMessage: string = "";
 
   // userType is for determining the accessibility of some features
-  userType:string = localStorage.getItem('role')!; /* AppModule.userType; */
-  name:string = localStorage.getItem('name')!;
+  userType:string = localStorage.getItem('role') || 'default'; /* AppModule.userType; */
+  name:string = localStorage.getItem('name')! || 'Guest';
   // signMode is for deciding which menu will be shown in the log in part
   signMode:string = "signin";
-
-  // these maps store the user information with the format of <"User ID","User Information"> 
-  currentDoctor = new Map<string, Doctor>();
-  currentPatient = new Map<string, Patient>();
-  allPatients = new Map<string, Patient>();
 
   constructor(
     public _patientService: PatientsService,
@@ -49,30 +45,58 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   ngOnInit(): void {
-
   }
   loginUser(){
-    console.log(this.name);
-    this._authService.login(this.email, this.password);
-    setTimeout(() => {
-      window.location.reload();
-      this.myapp.openSnackBar("Welcome " +this.name, "Continue");
-    },
-    1000);
-  }  
+    if (this.checkPasswordEmpty() == false) {
+      this._authService.login(this.email, this.password);
+    }
+    else{
+      this.myapp.openSnackBar("Password field can not be empty, please fill in.", "Continue");
+    }
+  }
+  
+  checkPasswordMatch(password: string, confirmPassword: string){
+    if(password == confirmPassword){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  forgotPassword(){
+    this._authService.resetPassword(this.email);
+    this.myapp.openSnackBar("The reset link is sent to your email address, please check.", "Continue");
+  }
+
+  refresh(routerLink: string): void {
+    console.log(window.location.toString());
+    console.log(window.location.toString().endsWith(routerLink));
+    console.log(routerLink);
+    if (window.location.toString().endsWith(routerLink) == true){
+    window.location.reload();
+    }
+    else {
+      this._router.navigate([routerLink]);
+    }
+}
+
+  checkPasswordEmpty(){
+    if(this.password == ""){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   logoutUser(){
     this._authService.logout();
-    if(this._router.url != "/home"){
-      this._router.navigate(['home']);
-    }
+    this._router.navigate(['home']).then(a => {window.location.reload()});
     this.userType = "default";
     this.email = "";
     this.password = "";
     this.emailErrorMessage = "";       
-/*     if(this._router.url == "/home"){
-      window.location.reload();
-    } */
     this.myapp.openSnackBar("Successfully logged out.", "Continue");    
   }
 
@@ -90,8 +114,18 @@ export class TopbarComponent implements OnInit {
   // registerUser function is for creating a new patient account
   registerUser(){
 
-    this._authService.register(this.email, this.password, this.fullname);
-/*     this.loginUser(); */
+    if(this.checkPasswordMatch(this.password, this.confirmPassword) == true){
+      this._authService.register(this.email, this.password, this.fullname);
+      setTimeout(() => {
+        if (this._authService.errorInRegister == false){
+          this.loginUser();
+        }
+      },
+      1000);      
+    }
+    else{
+      this.myapp.openSnackBar("The passwords does not match, please check again.", "Continue");
+    }
   }
 
 }
