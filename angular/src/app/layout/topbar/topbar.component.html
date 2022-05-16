@@ -23,15 +23,15 @@
                       <div *ngIf="signMode=='signin'">
                           <mat-form-field>
                               <mat-label>Email</mat-label>
-                              <input matInput [(ngModel)]="email" required tabindex="15">
-                              <mat-hint>{{emailErrorMessage}}</mat-hint>
+                              <input matInput [(ngModel)]="email" required tabindex="15" [email]="true">
+                              <mat-error>{{emailErrorMessage}}</mat-error>
                           </mat-form-field>
                           <mat-form-field>
                               <mat-label>Password</mat-label>
-                              <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'" required tabindex="16">
+                              <input matInput [(ngModel)]="password" minlength="6" [type]="hidePassword ? 'password' : 'text'" required tabindex="16">
+                              <mat-error>{{passwordErrorMessage}}</mat-error>
                               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                              <mat-hint>{{passwordErrorMessage}}</mat-hint>
+                              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>                        
                             </button>
                           </mat-form-field>
                           <button mat-raised-button color="primary" (click)='loginUser()' [disabled]="!email || !password">Log In</button>
@@ -41,8 +41,8 @@
                       <div *ngIf="signMode=='signup'">
                           <mat-form-field>
                               <mat-label>Email</mat-label>
-                              <input matInput [(ngModel)]="email" required>
-                              <mat-hint>{{emailRegisterErrorMessage}}</mat-hint>
+                              <input matInput [(ngModel)]="email" required [email]="true">
+                              <mat-error>{{emailErrorMessage}}</mat-error>
                           </mat-form-field>
                           <mat-form-field>
                               <mat-label>Full Name</mat-label>
@@ -54,7 +54,7 @@
                               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                               </button>
-                              <mat-hint>{{passwordErrorMessage}}</mat-hint>
+                              <mat-error>{{passwordErrorMessage}}</mat-error>
                           </mat-form-field>
                           <mat-form-field>
                               <mat-label>Confirm Password</mat-label>
@@ -62,6 +62,8 @@
                               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                               </button>
+                              <mat-hint *ngIf="!(password==confirmPassword)">{{confirmPasswordErrorMessage}}</mat-hint>
+                              <mat-error>{{passwordErrorMessage}}</mat-error>
                           </mat-form-field>
                           <button mat-raised-button color="primary" (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword ">Sign Up</button>
                           <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Already have an account? Log In</button>
@@ -70,10 +72,10 @@
                         <mat-form-field>
                             <mat-label>Email</mat-label>
                             <input matInput [(ngModel)]="email" required>
-                            <mat-hint>{{emailRegisterErrorMessage}}</mat-hint>
+                            <mat-hint>{{emailErrorMessage}}</mat-hint>
                         </mat-form-field>
                         <button mat-raised-button color="primary" (click)="forgotPassword();" [disabled]="!email">Send</button>
-                        <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = false;signMode = 'signin';">Back</button>
+                        <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = false;signMode = 'signin';" [disabled]="!email">Back</button>
                     </div>
                   </div>
               </mat-menu>

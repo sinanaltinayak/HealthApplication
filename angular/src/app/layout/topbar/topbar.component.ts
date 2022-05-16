@@ -23,10 +23,9 @@ export class TopbarComponent implements OnInit {
   forgotMode: boolean = false;
 
   // Error messages
-  emailErrorMessage: string = "";
-  emailRegisterErrorMessage: string = "";
-  passwordErrorMessage: string = "";
-
+  emailErrorMessage: string = "Please enter a valid email";
+  passwordErrorMessage: string = "Please enter a valid password";
+  confirmPasswordErrorMessage: string = "The passwords does not match";
   // userType is for determining the accessibility of some features
   userType:string = localStorage.getItem('role') || 'default'; /* AppModule.userType; */
   name:string = localStorage.getItem('name')! || 'Guest';
