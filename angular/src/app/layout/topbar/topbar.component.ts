@@ -20,7 +20,6 @@ export class TopbarComponent implements OnInit {
   password: string = "";
   confirmPassword: string = "";
   hidePassword = true;
-  isAuth: boolean = false;
   forgotMode: boolean = false;
 
   // Error messages
@@ -66,7 +65,6 @@ export class TopbarComponent implements OnInit {
 
   forgotPassword(){
     this._authService.resetPassword(this.email);
-    this.myapp.openSnackBar("The reset link is sent to your email address, please check.", "Continue");
   }
 
   refresh(routerLink: string): void {

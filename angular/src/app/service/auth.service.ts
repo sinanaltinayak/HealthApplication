@@ -63,7 +63,7 @@ export class AuthService {
         console.log('Something went wrong: ', err.message);
         if (err.message.includes("Firebase: There is no user record corresponding to this identifier.")){
           setTimeout(() => {
-            this._snackBar.open("There is no user corressponding to this email address.", "Continue", {
+            this._snackBar.open("There is no user corresponding to this email address.", "Continue", {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
@@ -103,7 +103,21 @@ export class AuthService {
 
     resetPassword(email: string){
 
-      this.afAuth.sendPasswordResetEmail(email);
+      this.afAuth.sendPasswordResetEmail(email).then(value => {
+        this._snackBar.open("The reset link is sent to your email address, please check.", "Continue", {
+          horizontalPosition: "right",
+          verticalPosition: "bottom",
+          duration: 5000,
+        });
+      }).catch(err => {
+        if (err.message.includes("Firebase: There is no user record corresponding to this identifier.")){
+          this._snackBar.open("There is no user corresponding to this email address.", "Continue", {
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            duration: 5000,
+          });
+        }
+      });
     }
 
     register(email: string, password: string, name: string) {
