@@ -83,7 +83,7 @@ export class AuthService {
         }
         else if (err.message.includes("The email address is badly formatted")) {
           setTimeout(() => {
-            this._snackBar.open("The email address is not a valid email address.", "Continue", {
+            this._snackBar.open("The email address is badly formatted.", "Continue", {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
@@ -110,12 +110,20 @@ export class AuthService {
           duration: 5000,
         });
       }).catch(err => {
+        console.log(err.message);
         if (err.message.includes("Firebase: There is no user record corresponding to this identifier.")){
           this._snackBar.open("There is no user corresponding to this email address.", "Continue", {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
           });
+        }
+        else if (err.message.includes("The email address is badly formatted")) {
+          this._snackBar.open("The email address is badly formatted.", "Continue", {
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            duration: 5000,
+          }); 
         }
       });
     }
@@ -156,7 +164,7 @@ export class AuthService {
         }
         else if (err.message.includes("The email address is badly formatted")) {
           setTimeout(() => {
-            this._snackBar.open("The email address is not a valid email address.", "Continue", {
+            this._snackBar.open("The email address is badly formatted.", "Continue", {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,

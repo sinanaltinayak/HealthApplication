@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { PatientsService } from 'src/app/service/patients.service';
@@ -20,10 +20,14 @@ export class TopbarComponent implements OnInit {
   hidePassword = true;
   forgotMode: boolean = false;
 
+  @ViewChild('search', {static: false})
+  inputElement: ElementRef | undefined;
+
   // Error messages
   emailErrorMessage: string = "Please enter a valid email";
   passwordErrorMessage: string = "Please enter a valid password";
   confirmPasswordErrorMessage: string = "The passwords does not match";
+  nameErrorMessage: string = "Please fill in your name";
   // userType is for determining the accessibility of some features
   userType:string = localStorage.getItem('role') || 'default'; /* AppModule.userType; */
   name:string = localStorage.getItem('name')! || 'Guest';
@@ -60,6 +64,11 @@ export class TopbarComponent implements OnInit {
     }
 }
 
+menuOpened() {
+  setTimeout(() => {
+    this.inputElement!.nativeElement.focus();
+  }, 0);
+}
   logoutUser(){
     this._authService.logout();
     this._router.navigate(['home']).then(a => {window.location.reload()});
