@@ -23,25 +23,25 @@
                       <div *ngIf="signMode=='signin'">
                           <mat-form-field>
                               <mat-label>Email</mat-label>
-                              <input matInput [(ngModel)]="email" required tabindex="15" [email]="true">
+                              <input matInput [(ngModel)]="email" type="email" #emailInput="ngModel" required tabindex="15" [email]="true">
                               <mat-error>{{emailErrorMessage}}</mat-error>
                           </mat-form-field>
                           <mat-form-field>
                               <mat-label>Password</mat-label>
-                              <input matInput [(ngModel)]="password" minlength="6" [type]="hidePassword ? 'password' : 'text'" required tabindex="16">
+                              <input matInput [(ngModel)]="password" #passInput="ngModel" minlength="6" [type]="hidePassword ? 'password' : 'text'" required tabindex="16">
                               <mat-error>{{passwordErrorMessage}}</mat-error>
                               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>                        
                             </button>
                           </mat-form-field>
-                          <button mat-raised-button color="primary" (click)='loginUser()' [disabled]="!email || !password">Log In</button>
+                          <button mat-raised-button color="primary" (click)='loginUser()' [disabled]="!email || !password || emailInput.errors || passInput.errors">Log In</button>
                           <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Don't you have an account? Sign Up</button>
                           <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = true;signMode = '';">Forgot Password</button>
                       </div>
                       <div *ngIf="signMode=='signup'">
                           <mat-form-field>
                               <mat-label>Email</mat-label>
-                              <input matInput [(ngModel)]="email" required [email]="true">
+                              <input matInput [(ngModel)]="email" type="email" #emailInput="ngModel" required [email]="true">
                               <mat-error>{{emailErrorMessage}}</mat-error>
                           </mat-form-field>
                           <mat-form-field>
@@ -50,7 +50,7 @@
                           </mat-form-field>
                           <mat-form-field>
                               <mat-label>Password</mat-label>
-                              <input matInput [(ngModel)]="password" minlength="6" [type]="hidePassword ? 'password' : 'text'" required>
+                              <input matInput [(ngModel)]="password" #passInput="ngModel" minlength="6" [type]="hidePassword ? 'password' : 'text'" required>
                               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                               </button>
@@ -65,7 +65,7 @@
                               <mat-hint *ngIf="!(password==confirmPassword)">{{confirmPasswordErrorMessage}}</mat-hint>
                               <mat-error>{{passwordErrorMessage}}</mat-error>
                           </mat-form-field>
-                          <button mat-raised-button color="primary" (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword ">Sign Up</button>
+                          <button mat-raised-button color="primary" (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword || passInput.errors || emailInput.errors || !(password==confirmPassword)">Sign Up</button>
                           <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Already have an account? Log In</button>
                       </div>
                       <div *ngIf="forgotMode==true">
