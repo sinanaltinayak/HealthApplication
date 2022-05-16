@@ -50,14 +50,14 @@
         </mat-step>
 
         <mat-step [stepControl]="secondFormGroup">
-            <ng-container *ngIf="showLoader; else second">
+            <ng-template matStepLabel>Check Your Results</ng-template>
+            <ng-container *ngIf="showLoader">
                 <!-- <div class="mt-5 text-center">
                     <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"/>
                 </div> -->
                 
                 <mat-spinner></mat-spinner>
            </ng-container>
-            <ng-template #second matStepLabel>Check Your Results</ng-template>
             <div class="container2" *ngIf="!showLoader">
                 <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
                     <ng-container matColumnDef="name">

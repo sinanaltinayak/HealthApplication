@@ -14,6 +14,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatSortModule} from '@angular/material/sort';
 
 // importing classes that is needed for history page
 
@@ -31,7 +32,8 @@ import {MatInputModule} from '@angular/material/input';
     MatPaginatorModule,
     MatDialogModule,
     MatRippleModule,
-    MatInputModule
+    MatInputModule,
+    MatSortModule
 
 
   ],

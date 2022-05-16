@@ -17,8 +17,10 @@ export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsTests: string[] = ['date', 'symptoms', 'result', 'note'];
   dataSourceTests: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   id: string | undefined;
   role: string | undefined;
   
@@ -30,7 +32,8 @@ export class HistoryComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    console.log(this.role);
+    this.dataSourceTests.paginator = this.paginator;
+    this.dataSourceTests.sort = this.sort;
     if (this.role == 'patient'){
       this._testsService.getTestsByPatientId(this.id!).valueChanges().subscribe((data: Test[]) => {
         data.forEach(el => {
@@ -47,7 +50,15 @@ export class HistoryComponent implements AfterViewInit {
         this.dataSourceTests.data = data;
       });      
     } */
-    console.log(this.dataSourceTests.data.length);
+    
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceTests.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSourceTests.paginator) {
+      this.dataSourceTests.paginator.firstPage();
+    }
+  
+  } 
 }
