@@ -27,8 +27,10 @@ export class TestsComponent implements AfterViewInit {
 
 
   
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginatorHistory!: MatPaginator;
+  @ViewChild(MatSort) sortHistory!: MatSort;
+  @ViewChild(MatPaginator) paginatorPending!: MatPaginator;
+  @ViewChild(MatSort) sortPending!: MatSort;
 
   constructor(public _testsService: TestsService,
     public _patientsService: PatientsService,
@@ -53,10 +55,10 @@ export class TestsComponent implements AfterViewInit {
       this.dataSourceHistory.data = data;
     });
 
-    // this.dataSourcePending.paginator = this.paginator;
-    // this.dataSourcePending.sort = this.sort;
-    // this.dataSourceHistory.paginator = this.paginator;
-    // this.dataSourceHistory.sort = this.sort;
+    this.dataSourcePending.paginator = this.paginatorPending;
+    this.dataSourcePending.sort = this.sortPending;
+    this.dataSourceHistory.paginator = this.paginatorHistory;
+    this.dataSourceHistory.sort = this.sortHistory;
   }
 
   openConfirmTestDialog(id: any) {
@@ -72,6 +74,16 @@ export class TestsComponent implements AfterViewInit {
   getPatient(id: string){
 
     return AppModule.allPatients.get(id)?.fullname;
+  }
+  applyFilter(event: Event, dataSource: MatTableDataSource<Test>) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (dataSource.paginator) {
+      dataSource.paginator.firstPage();
+    }
+  
+  
   }
   
 }

@@ -14,6 +14,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatSortModule} from '@angular/material/sort';
 
 
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
@@ -35,7 +36,8 @@ import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
     MatPaginatorModule,
     MatDialogModule,
     MatRippleModule,
-    MatInputModule
+    MatInputModule,
+    MatSortModule
     
 
   ],

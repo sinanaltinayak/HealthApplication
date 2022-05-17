@@ -2,8 +2,13 @@
     <h1>TESTS</h1>
     
     <div>
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Allergy" #input>
+        </mat-form-field>
+
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceTests">
+            <table mat-table [dataSource]="dataSourceTests" matSort>
 
 
                 <!-- Date Column -->
@@ -41,6 +46,7 @@
             </table>
             <div *ngIf="dataSourceTests.data.length == 0" class="errorNote"> <p>You do not have a past test.</p></div>
 
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
            
         </div>
 
