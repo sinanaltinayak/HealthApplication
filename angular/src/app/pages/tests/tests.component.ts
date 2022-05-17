@@ -6,6 +6,7 @@ import { AppModule } from 'src/app/app.module';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/service/auth.service';
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
 import { map } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
@@ -31,6 +32,7 @@ export class TestsComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(public _testsService: TestsService,
+    public _authService: AuthService,
     public _patientsService: PatientsService,
     public dialog: MatDialog,
     public myapp: AppComponent) { 
@@ -42,6 +44,9 @@ export class TestsComponent implements AfterViewInit {
     this._testsService.getPendingTests().valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
+        this.getPatient(el.patientID).then(d => {
+          el.fullname = d.valueOf();
+        });
       });
       this.dataSourcePending.data = data;
     });
@@ -60,7 +65,6 @@ export class TestsComponent implements AfterViewInit {
   }
 
   openConfirmTestDialog(id: any) {
-    console.log("ididd",id);
     
     const dialogRef = this.dialog.open(ConfirmTestComponent, {
       width: "50%", 
@@ -69,9 +73,13 @@ export class TestsComponent implements AfterViewInit {
     });
   }
 
-  getPatient(id: string){
-
-    return AppModule.allPatients.get(id)?.fullname;
+  async getPatient(id: string){
+    let name: string;
+    await this._authService.getUser(id).ref.get().then((doc) => {
+      name = doc.get("fullname");
+      console.log(name);
+    });
+    return name!;
   }
   
 }
