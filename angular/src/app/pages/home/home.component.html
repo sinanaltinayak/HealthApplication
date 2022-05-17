@@ -4,14 +4,14 @@
         <mat-step [stepControl]="firstFormGroup">
             <ng-template matStepLabel>Fill out the form</ng-template>
             <div class="symptomsForm">
-                
+
                 <mat-form-field class="example-form" appearance="fill">
                     <mat-label>Birth Year</mat-label>
                     <mat-select [(ngModel)]="selectedYear" required>
                         <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-    
+
                 <mat-form-field appearance="fill" class="example-form">
                     <mat-label>Gender</mat-label>
                     <mat-select [(ngModel)]="selectedGender" required>
@@ -20,7 +20,7 @@
                     </mat-select>
                 </mat-form-field>
 
-    
+
                 <form class="example-form">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Symptoms</mat-label>
@@ -32,8 +32,8 @@
                         </mat-autocomplete>
                     </mat-form-field>
                 </form>
-    
-    
+
+
                 <h4><b>My Symptoms:</b></h4>
                 <mat-card *ngFor="let symptom of selectedSymptoms">
                     {{symptom}}
@@ -41,23 +41,23 @@
                         <mat-icon>close</mat-icon>
                     </button>
                 </mat-card>
-    
+
                 <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
-    
+
                 <button mat-raised-button matStepperNext color="primary" (click)='getResult()' [disabled]="(selectedSymptoms.length == 0) || (selectedGender.length == 0) || (selectedYear.toString().length == 0)">Continue</button>
             </div>
-            
+
         </mat-step>
 
         <mat-step [stepControl]="secondFormGroup">
             <ng-template matStepLabel>Check Your Results</ng-template>
             <ng-container *ngIf="showLoader">
-                <!-- <div class="mt-5 text-center">
-                    <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"/>
-                </div> -->
-                
-                <mat-spinner></mat-spinner>
-           </ng-container>
+                <div class="mt-5 text-center">
+                    <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" />
+                </div>
+
+                <!-- <mat-spinner></mat-spinner> -->
+            </ng-container>
             <div class="container2" *ngIf="!showLoader">
                 <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
                     <ng-container matColumnDef="name">
