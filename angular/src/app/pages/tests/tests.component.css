@@ -35,3 +35,7 @@ mat-card {
 .title {
     font-family: 'Poppins', sans-serif;
 }
+
+.mat-table {
+    width: 1000px;
+}
