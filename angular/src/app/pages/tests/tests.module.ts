@@ -15,6 +15,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from '@angular/material/sort';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
@@ -27,7 +28,7 @@ import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
     CommonModule,
     TestsRoutingModule,
     FormsModule,
-
+    MatChipsModule,
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
