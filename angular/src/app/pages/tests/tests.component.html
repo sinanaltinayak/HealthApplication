@@ -2,7 +2,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-
 <div class="container">
     <div class="container2">
         <h1 class="title">TESTS</h1>
@@ -13,7 +12,8 @@
             <div class="container2">
 
                 <mat-form-field appearance="standard">
-                    <mat-label>Filter</mat-label>
+                    <mat-label>
+                        <mat-icon>filter_list</mat-icon> Filter</mat-label>
                     <input matInput (keyup)="applyFilter($event, dataSourcePending)" placeholder="Ex. Allergy" #input>
                 </mat-form-field>
                 <div class="mat-elevation-z8">
@@ -24,7 +24,7 @@
                         <ng-container matColumnDef="date">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
-                                <mat-chip-list color="primary" aria-label="Fish selection">
+                                <mat-chip-list color="primary" aria-label="">
                                     <mat-chip color="primary"> {{row.date | date:'dd/MM/yyyy'}}</mat-chip>
                                 </mat-chip-list>
                             </td>
@@ -79,7 +79,8 @@
             <div class="container2">
 
                 <mat-form-field appearance="standard">
-                    <mat-label>Filter</mat-label>
+                    <mat-label>
+                        <mat-icon>filter_list </mat-icon> Filter</mat-label>
                     <input matInput (keyup)="applyFilter($event, dataSourceHistory)" placeholder="Ex. Allergy" #input>
                 </mat-form-field>
                 <div class="mat-elevation-z8">
@@ -90,7 +91,7 @@
                         <ng-container matColumnDef="date">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
-                                <mat-chip-list aria-label="Fish selection">
+                                <mat-chip-list aria-label="">
                                     <mat-chip> {{row.date | date:'dd/MM/yyyy'}}</mat-chip>
                                 </mat-chip-list>
                             </td>
