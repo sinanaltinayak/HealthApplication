@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -25,7 +26,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     HomeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-
+    MatGridListModule,
     MatCardModule,
     MatStepperModule,
     MatFormFieldModule,

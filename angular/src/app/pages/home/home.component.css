@@ -1,12 +1,14 @@
 #loading {
     size: 10px;
 }
+
 .container {
     padding-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 200px;
 }
 
 .container2 {
@@ -15,7 +17,7 @@
     margin-top: 20px;
 }
 
-.diagnosis-card{
+.diagnosis-card {
     margin: 15px;
     width: 400px;
 }
@@ -37,4 +39,52 @@ mat-form-field {
 
 mat-row {
     cursor: pointer
-}   
+}
+
+.containerFirst {
+    padding-top: 100px;
+}
+
+.firstCard {
+    width: 900px;
+    height: 500px;
+    margin: auto;
+    background-color: #c8e0de;
+    /* background-color: #033f63; */
+}
+
+.insideCard {
+    width: 200px;
+    height: 250px;
+    /* background-color: #e5dce2; */
+}
+
+.start {
+    font-family: 'Koulen', cursive;
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+.title {
+    font-family: 'Koulen', cursive;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(2);
+    padding-top: 10px;
+}
+
+.content {
+    padding-top: 15px;
+    text-align: center;
+}
+
+.gridlist {
+    padding-top: 20px;
+}
