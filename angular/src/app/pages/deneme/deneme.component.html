@@ -1,0 +1,24 @@
+<h1>Welcome to Mega Chat</h1>
+
+<div class="login">
+    <p>
+        <!-- <span class="tag is-dark">{{ authState.email }}</span> -->
+        <br>
+        <span class="tag is-dark">{{ currentUserId }}</span>
+    </p>
+
+    <hr>
+
+    <button class="button is-info" (click)="chatService.create()">Create New Chat</button>
+
+    <hr>
+
+    <h3>My Chats</h3>
+
+    <ul>
+        <li *ngFor="let chat of userChats$ | async">
+            <a [routerLink]="'../chat/' + chat.id">{{ chat.id }} -  <!-- {{ chat.messages.length }} --> Messages </a>
+        </li>
+    </ul>
+
+</div>

@@ -16,6 +16,8 @@ import { LoadingModule } from './pages/loading/loading.module';
 import { LayoutModule } from './layout/layout.module';
 import { TestsModule } from './pages/tests/tests.module';
 import { HistoryModule } from './pages/history/history.module';
+import { ProfileModule } from './pages/profile/profile.module';
+import { ChatModule } from './pages/chat/chat.module';
 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
@@ -40,7 +42,10 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { Patient } from './models/patient';
 import { Doctor } from './models/doctor';
 import { Test } from './models/test';
-import { ProfileModule } from './pages/profile/profile.module';
+
+import { ChatComponent } from './pages/chat/chat.component';
+import { DenemeComponent } from './pages/deneme/deneme.component';
+import { DenemeModule } from './pages/deneme/deneme.module';
 
 const routes: Routes = [
   {
@@ -70,6 +75,8 @@ const routes: Routes = [
     TestsModule,
     HistoryModule,
     ProfileModule,
+    ChatModule,
+    DenemeModule,
     
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
