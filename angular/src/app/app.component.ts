@@ -20,6 +20,7 @@ export class AppComponent {
       horizontalPosition: "right",
       verticalPosition: "bottom",
       duration: 5000,
+      panelClass: ['mat-toolbar', 'mat-primary']
     });
   }
 

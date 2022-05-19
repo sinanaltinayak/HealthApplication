@@ -1,89 +1,98 @@
-<mat-toolbar color="primary">
-    
-    <span>Health Application</span>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+
+<mat-toolbar color="accent">
+
+    <span class="title">Health Application</span>
     <span class="example-spacer"></span>
-<button *ngIf="userType != 'doctor'" mat-button aria-label="New Test Button" routerLink="../home" (click)='refresh("/home")'>
+    <button *ngIf="userType != 'doctor'" mat-button aria-label="New Test Button" routerLink="../home" (click)='refresh("/home")'>
       <mat-icon>assignment</mat-icon> New Test
     </button>
-    <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button"  routerLink="../tests" (click)='refresh("/tests")'>
+    <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button" routerLink="../tests" (click)='refresh("/tests")'>
         <mat-icon>rate_review</mat-icon> Review Tests
     </button>
-    <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button"  routerLink="../history" (click)='refresh("/history")'>
+    <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button" routerLink="../history" (click)='refresh("/history")'>
         <mat-icon>history</mat-icon> Test History
     </button>
     <div>
-      <ul class="nav nav-pills flex-column mb-auto">
-          <div *ngIf="userType=='default'; then login; else logout"></div>
-          <ng-template #login>
-            <button [matMenuTriggerFor]="menu" mat-button aria-label="Sign In Button">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <div *ngIf="userType=='default'; then login; else logout"></div>
+            <ng-template #login>
+                <button (menuOpened)="menuOpened()" [matMenuTriggerFor]="menu" mat-button aria-label="Sign In Button">
               <mat-icon>input</mat-icon> Log In
             </button>
-              <mat-menu #menu="matMenu">
-                  <div (click)="$event.stopPropagation()" class="login-container">
-                      <div *ngIf="signMode=='signin'">
-                          <mat-form-field>
-                              <mat-label>Email</mat-label>
-                              <input matInput [(ngModel)]="email" required tabindex="15">
-                              <mat-hint>{{emailErrorMessage}}</mat-hint>
-                          </mat-form-field>
-                          <mat-form-field>
-                              <mat-label>Password</mat-label>
-                              <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'" required tabindex="16">
-                              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                              <mat-hint>{{passwordErrorMessage}}</mat-hint>
+                <mat-menu #menu="matMenu">
+                    <form (keydown.tab)="$event.stopPropagation()" (keydown.shift.tab)="$event.stopPropagation()">
+                        <div (click)="$event.stopPropagation()" class="login-container">
+                            <div *ngIf="signMode=='signin'">
+                                <mat-form-field>
+                                    <mat-label>Email</mat-label>
+                                    <input #search (click)="$event.stopPropagation()" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" matInput [(ngModel)]="email" [ngModelOptions]="{standalone: true}" type="email" #emailInput="ngModel" required tabindex="1" [email]="true">
+                                    <mat-error>{{emailErrorMessage}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Password</mat-label>
+                                    <input matInput [(ngModel)]="password" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" #passInput="ngModel" minlength="6" [type]="hidePassword ? 'password' : 'text'" required tabindex="2">
+                                    <mat-error>{{passwordErrorMessage}}</mat-error>
+                                    <button tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>                        
                             </button>
-                          </mat-form-field>
-                          <button mat-raised-button color="primary" (click)='loginUser()' [disabled]="!email || !password">Log In</button>
-                          <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Don't you have an account? Sign Up</button>
-                          <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = true;signMode = '';">Forgot Password</button>
-                      </div>
-                      <div *ngIf="signMode=='signup'">
-                          <mat-form-field>
-                              <mat-label>Email</mat-label>
-                              <input matInput [(ngModel)]="email" required>
-                              <mat-hint>{{emailRegisterErrorMessage}}</mat-hint>
-                          </mat-form-field>
-                          <mat-form-field>
-                              <mat-label>Full Name</mat-label>
-                              <input matInput [(ngModel)]="fullname" required>
-                          </mat-form-field>
-                          <mat-form-field>
-                              <mat-label>Password</mat-label>
-                              <input matInput [(ngModel)]="password" [type]="hidePassword ? 'password' : 'text'" required>
-                              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                </mat-form-field>
+                                <button tabindex="3" mat-raised-button color="primary" (click)='loginUser()' [disabled]="!email || !password || emailInput.errors || passInput.errors">Log In</button>
+                                <button tabindex="4" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Don't you have an account? Sign Up</button>
+                                <button tabindex="5" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = true;signMode = '';">Forgot Password</button>
+                            </div>
+                            <div *ngIf="signMode=='signup'">
+                                <mat-form-field>
+                                    <mat-label>Email</mat-label>
+                                    <input matInput [(ngModel)]="email" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" type="email" #emailInput="ngModel" required [email]="true">
+                                    <mat-error>{{emailErrorMessage}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Full Name</mat-label>
+                                    <input matInput [(ngModel)]="fullname" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" required>
+                                    <mat-error>{{nameErrorMessage}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Password</mat-label>
+                                    <input matInput [(ngModel)]="password" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" #passInput="ngModel" minlength="6" [type]="hidePassword ? 'password' : 'text'" required>
+                                    <button tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                               </button>
-                              <mat-hint>{{passwordErrorMessage}}</mat-hint>
-                          </mat-form-field>
-                          <mat-form-field>
-                              <mat-label>Confirm Password</mat-label>
-                              <input matInput [(ngModel)]="confirmPassword" [type]="hidePassword ? 'password' : 'text'" required>
-                              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                    <mat-error>{{passwordErrorMessage}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Confirm Password</mat-label>
+                                    <input matInput [(ngModel)]="confirmPassword" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" minlength="6" [type]="hidePassword ? 'password' : 'text'" required>
+                                    <button tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                               </button>
-                          </mat-form-field>
-                          <button mat-raised-button color="primary" (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword ">Sign Up</button>
-                          <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Already have an account? Log In</button>
-                      </div>
-                      <div *ngIf="forgotMode==true">
-                        <mat-form-field>
-                            <mat-label>Email</mat-label>
-                            <input matInput [(ngModel)]="email" required>
-                            <mat-hint>{{emailRegisterErrorMessage}}</mat-hint>
-                        </mat-form-field>
-                        <button mat-raised-button color="primary" (click)="forgotPassword();forgotMode = false;signMode = 'signin';" [disabled]="!email">Send</button>
-                        <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = false;signMode = 'signin';">Back</button>
-                    </div>
-                  </div>
-              </mat-menu>
+                                    <mat-hint *ngIf="!(password==confirmPassword)">{{confirmPasswordErrorMessage}}</mat-hint>
+                                    <mat-error>{{passwordErrorMessage}}</mat-error>
+                                </mat-form-field>
+                                <button mat-raised-button color="primary" (click)='registerUser()' [disabled]="!email || !fullname || !password || !confirmPassword || passInput.errors || emailInput.errors || !(password==confirmPassword)">Sign Up</button>
+                                <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Already have an account? Log In</button>
+                            </div>
+                            <div *ngIf="forgotMode==true">
+                                <mat-form-field>
+                                    <mat-label>Email</mat-label>
+                                    <input matInput [(ngModel)]="email" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" type="email" #emailInput="ngModel" required [email]="true">
+                                    <mat-error>{{emailErrorMessage}}</mat-error>
+                                </mat-form-field>
+                                <button mat-raised-button color="primary" (click)="forgotPassword();" [disabled]="!email || emailInput.errors">Send</button>
+                                <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = false;signMode = 'signin';">Back</button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-menu>
 
-          </ng-template>
-          <ng-template #logout>
-              <button mat-button (click)="logoutUser()">
+            </ng-template>
+            <ng-template #logout>
+                <button mat-button (click)="logoutUser()">
                 <mat-icon>output</mat-icon> Log Out
               </button>
-          </ng-template>
-      </ul>
-  </div>
+            </ng-template>
+        </ul>
+    </div>
 </mat-toolbar>

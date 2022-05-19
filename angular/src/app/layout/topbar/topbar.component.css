@@ -1,11 +1,10 @@
 .example-icon {
     padding: 0 14px;
-  }
+}
+
 .example-spacer {
     flex: 1 1 auto;
-  }
-
-
+}
 
 .login-container {
     margin: 25px;
@@ -25,4 +24,13 @@ mat-hint {
 
 mat-form-field {
     margin-bottom: 15px;
+}
+
+.mat-toolbar {
+    /* background-color: #6d93b0; */
+    background-color: #033f63;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
 }
