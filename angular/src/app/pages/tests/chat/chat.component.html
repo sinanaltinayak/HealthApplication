@@ -28,10 +28,16 @@
         </div>
     </div>
 
-    <div class="form">
+    <!-- <div class="form">
         <input class="input" [(ngModel)]="newMsg" maxlength="120" (keydown.enter)="submit(data.chatID)">
-        <button class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
-    </div>
+        <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
+    </div> -->
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Send a message</mat-label>
+        <textarea [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
+
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

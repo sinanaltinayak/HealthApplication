@@ -20,23 +20,19 @@ mat-dialog-content {
 }
 
 .sendButton {
-    width: 15%;
-    height: 30px;
-    color: beige !important;
-    background-color: black;
+    margin-left: 10px;
+    padding: 4px;
 }
 
 .container {
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
+    background-color: #e0e7ea;
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
 }
 
 .darker {
-    border-color: #ccc;
-    background-color: #ddd;
+    background-color: #ede4e7;
 }
 
 .container::after {
@@ -67,4 +63,8 @@ mat-dialog-content {
 .time-left {
     float: left;
     color: #999;
+}
+
+.example-full-width {
+    width: 90%;
 }
