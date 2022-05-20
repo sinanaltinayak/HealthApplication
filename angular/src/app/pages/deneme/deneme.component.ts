@@ -25,7 +25,7 @@ export class DenemeComponent implements OnInit {
   ngOnInit() {
     this.userChats$ = this.chatService.getUserChats(localStorage.getItem("id")!);
     
-    this.getAllChats();
+    //this.getAllChats();
     this.getAllUsers();
   }
 
@@ -78,37 +78,37 @@ export class DenemeComponent implements OnInit {
     }); 
   }
 
-  getAllChats(){
-    this.chatService.getAllChats().snapshotChanges().pipe(
-      
-      map(changes=> changes.map(c=>
-        ({id: c.payload.doc.id, 
-          count: c.payload.doc.data()['count'],
-          createdAt: c.payload.doc.data()['createdAt'], 
-          uid: c.payload.doc.data()['uid'], 
-          messages: c.payload.doc.data()['messages'], 
-        })
-        
-        )
-      )
-    ).subscribe(data => { 
-
-
-      for (let i = 0; i < data.length; i++) {
-        
-        if(data[i].uid  == localStorage.getItem("id")){
-          this.allChats.push(new Chat(data[i].id, data[i].count, data[i].createdAt, data[i].messages, data[i].uid));
-        }
-      }
-      console.log("deneme getallchats",this.allChats);
-    }); 
-  }
   // getAllChats(){
-  //   this.chatService.getUserChats(localStorage.getItem("id")!).subscribe(i=>i.forEach(
-  //      f => console.log(f)// this.allChats.push(new Chat(f.id, f.data.count, f.data.createdAt, f.data.messages, f.data.uid)))
-  //   )); 
+  //   this.chatService.getAllChats().snapshotChanges().pipe(
+      
+  //     map(changes=> changes.map(c=>
+  //       ({id: c.payload.doc.id, 
+  //         count: c.payload.doc.data()['count'],
+  //         createdAt: c.payload.doc.data()['createdAt'], 
+  //         uid: c.payload.doc.data()['uid'], 
+  //         messages: c.payload.doc.data()['messages'], 
+  //       })
+        
+  //       )
+  //     )
+  //   ).subscribe(data => { 
+
+
+  //     for (let i = 0; i < data.length; i++) {
+        
+  //       if(data[i].uid  == localStorage.getItem("id")){
+  //         this.allChats.push(new Chat(data[i].id, data[i].count, data[i].createdAt, data[i].messages, data[i].uid));
+  //       }
+  //     }
+  //     console.log("deneme getallchats",this.allChats);
+  //   }); 
   // }
-  getChatById(id: string){
-    return this.allChats.find(f => f.id == id)
-  }
+  // // getAllChats(){
+  // //   this.chatService.getUserChats(localStorage.getItem("id")!).subscribe(i=>i.forEach(
+  // //      f => console.log(f)// this.allChats.push(new Chat(f.id, f.data.count, f.data.createdAt, f.data.messages, f.data.uid)))
+  // //   )); 
+  // // }
+  // getChatById(id: string){
+  //   return this.allChats.find(f => f.id == id)
+  // }
 }

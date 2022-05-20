@@ -3,14 +3,18 @@ export class Chat{
     count!: number;
     createdAt!: number;
     messages!: Message[];
-    uid!: string;
+    senderID!: string;
+    receiverID!: string;
+    testID!: string;
 
-    constructor(id: string, count: number, createdAt: number, messages: Message[], uid: string) {
+    constructor(id: string, count: number, createdAt: number, messages: Message[], senderID: string, receiverID: string, testID: string) {
         this.count = count;
         this.id = id;
         this.createdAt = createdAt;
         this.messages = messages;
-        this.uid = uid;
+        this.senderID = senderID;
+        this.receiverID = receiverID;
+        this.testID = testID;
     }
 }
 

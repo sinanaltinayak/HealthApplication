@@ -7,9 +7,10 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
-import { map } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { PatientsService } from 'src/app/service/patients.service';
+import { ChatService } from 'src/app/service/chat.service';
+import { ChatComponent } from './chat/chat.component';
 
 @Component({
   selector: 'app-tests',
@@ -24,8 +25,6 @@ export class TestsComponent implements AfterViewInit {
   displayedColumnsHistory: string[] = ['date', 'patient', 'symptoms', 'result', 'actions'];
   dataSourceHistory: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
-
-
   
   @ViewChild(MatPaginator) paginatorHistory!: MatPaginator;
   @ViewChild(MatSort) sortHistory!: MatSort;
@@ -35,6 +34,7 @@ export class TestsComponent implements AfterViewInit {
   constructor(public _testsService: TestsService,
     public _patientsService: PatientsService,
     public dialog: MatDialog,
+    public chatService: ChatService,
     public myapp: AppComponent) { 
       // this.getPendingTests();
       // this.getTestsByDoctorID(Array.from(AppModule.userDoctor.keys())[0]);
@@ -48,7 +48,7 @@ export class TestsComponent implements AfterViewInit {
       this.dataSourcePending.data = data;
     });
 
-    this._testsService.getTestsByDoctorId(localStorage.getItem('id')!).valueChanges().subscribe((data: Test[]) => {
+    this._testsService.getTestsByDoctorId(localStorage.getItem('id')!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
       });
@@ -59,11 +59,12 @@ export class TestsComponent implements AfterViewInit {
     this.dataSourcePending.sort = this.sortPending;
     this.dataSourceHistory.paginator = this.paginatorHistory;
     this.dataSourceHistory.sort = this.sortHistory;
+
+    //this.currentChat = this.chatService.getTestChat("");
+
   }
 
-  openConfirmTestDialog(id: any) {
-    console.log("ididd",id);
-    
+  openConfirmTestDialog(id: any) {    
     const dialogRef = this.dialog.open(ConfirmTestComponent, {
       width: "50%", 
       data: {testID: id},
@@ -75,15 +76,22 @@ export class TestsComponent implements AfterViewInit {
 
     return AppModule.allPatients.get(id)?.fullname;
   }
+
   applyFilter(event: Event, dataSource: MatTableDataSource<Test>) {
     const filterValue = (event.target as HTMLInputElement).value;
     dataSource.filter = filterValue.trim().toLowerCase();
 
     if (dataSource.paginator) {
       dataSource.paginator.firstPage();
-    }
-  
-  
+    }  
   }
-  
+
+  openChatDialog(chatId: string, testId: string) {    
+    const dialogRef = this.dialog.open(ChatComponent, {
+      width: "50%", 
+      data: {chatID: chatId,testID: testId},
+      hasBackdrop: true,
+    });
+  }
+
 }

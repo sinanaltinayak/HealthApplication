@@ -20,6 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 
 
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 // importing classes that is needed for home page
@@ -44,6 +45,6 @@ import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
     
 
   ],
-  declarations: [TestsComponent, ConfirmTestComponent]
+  declarations: [TestsComponent, ConfirmTestComponent, ChatComponent]
 })
 export class TestsModule { }

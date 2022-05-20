@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,9 @@ export class UserService {
 
   getAll(): AngularFirestoreCollection {
     return this.userRef;
+  }
+
+  getUser(userId: string): AngularFirestoreDocument<User> {
+    return this.db.collection("user_roles").doc(userId);
   }
 }
