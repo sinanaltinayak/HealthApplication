@@ -19,7 +19,7 @@
         <ul class="nav nav-pills flex-column mb-auto">
             <div *ngIf="userType=='default'; then login; else logout"></div>
             <ng-template #login>
-                <button (menuOpened)="menuOpened()" [matMenuTriggerFor]="menu" mat-button aria-label="Sign In Button">
+                <button (menuOpened)="menuOpened()" [matMenuTriggerFor]="menu" mat-button aria-label="Log In Button">
               <mat-icon>input</mat-icon> Log In
             </button>
                 <mat-menu #menu="matMenu">
@@ -89,9 +89,11 @@
 
             </ng-template>
             <ng-template #logout>
-                <button mat-button (click)="logoutUser()">
-                <mat-icon>output</mat-icon> Log Out
-              </button>
+                <button mat-button [matMenuTriggerFor]="menu"> <mat-icon>account_circle</mat-icon> {{ currentUser }}</button>
+                <mat-menu #menu="matMenu" xPosition="after">
+                    <button mat-menu-item routerLink="../profile" (click)='refresh("/profile")'> <mat-icon>account_circle</mat-icon> Profile</button>
+                    <button mat-menu-item (click)="logoutUser()"><mat-icon>output</mat-icon>Log Out</button>
+                </mat-menu>
             </ng-template>
         </ul>
     </div>

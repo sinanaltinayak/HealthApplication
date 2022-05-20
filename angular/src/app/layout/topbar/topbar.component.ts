@@ -5,6 +5,8 @@ import { PatientsService } from 'src/app/service/patients.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { DoctorsService } from 'src/app/service/doctors.service';
 import { TestsService } from 'src/app/service/tests.service';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -19,6 +21,7 @@ export class TopbarComponent implements OnInit {
   confirmPassword: string = "";
   hidePassword = true;
   forgotMode: boolean = false;
+  currentUser: any;
 
   @ViewChild('search', {static: false})
   inputElement: ElementRef | undefined;
@@ -42,6 +45,18 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   ngOnInit(): void {
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        this._authService.getUser(uid).valueChanges().subscribe(data=> {
+          this.currentUser = data!.fullname;
+        });
+      } else {
+      }
+    });
+
   }
   loginUser(){
     this._authService.login(this.email, this.password);
