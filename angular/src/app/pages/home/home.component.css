@@ -88,3 +88,8 @@ mat-row {
 .gridlist {
     padding-top: 20px;
 }
+
+.symptom {
+    border: 3px solid #b2dfdb !important;
+    border-radius: 50px !important;
+}
