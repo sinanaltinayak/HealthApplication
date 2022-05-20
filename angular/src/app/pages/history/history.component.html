@@ -44,7 +44,7 @@
                 <ng-container matColumnDef="note">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Note </th>
                     <td mat-cell *matCellDef="let row">
-                        <ng-template [ngIf]="row.chatID != ''">
+                        <ng-template [ngIf]="row.chatID != '' && row.chatID != undefined && row.chatID != null">
                             <!-- <a [routerLink]="'../chat/' + row.chatID">
                                 <mat-icon>message</mat-icon>
                             </a> -->
