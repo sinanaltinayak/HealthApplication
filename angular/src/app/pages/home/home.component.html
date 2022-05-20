@@ -94,7 +94,7 @@
 
 
                 <h4><b>My Symptoms:</b></h4>
-                <mat-card *ngFor="let symptom of selectedSymptoms">
+                <mat-card class="symptom" *ngFor="let symptom of selectedSymptoms">
                     {{symptom}}
                     <button mat-icon-button aria-label="Remove Symptom" (click)="remove(symptom)">
                         <mat-icon>close</mat-icon>
@@ -103,7 +103,7 @@
 
                 <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
 
-                <button mat-raised-button matStepperNext color="primary" (click)='getResult()' [disabled]="(selectedSymptoms.length == 0) || (selectedGender.length == 0) || (selectedYear.toString().length == 0)">Continue</button>
+                <button mat-raised-button matStepperNext color="accent" (click)='getResult()' [disabled]="(selectedSymptoms.length == 0) || (selectedGender.length == 0) || (selectedYear.toString().length == 0)">Continue</button>
             </div>
 
         </mat-step>
