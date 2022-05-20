@@ -32,7 +32,7 @@
                         <!-- Name Column -->
                         <ng-container matColumnDef="patient">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient </th>
-                            <td mat-cell *matCellDef="let row"> {{getPatient(row.patientID)}} </td>
+                            <td mat-cell *matCellDef="let row"> {{row.fullname}} </td>
                         </ng-container>
 
                         <!-- Fruit Column -->
@@ -99,7 +99,7 @@
                         <!-- Name Column -->
                         <ng-container matColumnDef="patient">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient </th>
-                            <td mat-cell *matCellDef="let row"> {{getPatient(row.patientID)}} </td>
+                            <td mat-cell *matCellDef="let row"> {{row.fullname}} </td>
                         </ng-container>
 
                         <!-- Fruit Column -->

@@ -9,6 +9,7 @@ export class Test{
     resultString!: string;
     result!: Diagnosis[];
     note!: string;
+    fullname?: string;
 
     constructor(patientID: string, doctorID: string, chatID: string, date: string, symptoms: string, resultString: string) {
         this.patientID = patientID;

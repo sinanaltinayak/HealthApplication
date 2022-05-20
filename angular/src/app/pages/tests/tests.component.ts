@@ -11,6 +11,7 @@ import { AppComponent } from 'src/app/app.component';
 import { PatientsService } from 'src/app/service/patients.service';
 import { ChatService } from 'src/app/service/chat.service';
 import { ChatComponent } from './chat/chat.component';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-tests',
@@ -35,6 +36,7 @@ export class TestsComponent implements AfterViewInit {
     public _patientsService: PatientsService,
     public dialog: MatDialog,
     public chatService: ChatService,
+    public _authService: AuthService,
     public myapp: AppComponent) { 
       // this.getPendingTests();
       // this.getTestsByDoctorID(Array.from(AppModule.userDoctor.keys())[0]);
@@ -44,6 +46,9 @@ export class TestsComponent implements AfterViewInit {
     this._testsService.getPendingTests().valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
+        this.getPatient(el.patientID).then(d => {
+          el.fullname = d.valueOf();
+        });
       });
       this.dataSourcePending.data = data;
     });
@@ -51,6 +56,9 @@ export class TestsComponent implements AfterViewInit {
     this._testsService.getTestsByDoctorId(localStorage.getItem('id')!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
+        this.getPatient(el.patientID).then(d => {
+          el.fullname = d.valueOf();
+        });
       });
       this.dataSourceHistory.data = data;
     });
@@ -72,9 +80,12 @@ export class TestsComponent implements AfterViewInit {
     });
   }
 
-  getPatient(id: string){
-
-    return AppModule.allPatients.get(id)?.fullname;
+  async getPatient(id: string){
+    let name: string;
+    await this._authService.getUser(id).ref.get().then((doc) => {
+      name = doc.get("fullname");
+    });
+    return name!;
   }
 
   applyFilter(event: Event, dataSource: MatTableDataSource<Test>) {
