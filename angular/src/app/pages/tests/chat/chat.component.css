@@ -1,0 +1,70 @@
+mat-dialog-content {
+    margin: 0 auto;
+    /* max-width: 100%; */
+    padding: 0 20px;
+}
+
+.form {
+    width: 50%;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    padding: 20px 10vw;
+}
+
+.input {
+    width: 45%;
+    height: 25px;
+    border-radius: 3%;
+    border-width: 2px;
+}
+
+.sendButton {
+    margin-left: 10px;
+    padding: 4px;
+}
+
+.container {
+    background-color: #e0e7ea;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.darker {
+    background-color: #ede4e7;
+}
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}
+
+.example-full-width {
+    width: 90%;
+}

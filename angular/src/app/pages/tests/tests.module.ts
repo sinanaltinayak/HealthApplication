@@ -14,9 +14,13 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatSortModule} from '@angular/material/sort';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
 
 
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 // importing classes that is needed for home page
@@ -26,7 +30,7 @@ import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
     CommonModule,
     TestsRoutingModule,
     FormsModule,
-
+    MatChipsModule,
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
@@ -35,10 +39,12 @@ import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
     MatPaginatorModule,
     MatDialogModule,
     MatRippleModule,
-    MatInputModule
+    MatInputModule,
+    MatSortModule,
+    MatIconModule,
     
 
   ],
-  declarations: [TestsComponent, ConfirmTestComponent]
+  declarations: [TestsComponent, ConfirmTestComponent, ChatComponent]
 })
 export class TestsModule { }

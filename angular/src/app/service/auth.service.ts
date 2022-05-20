@@ -34,6 +34,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           });
           localStorage.setItem('role', this.role);
           localStorage.setItem('email', email);
@@ -56,6 +57,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           });          
         }      
       })
@@ -67,6 +69,7 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
@@ -77,6 +80,7 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
@@ -87,6 +91,7 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
@@ -96,6 +101,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           });
         }
       });
@@ -108,6 +114,7 @@ export class AuthService {
           horizontalPosition: "right",
           verticalPosition: "bottom",
           duration: 5000,
+          panelClass: ['mat-toolbar', 'mat-primary']
         });
       }).catch(err => {
         console.log(err.message);
@@ -116,6 +123,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           });
         }
         else if (err.message.includes("The email address is badly formatted")) {
@@ -123,6 +131,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           }); 
         }
       });
@@ -148,6 +157,7 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);         
@@ -158,6 +168,7 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
@@ -168,6 +179,7 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);

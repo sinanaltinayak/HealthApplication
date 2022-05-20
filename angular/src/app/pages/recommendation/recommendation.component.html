@@ -1,10 +1,10 @@
 <div class="container">
-
-    <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Information">
+    <h1>RECOMMENDATION</h1>
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>            
             <div class="container2">
                 <mat-card class="example-card">
-    
+
                     <mat-card-title class="title">{{title}}</mat-card-title>
 
                     <mat-card-content>
@@ -18,8 +18,8 @@
                     </mat-card-actions>
                 </mat-card>
             </div>
-        </mat-tab>
-        <mat-tab label="Recommendation">
+        </mat-grid-tile>
+        <mat-grid-tile>
             <div class="container2">
                 <mat-card class="example-card">
 
@@ -38,9 +38,8 @@
                     </mat-card-actions>
                 </mat-card>
             </div>
-        </mat-tab>
-
-    </mat-tab-group>
+        </mat-grid-tile>
+    </mat-grid-list>
 
 
 </div>

@@ -16,11 +16,12 @@ import { LoadingModule } from './pages/loading/loading.module';
 import { LayoutModule } from './layout/layout.module';
 import { TestsModule } from './pages/tests/tests.module';
 import { HistoryModule } from './pages/history/history.module';
+import { ProfileModule } from './pages/profile/profile.module';
 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 
-import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
+import { provideAnalytics,getAnalytics } from '@angular/fire/analytics';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
@@ -31,15 +32,13 @@ import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config
 import { provideStorage,getStorage } from '@angular/fire/storage';
 
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
 
 import { Patient } from './models/patient';
 import { Doctor } from './models/doctor';
 import { Test } from './models/test';
-import { ProfileModule } from './pages/profile/profile.module';
 
 const routes: Routes = [
   {
@@ -81,6 +80,7 @@ const routes: Routes = [
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

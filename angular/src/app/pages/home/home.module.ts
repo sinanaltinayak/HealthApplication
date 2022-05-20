@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
@@ -16,7 +17,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // importing classes that is needed for home page
 
 @NgModule({
@@ -25,7 +26,7 @@ import {MatRippleModule} from '@angular/material/core';
     HomeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-
+    MatGridListModule,
     MatCardModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -36,8 +37,8 @@ import {MatRippleModule} from '@angular/material/core';
     MatDividerModule,
     MatInputModule,
     MatButtonModule,
-    MatRippleModule
-
+    MatRippleModule,
+    MatProgressSpinnerModule
 
   ],
   declarations: [HomeComponent]

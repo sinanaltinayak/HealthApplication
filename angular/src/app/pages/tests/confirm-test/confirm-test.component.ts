@@ -2,12 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Test } from 'src/app/models/test';
 import { TestsService } from 'src/app/service/tests.service';
-import { map } from 'rxjs';
 import { Diagnosis } from 'src/app/models/diagnosis';
-import { AppComponent } from 'src/app/app.component';
 import { PatientsService } from 'src/app/service/patients.service';
-import { AppModule } from 'src/app/app.module';
 import { AuthService } from 'src/app/service/auth.service';
+import { ChatService } from 'src/app/service/chat.service';
 @Component({
   selector: 'app-confirm-test',
   templateUrl: './confirm-test.component.html',
@@ -36,6 +34,7 @@ export class ConfirmTestComponent implements OnInit {
     public _testsService: TestsService,
     public _patientsService: PatientsService,
     public _authService: AuthService,
+    public chatService: ChatService,
     @Inject(MAT_DIALOG_DATA) public data: {testID: string}
   ) { }
 
@@ -84,9 +83,16 @@ export class ConfirmTestComponent implements OnInit {
     });
   }
 
-  updateTest(note: string){
-    this._testsService.update(this.data.testID, localStorage.getItem('id')!, note);
-    
+  getPatientId(){
+    return this.currentTest.get(this.data.testID)?.patientID as string;
+  }
+
+  getTestId(){
+    return this.data.testID;
+  }
+
+  updateTest(){
+    this._testsService.update(this.data.testID, localStorage.getItem('id')!);
   }
 }
 

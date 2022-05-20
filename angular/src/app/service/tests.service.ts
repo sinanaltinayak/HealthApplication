@@ -41,8 +41,8 @@ export class TestsService {
     return this.testsRef.add({ ...test });
   }
 
-  update(id: string, _doctorId: string, _note: string){
-    return this.testsRef.doc(id).update({doctorID: _doctorId, note: _note });
+  update(id: string, _doctorId: string){
+    return this.testsRef.doc(id).update({doctorID: _doctorId});
   }
   
 }

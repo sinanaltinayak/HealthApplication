@@ -7,7 +7,11 @@
 }
 
 .mat-form-field {
-    font-size: 14px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 td,
@@ -15,6 +19,20 @@ th {
     width: 25%;
 }
 
-.errorNote{
+.errorNote {
     padding: 25px;
+}
+
+.mat-chip {
+    /* background-color: #e1fbfb; */
+    /* background-color: rgb(239, 245, 208); */
+    background-color: #b2dfdb;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+}
+
+.mat-table {
+    width: 1000px;
 }

@@ -1,6 +1,8 @@
+<h2 mat-dialog-title>
 
-
-<h2 mat-dialog-title>Diagnosis Report of {{currentPatientName}} <h3>{{currentDate | date:'dd/MM/yyyy'}}</h3></h2> 
+    Diagnosis Report of {{currentPatientName}}
+    <h3>{{currentDate | date:'dd/MM/yyyy'}}</h3>
+</h2>
 
 
 <mat-dialog-content class="mat-typography">
@@ -16,7 +18,7 @@
             <mat-row *matRowDef="let row; columns: displayedColumnsSymptoms; let i = index" (click)="selectedDiagnosisIndex = i"></mat-row>
         </table>
 
-        
+
         <mat-card class="note-card" *ngIf="possibleDiagnosis.length != 0">
             <mat-card-title class="title"> Note</mat-card-title>
             <mat-card-content>
@@ -26,7 +28,7 @@
                 </mat-form-field>
             </mat-card-content>
         </mat-card>
-        
+
         <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
             <ng-container matColumnDef="name">
                 <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
@@ -40,6 +42,7 @@
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button>
+    <!-- <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button> -->
+    <button mat-button mat-dialog-close [disabled]="!note" (click)="chatService.create(getPatientId(), getTestId(), note); updateTest(); ">Create New Chat</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

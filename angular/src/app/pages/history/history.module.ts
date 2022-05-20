@@ -4,6 +4,7 @@ import { FormsModule} from '@angular/forms';
 
 import { HistoryRoutingModule } from './history-routing.module';
 import { HistoryComponent } from './history.component';
+import {MatIconModule} from '@angular/material/icon';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
@@ -14,6 +15,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatSortModule} from '@angular/material/sort';
+import {MatChipsModule} from '@angular/material/chips';
+import { ChatComponent } from './chat/chat.component';
 
 // importing classes that is needed for history page
 
@@ -22,7 +26,7 @@ import {MatInputModule} from '@angular/material/input';
     CommonModule,
     HistoryRoutingModule,
     FormsModule,
-
+    MatChipsModule,
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
@@ -31,10 +35,11 @@ import {MatInputModule} from '@angular/material/input';
     MatPaginatorModule,
     MatDialogModule,
     MatRippleModule,
-    MatInputModule
-
+    MatInputModule,
+    MatSortModule,
+    MatIconModule,
 
   ],
-  declarations: [HistoryComponent]
+  declarations: [HistoryComponent, ChatComponent]
 })
 export class HistoryModule { }
