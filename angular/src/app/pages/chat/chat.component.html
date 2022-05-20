@@ -1,0 +1,45 @@
+<ng-container *ngIf="currentChat">
+    <div class="top">
+        <p><a class="tag" routerLink="/">Back</a>
+            <span class="tag is-success">
+            https://firestore-megachat.firebaseapp.com/chats/{{ currentChat.id }}
+          </span>
+        </p>
+    </div>
+
+
+    <div #chatBox class="chat">
+
+
+        <div class="msg animated zoomInUp" *ngFor="let msg of currentMessages; trackBy: trackByCreated">
+            <div *ngIf="msg">
+                <div class="user">
+                    <div><span class="tag is-dark">{{ msg.uid }}</span></div>
+
+                    <button *ngIf="currentChat.uid === userId || msg.uid === userId" class="button is-danger is-small" (click)="delete(this.chatId, this.userId, msg)">Delete</button>
+
+                </div>
+
+                <p *ngIf="msg.content">{{ msg.content }}</p>
+
+
+
+                <p>{{ msg.content }}</p>
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="form">
+        <input class="input" [(ngModel)]="newMsg" maxlength="100" (keydown.enter)="submit(this.chatId)">
+
+        <button (click)="submit(this.chatId)" class="button is-info" [disabled]="!newMsg">Send</button>
+    </div>
+</ng-container>

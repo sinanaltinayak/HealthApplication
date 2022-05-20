@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { TestsRoutingModule } from './tests-routing.module';
-import { TestsComponent } from './tests.component';
+import { FormsModule} from '@angular/forms';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
@@ -14,23 +11,17 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
-import {MatSortModule} from '@angular/material/sort';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
+import { DenemeRoutingModule } from './deneme-routing.module';
+import { DenemeComponent } from './deneme.component';
 
-
-import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
-import { ChatComponent } from './chat/chat.component';
-
-
-// importing classes that is needed for home page
+// importing classes that is needed for history page
 
 @NgModule({
   imports: [
     CommonModule,
-    TestsRoutingModule,
+    DenemeRoutingModule,
     FormsModule,
-    MatChipsModule,
+
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
@@ -39,12 +30,10 @@ import { ChatComponent } from './chat/chat.component';
     MatPaginatorModule,
     MatDialogModule,
     MatRippleModule,
-    MatInputModule,
-    MatSortModule,
-    MatIconModule,
-    
+    MatInputModule
+
 
   ],
-  declarations: [TestsComponent, ConfirmTestComponent, ChatComponent]
+  declarations: [DenemeComponent]
 })
-export class TestsModule { }
+export class DenemeModule { }

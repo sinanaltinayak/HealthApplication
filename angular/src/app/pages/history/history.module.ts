@@ -17,6 +17,7 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatSortModule} from '@angular/material/sort';
 import {MatChipsModule} from '@angular/material/chips';
+import { ChatComponent } from './chat/chat.component';
 
 // importing classes that is needed for history page
 
@@ -39,6 +40,6 @@ import {MatChipsModule} from '@angular/material/chips';
     MatIconModule,
 
   ],
-  declarations: [HistoryComponent]
+  declarations: [HistoryComponent, ChatComponent]
 })
 export class HistoryModule { }
