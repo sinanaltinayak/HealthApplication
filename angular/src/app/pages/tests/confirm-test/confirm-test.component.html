@@ -43,6 +43,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <!-- <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button> -->
-    <button mat-button mat-dialog-close (click)="chatService.create(getPatientId(), getTestId(), note); updateTest(); ">Create New Chat</button>
+    <button mat-button mat-dialog-close [disabled]="!note" (click)="chatService.create(getPatientId(), getTestId(), note); updateTest(); ">Create New Chat</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

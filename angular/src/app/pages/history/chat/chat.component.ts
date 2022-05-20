@@ -18,7 +18,6 @@ export class ChatComponent implements OnInit {
   allUsers: User[]=[];
 
   newMsg!: string;
-  //chatId!: string;
 
   userId = localStorage.getItem("id") as string;
 
@@ -31,13 +30,6 @@ export class ChatComponent implements OnInit {
   doctorName!: string;
   doctorID!: string;
 
-  senderName!: string;
-
-  messageUserId!: string;
-  content!: string;
-  messageDate!: string;
-
-  note!:string;
   currentMessages!: any;
 
   constructor(
@@ -53,7 +45,6 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.getChat();
     this.getAllUsers();
-    // this.getTest();
 
     this.testService.getTestByID(this.data.testID).valueChanges().subscribe(xd => {
       
@@ -75,12 +66,6 @@ export class ChatComponent implements OnInit {
     this.currentMessages = this.currentChat.messages;
     this.doctorID = this.currentChat.doctorID;
   }
-
-//   async getTest(){
-//   this.currentTest =(await lastValueFrom(this.testService.getTestByID(this.data.testID).get())).data(); 
-//   console.log(this.currentTest);
-//   console.log(this.data.testID);
-// }
 
 getDoctor(){
   this.authService.getUser(Array.from(this.currentTest.values())[0].doctorID).valueChanges().subscribe(data=> {
