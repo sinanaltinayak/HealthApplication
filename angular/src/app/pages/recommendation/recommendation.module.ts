@@ -9,7 +9,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 // importing classes that is needed for home page
 
 @NgModule({
@@ -21,7 +21,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatTabsModule,
     MatDividerModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule
     
 
   ],

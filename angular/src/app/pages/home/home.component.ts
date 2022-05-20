@@ -151,4 +151,8 @@ export class HomeComponent{
     return this._diagnosisService.diagnosisList.find(el => el.name == title)!.description;
   }
 
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({behavior: 'smooth'});
+}
+
 }

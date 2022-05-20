@@ -34,6 +34,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           });
           localStorage.setItem('role', this.role);
           localStorage.setItem('email', email);
@@ -56,6 +57,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           });          
         }      
       })
@@ -63,10 +65,11 @@ export class AuthService {
         console.log('Something went wrong: ', err.message);
         if (err.message.includes("Firebase: There is no user record corresponding to this identifier.")){
           setTimeout(() => {
-            this._snackBar.open("There is no user corressponding to this email address.", "Continue", {
+            this._snackBar.open("There is no user corresponding to this email address.", "Continue", {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
@@ -77,16 +80,18 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
         }
         else if (err.message.includes("The email address is badly formatted")) {
           setTimeout(() => {
-            this._snackBar.open("The email address is not a valid email address.", "Continue", {
+            this._snackBar.open("The email address is badly formatted.", "Continue", {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
@@ -96,6 +101,7 @@ export class AuthService {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
           });
         }
       });
@@ -103,7 +109,32 @@ export class AuthService {
 
     resetPassword(email: string){
 
-      this.afAuth.sendPasswordResetEmail(email);
+      this.afAuth.sendPasswordResetEmail(email).then(value => {
+        this._snackBar.open("The reset link is sent to your email address, please check.", "Continue", {
+          horizontalPosition: "right",
+          verticalPosition: "bottom",
+          duration: 5000,
+          panelClass: ['mat-toolbar', 'mat-primary']
+        });
+      }).catch(err => {
+        console.log(err.message);
+        if (err.message.includes("Firebase: There is no user record corresponding to this identifier.")){
+          this._snackBar.open("There is no user corresponding to this email address.", "Continue", {
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
+          });
+        }
+        else if (err.message.includes("The email address is badly formatted")) {
+          this._snackBar.open("The email address is badly formatted.", "Continue", {
+            horizontalPosition: "right",
+            verticalPosition: "bottom",
+            duration: 5000,
+            panelClass: ['mat-toolbar', 'mat-primary']
+          }); 
+        }
+      });
     }
 
     register(email: string, password: string, name: string) {
@@ -126,6 +157,7 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);         
@@ -136,16 +168,18 @@ export class AuthService {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);
         }
         else if (err.message.includes("The email address is badly formatted")) {
           setTimeout(() => {
-            this._snackBar.open("The email address is not a valid email address.", "Continue", {
+            this._snackBar.open("The email address is badly formatted.", "Continue", {
               horizontalPosition: "right",
               verticalPosition: "bottom",
               duration: 5000,
+              panelClass: ['mat-toolbar', 'mat-primary']
             }); 
           },
           150);

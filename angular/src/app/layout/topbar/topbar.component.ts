@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
-import { Patient } from 'src/app/models/patient';
-import { Doctor } from 'src/app/models/doctor';
 import { PatientsService } from 'src/app/service/patients.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { DoctorsService } from 'src/app/service/doctors.service';
 import { TestsService } from 'src/app/service/tests.service';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -20,14 +20,17 @@ export class TopbarComponent implements OnInit {
   password: string = "";
   confirmPassword: string = "";
   hidePassword = true;
-  isAuth: boolean = false;
   forgotMode: boolean = false;
+  currentUser: any = localStorage.getItem('name');
+
+  @ViewChild('search', {static: false})
+  inputElement: ElementRef | undefined;
 
   // Error messages
-  emailErrorMessage: string = "";
-  emailRegisterErrorMessage: string = "";
-  passwordErrorMessage: string = "";
-
+  emailErrorMessage: string = "Please enter a valid email";
+  passwordErrorMessage: string = "Please enter a valid password";
+  confirmPasswordErrorMessage: string = "The passwords does not match";
+  nameErrorMessage: string = "Please fill in your name";
   // userType is for determining the accessibility of some features
   userType:string = localStorage.getItem('role') || 'default'; /* AppModule.userType; */
   name:string = localStorage.getItem('name')! || 'Guest';
@@ -35,9 +38,6 @@ export class TopbarComponent implements OnInit {
   signMode:string = "signin";
 
   constructor(
-    public _patientService: PatientsService,
-    public _doctorService: DoctorsService,
-    public _testsService: TestsService,
     public _authService: AuthService,
     public myapp: AppComponent, 
     private _router: Router) 
@@ -45,28 +45,26 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   ngOnInit(): void {
+
+    // const auth = getAuth();
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     const uid = user.uid;
+    //     this._authService.getUser(uid).valueChanges().subscribe(data=> {
+    //       this.currentUser = data!.fullname;
+    //     });
+    //   } else {
+    //   }
+    // });
+
   }
   loginUser(){
-    if (this.checkPasswordEmpty() == false) {
-      this._authService.login(this.email, this.password);
-    }
-    else{
-      this.myapp.openSnackBar("Password field can not be empty, please fill in.", "Continue");
-    }
+    this._authService.login(this.email, this.password);
   }
   
-  checkPasswordMatch(password: string, confirmPassword: string){
-    if(password == confirmPassword){
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
 
   forgotPassword(){
     this._authService.resetPassword(this.email);
-    this.myapp.openSnackBar("The reset link is sent to your email address, please check.", "Continue");
   }
 
   refresh(routerLink: string): void {
@@ -81,15 +79,11 @@ export class TopbarComponent implements OnInit {
     }
 }
 
-  checkPasswordEmpty(){
-    if(this.password == ""){
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
+menuOpened() {
+  setTimeout(() => {
+    this.inputElement!.nativeElement.focus();
+  }, 0);
+}
   logoutUser(){
     this._authService.logout();
     this._router.navigate(['home']).then(a => {window.location.reload()});
@@ -114,18 +108,14 @@ export class TopbarComponent implements OnInit {
   // registerUser function is for creating a new patient account
   registerUser(){
 
-    if(this.checkPasswordMatch(this.password, this.confirmPassword) == true){
-      this._authService.register(this.email, this.password, this.fullname);
-      setTimeout(() => {
-        if (this._authService.errorInRegister == false){
-          this.loginUser();
-        }
-      },
-      1000);      
-    }
-    else{
-      this.myapp.openSnackBar("The passwords does not match, please check again.", "Continue");
-    }
+    this._authService.register(this.email, this.password, this.fullname);
+    setTimeout(() => {
+      if (this._authService.errorInRegister == false){
+        this.loginUser();
+      }
+    },
+    1000);
+
   }
 
 }

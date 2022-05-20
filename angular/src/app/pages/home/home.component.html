@@ -1,17 +1,76 @@
-<div class="container">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
+
+<div class="containerFirst">
+    <mat-card class="firstCard">
+        <mat-grid-list class="gridlist" cols="3">
+            <mat-grid-tile>
+                <mat-card class="insideCard">
+                    <mat-icon color="warn" class="icon">healing</mat-icon><br>
+                    <mat-card-title class="title">
+                        WHY US?
+                    </mat-card-title>
+                    <mat-card-content class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="insideCard">
+                    <mat-icon color="warn" class="icon">more</mat-icon><br>
+                    <mat-card-title class="title">
+                        RELIABLE?
+                    </mat-card-title>
+                    <mat-card-content class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-card class="insideCard">
+                    <mat-icon color="warn" class="icon">spa</mat-icon><br>
+                    <mat-card-title class="title">
+                        ACCURACY?
+                    </mat-card-title>
+                    <mat-card-content class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <p class="start">LET'S GET STARTED
+                    <br><br>
+
+                    <button (click)="scroll(target)" mat-fab color="warn">
+                        <mat-icon>arrow_downward</mat-icon>
+                    </button>
+
+                </p>
+            </mat-grid-tile>
+            <mat-grid-tile>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+</div>
+
+
+<div #target class="container">
 
     <mat-stepper [linear]="true" #stepper id="toggle-linear">
         <mat-step [stepControl]="firstFormGroup">
             <ng-template matStepLabel>Fill out the form</ng-template>
             <div class="symptomsForm">
-                
+
                 <mat-form-field class="example-form" appearance="fill">
                     <mat-label>Birth Year</mat-label>
                     <mat-select [(ngModel)]="selectedYear" required>
                         <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-    
+
                 <mat-form-field appearance="fill" class="example-form">
                     <mat-label>Gender</mat-label>
                     <mat-select [(ngModel)]="selectedGender" required>
@@ -20,7 +79,7 @@
                     </mat-select>
                 </mat-form-field>
 
-    
+
                 <form class="example-form">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Symptoms</mat-label>
@@ -32,8 +91,8 @@
                         </mat-autocomplete>
                     </mat-form-field>
                 </form>
-    
-    
+
+
                 <h4><b>My Symptoms:</b></h4>
                 <mat-card *ngFor="let symptom of selectedSymptoms">
                     {{symptom}}
@@ -41,23 +100,23 @@
                         <mat-icon>close</mat-icon>
                     </button>
                 </mat-card>
-    
+
                 <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
-    
+
                 <button mat-raised-button matStepperNext color="primary" (click)='getResult()' [disabled]="(selectedSymptoms.length == 0) || (selectedGender.length == 0) || (selectedYear.toString().length == 0)">Continue</button>
             </div>
-            
+
         </mat-step>
 
         <mat-step [stepControl]="secondFormGroup">
-            <ng-container *ngIf="showLoader; else second">
-                <!-- <div class="mt-5 text-center">
-                    <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"/>
-                </div> -->
-                
-                <mat-spinner></mat-spinner>
-           </ng-container>
-            <ng-template #second matStepLabel>Check Your Results</ng-template>
+            <ng-template matStepLabel>Check Your Results</ng-template>
+            <ng-container *ngIf="showLoader">
+                <div class="mt-5 text-center">
+                    <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" />
+                </div>
+
+                <!-- <mat-spinner></mat-spinner> -->
+            </ng-container>
             <div class="container2" *ngIf="!showLoader">
                 <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
                     <ng-container matColumnDef="name">
@@ -70,7 +129,7 @@
                 </table>
                 <mat-card class="diagnosis-card" *ngIf="possibleDiagnosis.length != 0">
                     <mat-card-subtitle *ngIf="selectedDiagnosisIndex == 0">Most Possible Diagnosis</mat-card-subtitle>
-                    <mat-card-title class="title"> {{ possibleDiagnosis[selectedDiagnosisIndex].name }}</mat-card-title>
+                    <mat-card-title> {{ possibleDiagnosis[selectedDiagnosisIndex].name }}</mat-card-title>
                     <mat-card-subtitle>%{{ (possibleDiagnosis[selectedDiagnosisIndex].probability* 100).toFixed(2) }}</mat-card-subtitle>
                     <mat-card-content>
                         {{getDescription(possibleDiagnosis[selectedDiagnosisIndex].name)}}
