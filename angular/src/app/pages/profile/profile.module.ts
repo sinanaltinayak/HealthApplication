@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -16,6 +16,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatNativeDateModule} from '@angular/material/core';
 
 // importing classes that is needed for profile page
 
@@ -25,7 +27,7 @@ import {MatRippleModule} from '@angular/material/core';
     ProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-
+    MatGridListModule,
     MatCardModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -36,7 +38,10 @@ import {MatRippleModule} from '@angular/material/core';
     MatDividerModule,
     MatInputModule,
     MatButtonModule,
-    MatRippleModule
+    MatRippleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    
 
 
   ],

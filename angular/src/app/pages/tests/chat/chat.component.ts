@@ -108,6 +108,9 @@ getPatient(){
           fullname: c.payload.doc.data()['fullname'], 
           password: c.payload.doc.data()['password'], 
           role: c.payload.doc.data()['role'], 
+          gender: c.payload.doc.data()['gender'], 
+          birthday: c.payload.doc.data()['birthday'], 
+          phoneNumber: c.payload.doc.data()['phoneNumber'], 
         })
         
         )
@@ -116,7 +119,7 @@ getPatient(){
 
       for (let i = 0; i < data.length; i++) {
         
-        this.allUsers.push(new User(data[i].id, data[i].fullname, data[i].email, data[i].password, data[i].role));
+        this.allUsers.push(new User(data[i].id, data[i].fullname, data[i].email, data[i].password, data[i].role, data[i].gender, data[i].birthday, data[i].phoneNumber));
       }
     }); 
   }
