@@ -6,13 +6,21 @@ import { MonitoringRoutingModule } from './monitoring-routing.module';
 import { MonitoringComponent } from './monitoring.component';
 
 import {MatTabsModule} from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatRippleModule} from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSortModule } from '@angular/material/sort';
+import { MatChipsModule } from '@angular/material/chips';
 // importing classes that is needed for home page
 
 @NgModule({
@@ -20,14 +28,23 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     MonitoringRoutingModule,
     FormsModule,
-
-    MatTabsModule,
-    MatCardModule,
-    MatIconModule,
-    MatDividerModule,
+    MatSortModule,
+    MatChipsModule,
     MatPaginatorModule,
+    MatTabsModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatIconModule,
     MatTableModule,
-    MatButtonModule
+    MatDividerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatMenuModule
   ],
   declarations: [MonitoringComponent]
 })

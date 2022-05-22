@@ -1,83 +1,85 @@
-<div class="container">
-
-    <div class="container2">
-        <h1>MONITORING</h1>
-    </div>
-
-    <mat-tab-group mat-align-tabs="center">
-
-        <mat-tab label="Current Situation">
-            <div class="container2">
-                <mat-card class="example-card">
-                    <mat-card-title class="title">Diabetes</mat-card-title>
-                    <mat-card-content>
-                        The Last Test:
-                    </mat-card-content>
-                    <mat-card-content>
-                        <p><b>Date: </b>01/08/2021</p>
-                        <p><b>Fasting Blood Glucose: </b>120</p>
-                        <p><b>Post Prandial Blood Glucose: </b>140</p>
-                        <p><b>Status: </b>Critical</p>
-                    </mat-card-content>
-    
-                    <mat-card-content>
-    
-                        <p>
-                            <mat-icon aria-hidden="false" aria-label="Example home icon">warning</mat-icon> Your status is critical.</p>
-                        <p>Taking an insulin shot is Recommendation.</p>
-                    </mat-card-content>
-                    <mat-divider inset></mat-divider>
-                    <mat-card-actions>
-                        <button mat-button>New Test</button>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-          
-        </mat-tab>
-        <mat-tab label="Test History">
-            <div class="container2">
-                <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="dataSource" matSort>
-    
-                        <!-- ID Column -->
-                        <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-                        </ng-container>
-    
-                        <!-- Progress Column -->
-                        <ng-container matColumnDef="date">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                            <td mat-cell *matCellDef="let row"> {{row.date}} </td>
-                        </ng-container>
-    
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="fastingBG">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fasting Blood Glucose (mg/dL) </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fastingBG}} </td>
-                        </ng-container>
-    
-                        <!-- Fruit Column -->
-                        <ng-container matColumnDef="postprandialBG">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Post Prandial Blood Glucose (mg/dL) </th>
-                            <td mat-cell *matCellDef="let row"> {{row.postprandialBG}} </td>
-                        </ng-container>
-    
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                            <td mat-cell *matCellDef="let row"> {{row.status}}
-                            </td>
-                        </ng-container>
-    
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-                    </table>
-    
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+<div class="container2">
+    <mat-card>
+        <mat-card-title class="title"> Monitoring Values</mat-card-title>
+        <mat-card-subtitle>Insert your results</mat-card-subtitle>
+        <mat-divider inset></mat-divider>
+        <div class="row">
+            <div class="p-3 py-5">
+                <div class="row mt-2">
+                    <mat-form-field appearance="legacy" style="padding:10px">
+                        <mat-label>High Blood Pressure</mat-label>
+                        <input matInput [(ngModel)]="highBP" type="number">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" style="padding:10px">
+                        <mat-label>Low Blood Pressure</mat-label>
+                        <input matInput [(ngModel)]="lowBP" type="number">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" style="padding:10px">
+                        <mat-label>Temprature</mat-label>
+                        <input matInput [(ngModel)]="temprature" type="number">
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" style="padding:10px">
+                        <mat-label>Blood Sugar Level</mat-label>
+                        <input matInput [(ngModel)]="bloodSugarLevel" type="number">
+                    </mat-form-field>
                 </div>
+
+                <div class="mt-5 text-center"><button mat-raised-button color="primary" type="button" (click)='saveResults()'>Save Changes</button></div>
             </div>
+        </div>
+    </mat-card>
+
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceMonitor" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-chip-list color="primary" aria-label="Fish selection">
+                        <mat-chip color="primary"> {{row.date | date:'dd/MM/yyyy'}}</mat-chip>
+                    </mat-chip-list>
+                </td>
+            </ng-container>  
+
+            <ng-container matColumnDef="highBP">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> High Blood Pressure </th>
+                <td mat-cell *matCellDef="let row"> {{row.highBP}} </td>
+            </ng-container>
             
-        </mat-tab>
-    </mat-tab-group>
+            <ng-container matColumnDef="lowBP">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Low Blood Pressure </th>
+                <td mat-cell *matCellDef="let row"> {{row.lowBP}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="temp">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Temprature </th>
+                <td mat-cell *matCellDef="let row"> {{row.temprature}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sugar">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Blood Sugar Level </th>
+                <td mat-cell *matCellDef="let row"> {{row.bloodSugarLevel}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let row"> 
+                    <button mat-icon-button (click)="removeRow(row, row.eventId)">
+                       <mat-icon>close</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <div style="text-align: center; padding:10px" *ngIf="dataSourceMonitor.data.length == 0">
+            <p>You do not have past values.</p>
+        </div>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
 </div>
