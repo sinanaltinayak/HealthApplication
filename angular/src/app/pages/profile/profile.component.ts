@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-profile',
@@ -7,16 +13,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   years: number[] = Array(71).fill(1).map((_, idx) => 2021 - idx)
-  selectedGender = "";
-  selectedYear = "";
-  selectedCity= "";
-  cities: string[] = ["Adana","Adiyaman","Afyon","Agri","Aksaray","Amasya","Ankara","Antalya","Ardahan","Artvin","Aydin","Balikesir","Bartin","Batman","Bayburt","Bilecik","Bingol","Bitlis","Bolu","Burdur","Bursa","Canakkale","Cankiri","Corum","Denizli","Diyarbakir","Duzce","Edirne","Elazig","Erzincan","Erzurum","Eskisehir","Gaziantep","Giresun","Gumushane","Hakkari","Hatay","Igdir","Isparta","Istanbul","Izmir","Kahramanmaras","Karabuk","Karaman","Kars","Kastamonu","Kayseri","Kilis","Kirikkale","Kirklareli","Kirsehir","Kocaeli","Konya","Kutahya","Malatya","Manisa","Mardin","Mersin","Mugla","Mus","Nevsehir","Nigde","Ordu","Osmaniye","Rize","Sakarya","Samsun","Sanliurfa","Siirt","Sinop","Sirnak","Sivas","Tekirdag","Tokat","Trabzon","Tunceli","Usak","Van","Yalova","Yozgat","Zonguldak"]
-  ;
+  name= "";
+  gender = "";
+  birthday = "";
+  phoneNumber= "";
+  address= "";
+  cities: string[] = ["Adana","Adiyaman","Afyon","Agri","Aksaray","Amasya","Ankara","Antalya","Ardahan","Artvin","Aydin","Balikesir","Bartin","Batman","Bayburt","Bilecik","Bingol","Bitlis","Bolu","Burdur","Bursa","Canakkale","Cankiri","Corum","Denizli","Diyarbakir","Duzce","Edirne","Elazig","Erzincan","Erzurum","Eskisehir","Gaziantep","Giresun","Gumushane","Hakkari","Hatay","Igdir","Isparta","Istanbul","Izmir","Kahramanmaras","Karabuk","Karaman","Kars","Kastamonu","Kayseri","Kilis","Kirikkale","Kirklareli","Kirsehir","Kocaeli","Konya","Kutahya","Malatya","Manisa","Mardin","Mersin","Mugla","Mus","Nevsehir","Nigde","Ordu","Osmaniye","Rize","Sakarya","Samsun","Sanliurfa","Siirt","Sinop","Sirnak","Sivas","Tekirdag","Tokat","Trabzon","Tunceli","Usak","Van","Yalova","Yozgat","Zonguldak"];
+  currentUserName = localStorage.getItem('name') as string;
+  currentUserMail = localStorage.getItem('email') as string;
+  currentUserId = localStorage.getItem('id') as string;
+  currentUser = new Map<string, User>();
+  inputName = this.currentUser.get(this.currentUserId)?.fullname;
+  inputMail = this.currentUser.get(this.currentUserId)?.email;
+  inputGender = this.currentUser.get(this.currentUserId)?.gender;
+  inputBirthday= this.currentUser.get(this.currentUserId)?.birthday;
+  inputPhoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+  date = new FormControl(new Date());
 
 
-  constructor() { }
+  constructor(
+    public _authService: AuthService,
+    public _userService: UserService,
+    private _snackBar: MatSnackBar,
+  ) {
+   
+   }
 
   ngOnInit(): void {
+    this._authService.getUser(this.currentUserId).valueChanges().subscribe(xd => {
+      this.currentUser.set(this.currentUserId, xd!);
+      this.inputName =  Array.from(this.currentUser.values())[0].fullname;
+      this.inputMail =  Array.from(this.currentUser.values())[0].email;
+      this.inputGender = Array.from(this.currentUser.values())[0].gender;
+      this.inputBirthday = Array.from(this.currentUser.values())[0].birthday;
+      this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;
+      
+    });
   }
 
-}
+
+
+  saveChanges(_name: any, _gender: any, _birthday: any, _phoneNumber: any){
+      
+      if(_name == "") {
+        _name = this.currentUser.get(this.currentUserId)?.fullname;
+      }
+      if(_gender == "") {
+        _gender = this.currentUser.get(this.currentUserId)?.gender;
+      }
+      if(_birthday == "") {
+        _birthday = this.currentUser.get(this.currentUserId)?.birthday;
+      }
+      if(_phoneNumber == "") {
+        _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+      }
+      localStorage.setItem('name', _name)
+      
+  
+      this._userService.userRef.doc(this.currentUserId).update({fullname:_name, gender: _gender, birthday: _birthday, phoneNumber: _phoneNumber });
+    
+      this._snackBar.open("Your changes were saved" , "Continue", {
+        horizontalPosition: "right",
+        verticalPosition: "bottom",
+        duration: 5000,
+        panelClass: ['mat-toolbar', 'mat-primary']
+      });
+    }
+     
+     refresh(){
+      window.location.reload();
+     }
+  }
+
+
+

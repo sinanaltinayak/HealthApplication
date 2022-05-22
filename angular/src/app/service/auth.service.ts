@@ -146,7 +146,10 @@ export class AuthService {
           email: email,
           fullname: name,
           password: password,
-          role: 'patient'
+          role: 'patient',
+          gender: '',
+          birthday: '',
+          phoneNumber: ''
         });
       }).catch(err => {
         this.errorInRegister = true;
