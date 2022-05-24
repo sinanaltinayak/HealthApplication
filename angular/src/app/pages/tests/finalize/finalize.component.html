@@ -8,6 +8,7 @@
 <mat-dialog-content class="mat-typography">
 
     <div class="container2">
+
         <table mat-table [dataSource]="symptoms" class="mat-elevation-z8 table symptomsTable">
             <ng-container matColumnDef="name">
                 <mat-header-cell mat-header-cell *matHeaderCellDef> Symptoms </mat-header-cell>
@@ -19,17 +20,7 @@
         </table>
 
 
-        <mat-card class="note-card" *ngIf="possibleDiagnosis.length != 0">
-            <mat-card-title class="title"> Message</mat-card-title>
-            <mat-card-content>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Write something to start the chat</mat-label>
-                    <textarea matInput placeholder="Ex. About your diagnosis..." class="text-area" [(ngModel)]="note"></textarea>
-                </mat-form-field>
-            </mat-card-content>
-        </mat-card>
-
-        <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
+        <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 diagnosisTable">
             <ng-container matColumnDef="name">
                 <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
                 <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> - %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
@@ -38,11 +29,22 @@
             <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumnsDiagnosis; let i = index" (click)="selectedDiagnosisIndex = i"></mat-row>
         </table>
+
+    </div>
+
+    <div class="container3">
+        <h3 class="title">Final Decision: </h3>
+        <mat-form-field class="decision" appearance="fill">
+            <mat-label>Diagnosis</mat-label>
+            <mat-select [(ngModel)]="selectedValue">
+                <mat-option *ngFor="let option of diagnoses" [value]="option">{{option}}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <!-- <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button> -->
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close [disabled]="!note" (click)="chatService.create(getPatientId(), getTestId(), note); updateTest(); ">Start the Chat</button>
+    <button mat-button mat-dialog-close [disabled]="!selectedValue" (click)="updateTest(); ">Finalize the Test</button>
 </mat-dialog-actions>

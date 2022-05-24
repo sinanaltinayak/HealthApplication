@@ -32,13 +32,18 @@
         <input class="input" [(ngModel)]="newMsg" maxlength="120" (keydown.enter)="submit(data.chatID)">
         <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
     </div> -->
-    <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Send a message</mat-label>
-        <textarea [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput></textarea>
-    </mat-form-field>
-    <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
-</mat-dialog-content>
+    <div *ngIf="finalDiagnosis == '' ">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Send a message</mat-label>
+            <textarea [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
+    </div>
 
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Close</button>
-</mat-dialog-actions>
+    <div *ngIf="finalDiagnosis != '' ">
+        <p>This chat is closed.</p>
+    </div>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>

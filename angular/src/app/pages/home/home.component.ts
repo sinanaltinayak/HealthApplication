@@ -122,7 +122,7 @@ export class HomeComponent{
         
         if(localStorage.getItem('role') == "patient"){
           console.log("xd",this.possibleDiagnosis.toString());
-          let newTest = new Test(localStorage.getItem('id')!, "", "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis))
+          let newTest = new Test(localStorage.getItem('id')!, "", "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis), "")
           this._serviceTests.create(newTest);
         }
         this.showLoader = false;

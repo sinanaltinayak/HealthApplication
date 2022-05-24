@@ -3,70 +3,159 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
 <div class="container">
-    <h1 class="title">TEST HISTORY</h1>
-
-    <div>
-        <mat-form-field appearance="standard">
-            <mat-label>
-                <mat-icon>filter_list</mat-icon> Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Allergy" #input>
-        </mat-form-field>
-
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceTests" matSort>
-
-
-                <!-- Date Column -->
-                <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                    <td mat-cell *matCellDef="let row">
-                        <mat-chip-list color="primary" aria-label="Fish selection">
-                            <mat-chip color="primary"> {{row.date | date:'dd/MM/yyyy'}}</mat-chip>
-                        </mat-chip-list>
-                    </td>
-                </ng-container>
-
-                <!-- Symptoms Column -->
-                <ng-container matColumnDef="symptoms">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Symptoms </th>
-                    <td mat-cell *matCellDef="let row"> {{row.symptoms}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="result">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Result </th>
-                    <td mat-cell *matCellDef="let row">
-                        <p *ngFor="let diagnosis of row.result">
-                            {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
-                        </p>
-                    </td>
-                </ng-container>
-
-                <ng-container matColumnDef="note">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Note </th>
-                    <td mat-cell *matCellDef="let row">
-                        <ng-template [ngIf]="row.chatID != '' && row.chatID != undefined && row.chatID != null">
-                            <!-- <a [routerLink]="'../chat/' + row.chatID">
-                                <mat-icon>message</mat-icon>
-                            </a> -->
-                            <mat-icon (click)="openChatDialog(row.chatID, row.id)">message</mat-icon>
-
-                        </ng-template>
-                    </td>
-                </ng-container>
-
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsTests"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumnsTests;"></tr>
-
-            </table>
-            <div *ngIf="dataSourceTests.data.length == 0" class="errorNote">
-                <p>You do not have a past test.</p>
-            </div>
-
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
-
-        </div>
-
+    <div class="container2">
+        <h1 class="title">TEST HISTORY</h1>
     </div>
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Pending Tests">
+            <div class="container2">
+                <mat-form-field appearance="standard">
+                    <mat-label>
+                        <mat-icon>filter_list</mat-icon> Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Allergy" #input>
+                </mat-form-field>
 
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSourcePending" matSort>
+
+
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-chip-list>
+                                    <mat-chip class="pending"> Pending</mat-chip>
+                                </mat-chip-list>
+                            </td>
+                        </ng-container>
+
+                        <!-- Date Column -->
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{row.date | date:'dd/MM/yyyy'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Symptoms Column -->
+                        <ng-container matColumnDef="symptoms">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symptoms </th>
+                            <td mat-cell *matCellDef="let row"> {{row.symptoms}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="result">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Result </th>
+                            <td mat-cell *matCellDef="let row">
+                                <p *ngFor="let diagnosis of row.result">
+                                    {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
+                                </p>
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsPending"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPending;"></tr>
+
+                    </table>
+                    <div *ngIf="dataSourcePending.data.length == 0" class="errorNote">
+                        <p>You do not have a past test.</p>
+                    </div>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
+
+                </div>
+            </div>
+        </mat-tab>
+
+
+        <mat-tab label="Reviewed Tests">
+            <div class="container2">
+                <mat-form-field appearance="standard">
+                    <mat-label>
+                        <mat-icon>filter_list</mat-icon> Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Allergy" #input>
+                </mat-form-field>
+
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSourceReviewed" matSort>
+
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                            <td mat-cell *matCellDef="let row">
+                                <ng-template [ngIf]="row.finalDiagnosis != '' ">
+                                    <mat-chip-list>
+                                        <mat-chip class="finalized"> Finalized</mat-chip>
+                                    </mat-chip-list>
+                                </ng-template>
+                                <ng-template [ngIf]="row.finalDiagnosis == '' ">
+                                    <mat-chip-list>
+                                        <mat-chip class="inProgress"> In Progress</mat-chip>
+                                    </mat-chip-list>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+
+                        <!-- Date Column -->
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{row.date | date:'dd/MM/yyyy'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Symptoms Column -->
+                        <ng-container matColumnDef="symptoms">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symptoms </th>
+                            <td mat-cell *matCellDef="let row"> {{row.symptoms}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="result">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Result </th>
+                            <td mat-cell *matCellDef="let row">
+                                <p *ngFor="let diagnosis of row.result">
+                                    {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
+                                </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="final diagnosis">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Final Diagnosis </th>
+                            <td mat-cell *matCellDef="let row">
+                                <ng-template [ngIf]="row.finalDiagnosis != '' ">
+                                    <p>{{ row.finalDiagnosis }}</p>
+                                </ng-template>
+                                <ng-template [ngIf]="row.finalDiagnosis == '' ">
+                                    <p>-</p>
+                                </ng-template>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="chat">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Chat </th>
+                            <td mat-cell *matCellDef="let row">
+                                <ng-template [ngIf]="row.chatID != '' ">
+                                    <mat-icon color="warn" (click)="openChatDialog(row.chatID, row.id)">message</mat-icon>
+                                </ng-template>
+                                <ng-template [ngIf]="row.chatID == '' ">
+                                    -
+                                </ng-template>
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsReviewed"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsReviewed;"></tr>
+
+                    </table>
+                    <div *ngIf="dataSourceReviewed.data.length == 0" class="errorNote">
+                        <p>You do not have a past test.</p>
+                    </div>
+
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
+
+                </div>
+            </div>
+        </mat-tab>
+
+
+    </mat-tab-group>
 </div>

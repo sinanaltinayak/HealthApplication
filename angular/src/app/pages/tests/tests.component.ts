@@ -12,6 +12,7 @@ import { PatientsService } from 'src/app/service/patients.service';
 import { ChatService } from 'src/app/service/chat.service';
 import { ChatComponent } from './chat/chat.component';
 import { AuthService } from 'src/app/service/auth.service';
+import { FinalizeComponent } from './finalize/finalize.component';
 
 @Component({
   selector: 'app-tests',
@@ -20,10 +21,10 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class TestsComponent implements AfterViewInit {
 
-  displayedColumnsPending: string[] = ['date', 'patient', 'symptoms', 'result', 'actions'];
+  displayedColumnsPending: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
-  displayedColumnsHistory: string[] = ['date', 'patient', 'symptoms', 'result', 'actions'];
+  displayedColumnsHistory: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceHistory: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   
@@ -80,6 +81,14 @@ export class TestsComponent implements AfterViewInit {
     });
   }
 
+  openFinalizeDialog(id: any) {    
+    const dialogRef = this.dialog.open(FinalizeComponent, {
+      width: "20%", 
+      data: {testID: id},
+      hasBackdrop: true,
+    });
+  }
+
   async getPatient(id: string){
     let name: string;
     await this._authService.getUser(id).ref.get().then((doc) => {
@@ -104,5 +113,7 @@ export class TestsComponent implements AfterViewInit {
       hasBackdrop: true,
     });
   }
+
+
 
 }

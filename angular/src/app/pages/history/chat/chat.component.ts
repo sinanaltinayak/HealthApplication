@@ -16,7 +16,7 @@ import { UserService } from 'src/app/service/user.service';
 export class ChatComponent implements OnInit {
 
   allUsers: User[]=[];
-
+  finalDiagnosis!: any;
   newMsg!: string;
 
   userId = localStorage.getItem("id") as string;
@@ -51,6 +51,8 @@ export class ChatComponent implements OnInit {
       this.currentTest.set(this.data.testID, xd!);
       this.getDoctor()
       this.testDate = Array.from(this.currentTest.values())[0].date;
+      this.finalDiagnosis = Array.from(this.currentTest.values())[0].finalDiagnosis;
+
     });
 
     // this.chatService.getChat(this.data.chatID).valueChanges().subscribe(xd => {

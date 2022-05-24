@@ -15,8 +15,11 @@ import { ChatComponent } from './chat/chat.component';
 })
 export class HistoryComponent implements AfterViewInit {
 
-  displayedColumnsTests: string[] = ['date', 'symptoms', 'result', 'note'];
-  dataSourceTests: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+  displayedColumnsPending: string[] = ['status','date', 'symptoms', 'result'];
+  dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+
+  displayedColumnsReviewed: string[] = ['status','date', 'symptoms', 'result', 'final diagnosis', 'chat'];
+  dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -33,32 +36,41 @@ export class HistoryComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    this.dataSourceTests.paginator = this.paginator;
-    this.dataSourceTests.sort = this.sort;
+    this.dataSourcePending.paginator = this.paginator;
+    this.dataSourcePending.sort = this.sort;
     if (this.role == 'patient'){
-      this._testsService.getTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+      this._testsService.getPendingTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
           el.result = this.myapp.parseDiagnosis(el.resultString);
         });
-        this.dataSourceTests.data = data;
+        this.dataSourcePending.data = data;
       });
+
+      this._testsService.getReviewedTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+        data.forEach(el => {
+          el.result = this.myapp.parseDiagnosis(el.resultString);
+        });
+        this.dataSourceReviewed.data = data;
+      });
+      
+
     }
 /*     else {
       this._testsService.getTestsByDoctorId(this.id!).valueChanges().subscribe((data: Test[]) => {
         data.forEach(el => {
           el.result = this.myapp.parseDiagnosis(el.resultString);
         });
-        this.dataSourceTests.data = data;
+        this.dataSourcePending.data = data;
       });      
     } */
     
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceTests.filter = filterValue.trim().toLowerCase();
+    this.dataSourcePending.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSourceTests.paginator) {
-      this.dataSourceTests.paginator.firstPage();
+    if (this.dataSourcePending.paginator) {
+      this.dataSourcePending.paginator.firstPage();
     }
   
   } 

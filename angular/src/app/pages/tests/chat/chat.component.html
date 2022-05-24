@@ -8,21 +8,23 @@
         <div *ngIf="msg">
 
             <div *ngIf="patientID == msg.senderID">
-                <div class="container">
+                <mat-card class="container">
+
                     <img src="../../../../assets/user.png" alt="Avatar" style="width:100%;">
                     <p> <b>{{ getSender(msg.senderID) }}</b> </p>
-                    <p>{{ msg.content }}</p>
+                    <p class="deneme">{{ msg.content }}</p>
                     <span class="time-right">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
-                </div>
+
+                </mat-card>
             </div>
 
             <div *ngIf="userId == msg.senderID">
-                <div class="container darker">
+                <mat-card class="container darker">
                     <img src="../../../../assets/doctor.png" alt="Avatar" class="right" style="width:100%;">
                     <p style="text-align: right"> <b>{{ getSender(msg.senderID) }}</b> </p>
-                    <p style="text-align: right">{{ msg.content }}</p>
+                    <p class="deneme" style="text-align: right">{{ msg.content }}</p>
                     <span class="time-left">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
-                </div>
+                </mat-card>
             </div>
 
         </div>
@@ -32,12 +34,17 @@
         <input class="input" [(ngModel)]="newMsg" maxlength="120" (keydown.enter)="submit(data.chatID)">
         <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
     </div> -->
-    <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Send a message</mat-label>
-        <textarea [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput></textarea>
-    </mat-form-field>
-    <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
+    <div *ngIf="finalDiagnosis == '' ">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Send a message</mat-label>
+            <textarea [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
+    </div>
 
+    <div *ngIf="finalDiagnosis != '' ">
+        <p>This chat is closed.</p>
+    </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

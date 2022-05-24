@@ -20,6 +20,9 @@ import {MatIconModule} from '@angular/material/icon';
 
 
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
+import { FinalizeComponent } from './finalize/finalize.component';
+import {MatSelectModule} from '@angular/material/select';
+
 import { ChatComponent } from './chat/chat.component';
 
 
@@ -42,9 +45,10 @@ import { ChatComponent } from './chat/chat.component';
     MatInputModule,
     MatSortModule,
     MatIconModule,
+    MatSelectModule,
     
 
   ],
-  declarations: [TestsComponent, ConfirmTestComponent, ChatComponent]
+  declarations: [TestsComponent, ConfirmTestComponent, ChatComponent, FinalizeComponent]
 })
 export class TestsModule { }

@@ -68,3 +68,7 @@ mat-dialog-content {
 .example-full-width {
     width: 90%;
 }
+
+.deneme {
+    word-break: break-all;
+}

@@ -1,0 +1,38 @@
+.container2 {
+    display: flex;
+}
+
+.container3 {
+    padding-left: 10px;
+    background-color: #f3e4e4;
+    display: flex;
+    margin-top: 20px;
+}
+
+mat-row {
+    cursor: pointer
+}
+
+.text-area {
+    min-height: 150px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.diagnosisTable {
+    margin-left: 50px;
+}
+
+.title {
+    padding-left: 5px;
+    padding-top: 25px;
+    text-align: center;
+}
+
+.decision {
+    padding-top: 15px;
+    margin-left: 15px;
+}
