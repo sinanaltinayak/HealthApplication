@@ -76,10 +76,10 @@
                     </table>
 
                     <div *ngIf="dataSourcePending.data.length == 0" class="errorNote">
-                        <p>You do not have a pending test.</p>
+                        <p>You do not have any pending tests.</p>
                     </div>
 
-                    <mat-paginator #paginatorHistory [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
+                    <mat-paginator #paginatorPending [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
                 </div>
 
             </div>
@@ -90,10 +90,10 @@
                 <mat-form-field appearance="standard">
                     <mat-label>
                         <mat-icon>filter_list </mat-icon> Filter</mat-label>
-                    <input matInput (keyup)="applyFilter($event, dataSourceHistory)" placeholder="Ex. Allergy" #input>
+                    <input matInput (keyup)="applyFilter($event, dataSourceReviewed)" placeholder="Ex. Allergy" #input>
                 </mat-form-field>
                 <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="dataSourceHistory" matSort>
+                    <table mat-table [dataSource]="dataSourceReviewed" matSort>
 
                         <ng-container matColumnDef="status">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
@@ -147,7 +147,7 @@
                                     <p>{{ row.finalDiagnosis }}</p>
                                 </ng-template>
                                 <ng-template [ngIf]="row.finalDiagnosis == '' ">
-                                    <button mat-raised-button color="" (click)="openFinalizeDialog(row.id)">Finalize</button>
+                                    <button mat-raised-button color="warn" (click)="openFinalizeDialog(row.id)">Finalize</button>
                                 </ng-template>
                             </td>
                         </ng-container>
@@ -164,16 +164,16 @@
 
                             </td>
                         </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsReviewed"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsReviewed;"></tr>
 
                     </table>
 
-                    <div *ngIf="dataSourceHistory.data.length == 0" class="errorNote">
-                        <p>You do not have a reviewed test.</p>
+                    <div *ngIf="dataSourceReviewed.data.length == 0" class="errorNote">
+                        <p>You do not have any reviewed tests.</p>
                     </div>
 
-                    <mat-paginator #paginatorPending [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
+                    <mat-paginator #paginatorReviewed [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
 
                 </div>
 

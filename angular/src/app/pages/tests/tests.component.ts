@@ -24,14 +24,14 @@ export class TestsComponent implements AfterViewInit {
   displayedColumnsPending: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
-  displayedColumnsHistory: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'final diagnosis', 'chat'];
-  dataSourceHistory: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+  displayedColumnsReviewed: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'final diagnosis', 'chat'];
+  dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
-  
-  @ViewChild('paginatorHistory') paginatorHistory!: MatPaginator;
-  @ViewChild(MatSort) sortHistory!: MatSort;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild(MatSort) sortPending!: MatSort;
+  @ViewChild('paginatorReviewed') paginatorReviewed!: MatPaginator;
+  @ViewChild(MatSort) sortReviewed!: MatSort;
+  @ViewChild('tabs', {static: false}) tabs: any;
 
   constructor(public _testsService: TestsService,
     public _authService: AuthService,
@@ -61,13 +61,13 @@ export class TestsComponent implements AfterViewInit {
           el.fullname = d.valueOf();
         });
       });
-      this.dataSourceHistory.data = data;
+      this.dataSourceReviewed.data = data;
     });
 
     this.dataSourcePending.paginator = this.paginatorPending;
     this.dataSourcePending.sort = this.sortPending;
-    this.dataSourceHistory.paginator = this.paginatorHistory;
-    this.dataSourceHistory.sort = this.sortHistory;
+    this.dataSourceReviewed.paginator = this.paginatorReviewed;
+    this.dataSourceReviewed.sort = this.sortReviewed;
 
     //this.currentChat = this.chatService.getTestChat("");
 
