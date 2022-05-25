@@ -28,9 +28,9 @@ export class TestsComponent implements AfterViewInit {
   dataSourceHistory: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   
-  @ViewChild(MatPaginator) paginatorHistory!: MatPaginator;
+  @ViewChild('paginatorHistory') paginatorHistory!: MatPaginator;
   @ViewChild(MatSort) sortHistory!: MatSort;
-  @ViewChild(MatPaginator) paginatorPending!: MatPaginator;
+  @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild(MatSort) sortPending!: MatSort;
 
   constructor(public _testsService: TestsService,

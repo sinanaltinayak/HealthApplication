@@ -79,7 +79,7 @@
                         <p>You do not have a pending test.</p>
                     </div>
 
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
+                    <mat-paginator #paginatorHistory [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
                 </div>
 
             </div>
@@ -173,7 +173,7 @@
                         <p>You do not have a reviewed test.</p>
                     </div>
 
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
+                    <mat-paginator #paginatorPending [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
 
                 </div>
 

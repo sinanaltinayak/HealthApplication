@@ -21,8 +21,11 @@ export class HistoryComponent implements AfterViewInit {
   displayedColumnsReviewed: string[] = ['status','date', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
+  @ViewChild(MatSort) sortPending!: MatSort;
+  @ViewChild('paginatorReviewed') paginatorReviewed!: MatPaginator;
+  @ViewChild(MatSort) sortReviewed!: MatSort;
+  @ViewChild('tabs', {static: false}) tabs: any;
 
   id: string | undefined;
   role: string | undefined;
@@ -34,10 +37,7 @@ export class HistoryComponent implements AfterViewInit {
       this.role = localStorage.getItem('role')!;
      }
 
-  ngAfterViewInit(): void {
-
-    this.dataSourcePending.paginator = this.paginator;
-    this.dataSourcePending.sort = this.sort;
+  ngAfterViewInit(){
     if (this.role == 'patient'){
       this._testsService.getPendingTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
@@ -64,6 +64,11 @@ export class HistoryComponent implements AfterViewInit {
       });      
     } */
     
+
+    this.dataSourcePending.paginator = this.paginatorPending;
+    this.dataSourcePending.sort = this.sortPending;
+    this.dataSourceReviewed.paginator = this.paginatorReviewed;
+    this.dataSourceReviewed.sort = this.sortReviewed;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -81,5 +86,9 @@ export class HistoryComponent implements AfterViewInit {
       data: {chatID: chatId,testID: testId},
       hasBackdrop: true,
     });
+  }
+
+  realignInkBar() {
+    this.tabs.realignInkBar();
   }
 }
