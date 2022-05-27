@@ -22,6 +22,7 @@ export class Message{
     content!: string;
     uid!: string;
     createdAt!: number;
+    unRead: boolean = true;
     
     constructor(content: string, uid: string, createdAt: number) {
         this.content = content;

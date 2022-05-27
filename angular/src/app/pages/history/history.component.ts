@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, HostListener } from '@angular/core';
 import { Test } from 'src/app/models/test';
 import {MatTableDataSource} from '@angular/material/table';
 import { TestsService } from 'src/app/service/tests.service';
@@ -52,17 +52,7 @@ export class HistoryComponent implements AfterViewInit {
         });
         this.dataSourceReviewed.data = data;
       });
-      
-
     }
-/*     else {
-      this._testsService.getTestsByDoctorId(this.id!).valueChanges().subscribe((data: Test[]) => {
-        data.forEach(el => {
-          el.result = this.myapp.parseDiagnosis(el.resultString);
-        });
-        this.dataSourcePending.data = data;
-      });      
-    } */
     
 
     this.dataSourcePending.paginator = this.paginatorPending;
@@ -90,5 +80,9 @@ export class HistoryComponent implements AfterViewInit {
 
   realignInkBar() {
     this.tabs.realignInkBar();
+  }
+
+  readTest(id: string){
+    this._testsService.getTestByID(id).update({unRead: true});
   }
 }

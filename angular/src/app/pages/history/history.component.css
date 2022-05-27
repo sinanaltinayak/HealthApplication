@@ -82,3 +82,7 @@ mat-card {
 .pending {
     background-color: rgb(253, 215, 215);
 }
+
+.read {
+    background-color: #c8e0de !important;
+}

@@ -51,7 +51,7 @@
 
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsPending"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPending;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPending;" (click)="readTest(row.id)" [ngClass]="{'read': row.unRead }"></tr>
 
                     </table>
                     <div *ngIf="dataSourcePending.data.length == 0" class="errorNote">
@@ -139,7 +139,7 @@
 
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsReviewed"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsReviewed;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsReviewed;" (click)="readTest(row.id)" [ngClass]="{'read': row.unRead }"></tr>
 
                     </table>
                     <div *ngIf="dataSourceReviewed.data.length == 0" class="errorNote">

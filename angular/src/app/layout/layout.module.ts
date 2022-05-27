@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 
 import { PageLayoutComponent } from "./page-layout/page-layout.component";
 import { TopbarComponent } from "./topbar/topbar.component";
-
+import {MatBadgeModule} from '@angular/material/badge';
 import { RouterModule } from "@angular/router";
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
         RouterModule.forChild([]),
         MatToolbarModule,
         MatIconModule,
+        MatBadgeModule,
         MatButtonModule,
         MatSnackBarModule,
         MatListModule,

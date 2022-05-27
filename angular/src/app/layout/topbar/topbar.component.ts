@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { PatientsService } from 'src/app/service/patients.service';
@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { DoctorsService } from 'src/app/service/doctors.service';
 import { TestsService } from 'src/app/service/tests.service';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Test } from 'src/app/models/test';
 
 @Component({
   selector: 'app-topbar',
@@ -22,6 +23,7 @@ export class TopbarComponent implements OnInit {
   hidePassword = true;
   forgotMode: boolean = false;
   currentUser: any = localStorage.getItem('name');
+  histNotifCount: number = 0;
 
   @ViewChild('search', {static: false})
   inputElement: ElementRef | undefined;
@@ -38,24 +40,20 @@ export class TopbarComponent implements OnInit {
   signMode:string = "signin";
 
   constructor(
+    public _testsService: TestsService,
     public _authService: AuthService,
     public myapp: AppComponent, 
     private _router: Router) 
   { }
 
   // ngOnInit function is called in launch
-  ngOnInit(): void {
+  async ngOnInit() {
 
-    // const auth = getAuth();
-    // onAuthStateChanged(auth, (user) => {
-    //   if (user) {
-    //     const uid = user.uid;
-    //     this._authService.getUser(uid).valueChanges().subscribe(data=> {
-    //       this.currentUser = data!.fullname;
-    //     });
-    //   } else {
-    //   }
-    // });
+    this.histNotifCount = this.testHistoryNotification();
+
+/*     if (window.location.toString().endsWith("history") == true){
+      this.histNotifCount = 0;
+    } */
 
   }
   loginUser(){
@@ -68,9 +66,6 @@ export class TopbarComponent implements OnInit {
   }
 
   refresh(routerLink: string): void {
-    console.log(window.location.toString());
-    console.log(window.location.toString().endsWith(routerLink));
-    console.log(routerLink);
     if (window.location.toString().endsWith(routerLink) == true){
     window.location.reload();
     }
@@ -116,6 +111,28 @@ menuOpened() {
     },
     1000);
 
+  }
+  
+  testHistoryNotification() {
+/*     if (localStorage.getItem("role")! == 'patient'){
+      this._testsService.getTestsByPatientId(localStorage.getItem("id")!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+        data.forEach(el => { 
+          if(el.unRead == false) {
+            this.histNotifCount++;
+          }
+        });
+      });
+    } */
+    if (localStorage.getItem("role")! == 'patient'){
+      this._testsService.getTestsByPatientId(localStorage.getItem("id")!).get().forEach(d=> {
+        d.docs.forEach(a=> {
+          if(a.data().unRead == true) {
+            this.histNotifCount++;
+          }
+        });
+      });
+    }
+    return this.histNotifCount;
   }
 
 }

@@ -13,6 +13,7 @@
         <mat-icon>rate_review</mat-icon> Review Tests
     </button>
     <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button" routerLink="../history" (click)='refresh("/history")'>
+        <span *ngIf="histNotifCount>0"matBadge="{{histNotifCount}}" matBadgePosition="after" matBadgeColor="accent"></span>
         <mat-icon>history</mat-icon> Test History
     </button>
     <button *ngIf="userType == 'patient'" mat-button aria-label="Monitoring Button" routerLink="../monitoring" (click)='refresh("/monitoring")'>
