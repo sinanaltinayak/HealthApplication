@@ -13,7 +13,7 @@ import { ChatService } from 'src/app/service/chat.service';
 })
 export class FinalizeComponent implements OnInit {
   
-  diagnoses: string[] = ["Fungal infection","Allergy","GERD","Chronic cholestasis","Drug reaction","Peptic ulcer diseae","AIDS","Diabetes","Gastroenteritis","Bronchial asthma","Hypertension","Migraine","Cervical spondylosis","Paralysis(brain hemorrhage)","Jaundice","Malaria","Chicken pox","Dengue","Typhoid","Hepatitis A","Hepatitis B","Hepatitis C","Hepatitis D","Hepatitis E","Alcoholic hepatitis","Tuberculosis","Common cold","Pneumonia","Dimorphic hemmorhoids(piles)","Hearth attack","Varicose veins","Hypothyroidism","Hypoglycemia","Osteoarthristis","Arthritis","(vertigo)  Paroynmsal positional vertigo","Acne","Urinary tract infection","Psoriasis","Impetigo"];
+  diagnoses: string[] = ["Fungal Infection","Allergy","GERD","Chronic Cholestasis","Drug Reaction","Peptic Ulcer Diseae","AIDS","Diabetes","Gastroenteritis","Bronchial Asthma","Hypertension","Migraine","Cervical Spondylosis","Paralysis (Brain Hemorrhage)","Jaundice","Malaria","Chicken Pox","Dengue","Typhoid","Hepatitis A","Hepatitis B","Hepatitis C","Hepatitis D","Hepatitis E","Alcoholic Hepatitis","Tuberculosis","Common Cold","Pneumonia","Dimorphic Hemmorhoids (Piles)","Hearth Attack","Varicose Veins","Hypothyroidism","Hypoglycemia","Osteoarthristis","Arthritis","(Vertigo) Paroynmsal Positional Vertigo","Acne","Urinary Tract Infection","Psoriasis","Impetigo"];
   currentTest = new Map<string, Test>();
   currentPatientName!: string;
   currentDate!: string;

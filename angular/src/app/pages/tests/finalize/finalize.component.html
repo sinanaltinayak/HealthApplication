@@ -9,26 +9,30 @@
 
     <div class="container2">
 
-        <table mat-table [dataSource]="symptoms" class="mat-elevation-z8 table symptomsTable">
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef> Symptoms </mat-header-cell>
-                <mat-cell mat-cell *matCellDef="let element">{{element}}</mat-cell>
-            </ng-container>
+        <div>
+            <table mat-table [dataSource]="symptoms" class="mat-elevation-z8 table symptomsTable">
+                <ng-container matColumnDef="name">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef> Symptoms </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element">{{element}}</mat-cell>
+                </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumnsSymptoms"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsSymptoms"></mat-row>
-        </table>
+                <mat-header-row *matHeaderRowDef="displayedColumnsSymptoms"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumnsSymptoms"></mat-row>
+            </table>
+        </div>
 
 
-        <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 diagnosisTable">
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
-                <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> - %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
-            </ng-container>
+        <div>
+            <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 diagnosisTable">
+                <ng-container matColumnDef="name">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> - %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
+                </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>
-            <mat-row matRipple *matRowDef="let row; columns: displayedColumnsDiagnosis; let i = index" (click)="changeSelectedDiagnosis(row.name)"></mat-row>
-        </table>
+                <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>
+                <mat-row matRipple *matRowDef="let row; columns: displayedColumnsDiagnosis; let i = index" (click)="changeSelectedDiagnosis(row.name)"></mat-row>
+            </table>
+        </div>
 
     </div>
 
