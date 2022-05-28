@@ -9,26 +9,30 @@
 
     <div class="container2">
 
-        <table mat-table [dataSource]="symptoms" class="mat-elevation-z8 table symptomsTable">
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef> Symptoms </mat-header-cell>
-                <mat-cell mat-cell *matCellDef="let element">{{element}}</mat-cell>
-            </ng-container>
+        <div>
+            <table mat-table [dataSource]="symptoms" class="mat-elevation-z8 table symptomsTable">
+                <ng-container matColumnDef="name">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef> Symptoms </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element">{{element}}</mat-cell>
+                </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumnsSymptoms"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsSymptoms; let i = index" (click)="selectedDiagnosisIndex = i"></mat-row>
-        </table>
+                <mat-header-row *matHeaderRowDef="displayedColumnsSymptoms"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumnsSymptoms"></mat-row>
+            </table>
+        </div>
 
 
-        <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 diagnosisTable">
-            <ng-container matColumnDef="name">
-                <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
-                <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> - %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
-            </ng-container>
+        <div>
+            <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 diagnosisTable">
+                <ng-container matColumnDef="name">
+                    <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> - %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
+                </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsDiagnosis; let i = index" (click)="selectedDiagnosisIndex = i"></mat-row>
-        </table>
+                <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>
+                <mat-row matRipple *matRowDef="let row; columns: displayedColumnsDiagnosis; let i = index" (click)="changeSelectedDiagnosis(row.name)"></mat-row>
+            </table>
+        </div>
 
     </div>
 
@@ -36,7 +40,7 @@
         <h3 class="title">Final Decision: </h3>
         <mat-form-field class="decision" appearance="fill">
             <mat-label>Diagnosis</mat-label>
-            <mat-select [(ngModel)]="selectedValue">
+            <mat-select [(ngModel)]="selectedDiagnosis">
                 <mat-option *ngFor="let option of diagnoses" [value]="option">{{option}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -46,5 +50,5 @@
 <mat-dialog-actions align="end">
     <!-- <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button> -->
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close [disabled]="!selectedValue" (click)="updateTest(); ">Finalize the Test</button>
+    <button mat-button mat-dialog-close [disabled]="!selectedDiagnosis" (click)="updateTest(); ">Finalize the Test</button>
 </mat-dialog-actions>

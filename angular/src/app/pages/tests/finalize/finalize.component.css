@@ -1,12 +1,14 @@
 .container2 {
     display: flex;
+    justify-content: center;
 }
 
 .container3 {
     padding-left: 10px;
     background-color: #f3e4e4;
-    display: flex;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 mat-row {
@@ -27,7 +29,6 @@ mat-row {
 }
 
 .title {
-    padding-left: 5px;
     padding-top: 25px;
     text-align: center;
 }
