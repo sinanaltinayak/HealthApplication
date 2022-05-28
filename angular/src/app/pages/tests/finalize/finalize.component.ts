@@ -13,9 +13,8 @@ import { ChatService } from 'src/app/service/chat.service';
 })
 export class FinalizeComponent implements OnInit {
   
-  diagnoses: string[] = ["Adana","Adiyaman","Afyon","Agri","Aksaray","Amasya","Ankara","Antalya","Ardahan","Artvin","Aydin","Balikesir","Bartin","Batman","Bayburt","Bilecik","Bingol","Bitlis","Bolu","Burdur","Bursa","Canakkale","Cankiri","Corum","Denizli","Diyarbakir","Duzce","Edirne","Elazig","Erzincan","Erzurum","Eskisehir","Gaziantep","Giresun","Gumushane","Hakkari","Hatay","Igdir","Isparta","Istanbul","Izmir","Kahramanmaras","Karabuk","Karaman","Kars","Kastamonu","Kayseri","Kilis","Kirikkale","Kirklareli","Kirsehir","Kocaeli","Konya","Kutahya","Malatya","Manisa","Mardin","Mersin","Mugla","Mus","Nevsehir","Nigde","Ordu","Osmaniye","Rize","Sakarya","Samsun","Sanliurfa","Siirt","Sinop","Sirnak","Sivas","Tekirdag","Tokat","Trabzon","Tunceli","Usak","Van","Yalova","Yozgat","Zonguldak"];
+  diagnoses: string[] = ["Fungal infection","Allergy","GERD","Chronic cholestasis","Drug reaction","Peptic ulcer diseae","AIDS","Diabetes","Gastroenteritis","Bronchial asthma","Hypertension","Migraine","Cervical spondylosis","Paralysis(brain hemorrhage)","Jaundice","Malaria","Chicken pox","Dengue","Typhoid","Hepatitis A","Hepatitis B","Hepatitis C","Hepatitis D","Hepatitis E","Alcoholic hepatitis","Tuberculosis","Common cold","Pneumonia","Dimorphic hemmorhoids(piles)","Hearth attack","Varicose veins","Hypothyroidism","Hypoglycemia","Osteoarthristis","Arthritis","(vertigo)  Paroynmsal positional vertigo","Acne","Urinary tract infection","Psoriasis","Impetigo"];
   currentTest = new Map<string, Test>();
-  selectedValue = "";
   currentPatientName!: string;
   currentDate!: string;
 
@@ -27,7 +26,7 @@ export class FinalizeComponent implements OnInit {
   displayedColumnsSymptoms: string[] = ['name'];
   symptoms: string[] = [];
 
-  selectedDiagnosisIndex: number = 0;
+  selectedDiagnosis: string = "";
 
   constructor(
     public dialog: MatDialogModule,
@@ -93,8 +92,13 @@ export class FinalizeComponent implements OnInit {
 
   updateTest(){
     this._testsService.update(this.data.testID, localStorage.getItem('id')!);
-    this._testsService.updateFinalDiagnosis(this.data.testID, this.selectedValue!);
+    this._testsService.updateFinalDiagnosis(this.data.testID, this.selectedDiagnosis!);
 
+  }
+
+  changeSelectedDiagnosis(name: string){
+    this.selectedDiagnosis = name;
+    console.log(name);
   }
 }
 

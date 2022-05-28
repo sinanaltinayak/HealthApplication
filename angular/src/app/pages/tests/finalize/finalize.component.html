@@ -16,7 +16,7 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumnsSymptoms"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsSymptoms; let i = index" (click)="selectedDiagnosisIndex = i"></mat-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsSymptoms"></mat-row>
         </table>
 
 
@@ -27,7 +27,7 @@
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsDiagnosis; let i = index" (click)="selectedDiagnosisIndex = i"></mat-row>
+            <mat-row matRipple *matRowDef="let row; columns: displayedColumnsDiagnosis; let i = index" (click)="changeSelectedDiagnosis(row.name)"></mat-row>
         </table>
 
     </div>
@@ -36,7 +36,7 @@
         <h3 class="title">Final Decision: </h3>
         <mat-form-field class="decision" appearance="fill">
             <mat-label>Diagnosis</mat-label>
-            <mat-select [(ngModel)]="selectedValue">
+            <mat-select [(ngModel)]="selectedDiagnosis">
                 <mat-option *ngFor="let option of diagnoses" [value]="option">{{option}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -46,5 +46,5 @@
 <mat-dialog-actions align="end">
     <!-- <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button> -->
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close [disabled]="!selectedValue" (click)="updateTest(); ">Finalize the Test</button>
+    <button mat-button mat-dialog-close [disabled]="!selectedDiagnosis" (click)="updateTest(); ">Finalize the Test</button>
 </mat-dialog-actions>
