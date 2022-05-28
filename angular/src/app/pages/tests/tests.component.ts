@@ -24,13 +24,13 @@ export class TestsComponent implements AfterViewInit {
   displayedColumnsPending: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
-  displayedColumnsReviewed: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'final diagnosis', 'chat'];
+  displayedColumnsReviewed: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
-  @ViewChild(MatSort) sortPending!: MatSort;
   @ViewChild('paginatorReviewed') paginatorReviewed!: MatPaginator;
-  @ViewChild(MatSort) sortReviewed!: MatSort;
+  @ViewChild('sortPending') sortPending!: MatSort;
+  @ViewChild('sortReviewed') sortReviewed!: MatSort;
   @ViewChild('tabs', {static: false}) tabs: any;
 
   constructor(public _testsService: TestsService,
@@ -52,8 +52,9 @@ export class TestsComponent implements AfterViewInit {
         });
       });
       this.dataSourcePending.data = data;
+      this.dataSourcePending.sort = this.sortPending;
     });
-
+    
     this._testsService.getTestsByDoctorId(localStorage.getItem('id')!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
@@ -62,15 +63,12 @@ export class TestsComponent implements AfterViewInit {
         });
       });
       this.dataSourceReviewed.data = data;
+      this.dataSourceReviewed.sort = this.sortReviewed;
     });
 
     this.dataSourcePending.paginator = this.paginatorPending;
-    this.dataSourcePending.sort = this.sortPending;
     this.dataSourceReviewed.paginator = this.paginatorReviewed;
-    this.dataSourceReviewed.sort = this.sortReviewed;
-
     //this.currentChat = this.chatService.getTestChat("");
-
   }
 
   openConfirmTestDialog(id: any) {    
@@ -115,5 +113,5 @@ export class TestsComponent implements AfterViewInit {
   }
 
 
-
+  
 }
