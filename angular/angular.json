@@ -28,8 +28,7 @@
                         ],
                         "styles": [
                             "src/mytheme.scss",
-                            "src/styles.css",
-                            "node_modules/leaflet/dist/leaflet.css"
+                            "src/styles.css"
                         ],
                         "scripts": []
                     },
@@ -95,15 +94,9 @@
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "src/styles.css",
-                            "./node_modules/leaflet/dist/leaflet.css",
-                            "./node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css",
-                            "./node_modules/leaflet-geosearch/assets/css/leaflet.css",
-                            "./node_modules/leaflet-geosearch/dist/geosearch.css"
+                            "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"
                         ],
-                        "scripts": [
-                            "./node_modules/esri-leaflet/dist/esri-leaflet.js",
-                            "./node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.js"
-                        ]
+                        "scripts": []
                     }
                 },
                 "deploy": {
