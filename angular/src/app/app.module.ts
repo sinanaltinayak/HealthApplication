@@ -17,6 +17,7 @@ import { LayoutModule } from './layout/layout.module';
 import { TestsModule } from './pages/tests/tests.module';
 import { HistoryModule } from './pages/history/history.module';
 import { ProfileModule } from './pages/profile/profile.module';
+import { MapModule } from './pages/map/map.module';
 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
@@ -38,7 +39,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { Patient } from './models/patient';
 import { Doctor } from './models/doctor';
-import { Test } from './models/test';
 
 const routes: Routes = [
   {
@@ -68,6 +68,7 @@ const routes: Routes = [
     TestsModule,
     HistoryModule,
     ProfileModule,
+    MapModule,
     
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
