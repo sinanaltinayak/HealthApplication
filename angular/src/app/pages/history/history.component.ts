@@ -103,5 +103,8 @@ export class HistoryComponent implements AfterViewInit {
     else {
       return false;
     }
-  }
+}
+parseSymptoms(symptoms: string) : string{
+  return symptoms.replace(",",", ");
+}
 }

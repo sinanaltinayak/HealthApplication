@@ -91,7 +91,7 @@ export class TestsComponent implements AfterViewInit {
 
   openFinalizeDialog(id: any) {    
     const dialogRef = this.dialog.open(FinalizeComponent, {
-      width: "20%", 
+      width: "30%", 
       data: {testID: id},
       hasBackdrop: true,
     });
@@ -131,5 +131,9 @@ export class TestsComponent implements AfterViewInit {
       return false;
     }
   }
+  parseSymptoms(symptoms: string) : string{
+    return symptoms.replace(",",", ");
+  }
+
   
 }

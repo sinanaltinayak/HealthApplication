@@ -9,21 +9,27 @@
 
             <div *ngIf="patientID == msg.senderID">
                 <mat-card class="container">
-
-                    <img src="../../../../assets/user.png" alt="Avatar" style="width:100%;">
-                    <p> <b>{{ getSender(msg.senderID) }}</b> </p>
-                    <p class="deneme">{{ msg.content }}</p>
-                    <span class="time-right">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
-
+                    <div class="container-photo">
+                        <img src="../../../../assets/user.png" alt="Avatar" style="width:100%;">
+                    </div>
+                    <div class="container-text">
+                        <p> <b>{{ getSender(msg.senderID) }}</b> </p>
+                        <p class="deneme">{{ msg.content }}</p>
+                        <span class="time-right">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
+                    </div>
                 </mat-card>
             </div>
 
             <div *ngIf="userId == msg.senderID">
                 <mat-card class="container darker">
-                    <img src="../../../../assets/doctor.png" alt="Avatar" class="right" style="width:100%;">
-                    <p style="text-align: right"> <b>{{ getSender(msg.senderID) }}</b> </p>
-                    <p class="deneme" style="text-align: right">{{ msg.content }}</p>
-                    <span class="time-left">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
+                    <div class="container-text">
+                        <p style="text-align: right"> <b>{{ getSender(msg.senderID) }}</b> </p>
+                        <p class="deneme" style="text-align: right">{{ msg.content }}</p>
+                        <span class="time-left">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
+                    </div>
+                    <div class="container-photo">
+                        <img src="../../../../assets/doctor.png" alt="Avatar" class="right" style="width:100%; display:block">
+                    </div>
                 </mat-card>
             </div>
 
