@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TestsRoutingModule } from './tests-routing.module';
 import { TestsComponent } from './tests.component';
@@ -22,8 +22,10 @@ import {MatIconModule} from '@angular/material/icon';
 import { ConfirmTestComponent } from './confirm-test/confirm-test.component';
 import { FinalizeComponent } from './finalize/finalize.component';
 import {MatSelectModule} from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { ChatComponent } from './chat/chat.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 // importing classes that is needed for home page
@@ -33,8 +35,10 @@ import { ChatComponent } from './chat/chat.component';
     CommonModule,
     TestsRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     MatChipsModule,
     MatTabsModule,
+    MatBadgeModule,
     MatDividerModule,
     MatCardModule,
     MatButtonModule,
@@ -46,7 +50,7 @@ import { ChatComponent } from './chat/chat.component';
     MatSortModule,
     MatIconModule,
     MatSelectModule,
-    
+    MatAutocompleteModule
 
   ],
   declarations: [TestsComponent, ConfirmTestComponent, ChatComponent, FinalizeComponent]

@@ -32,7 +32,9 @@ export class TestsService {
   getTestsByDoctorId(id: string): AngularFirestoreCollection<Test> {
     return this.db.collection('tests', ref => ref.where('doctorID', '==', id));
   }
-
+  getTestsByPatientId(id: string) : AngularFirestoreCollection<Test>{
+    return this.db.collection('tests', ref => ref.where('patientID', '==', id));
+  }
   getPendingTestsByPatientId(id: string): AngularFirestoreCollection<Test> {
     return this.db.collection('tests', ref => ref.where('patientID', '==', id).where('doctorID', '==', ''));
   }

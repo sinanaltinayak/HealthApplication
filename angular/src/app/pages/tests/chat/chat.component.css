@@ -29,6 +29,17 @@ mat-dialog-content {
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.container-photo{
+    min-width: 60px;
+}
+
+.container-text{
+    padding-right: 10px;
 }
 
 .darker {

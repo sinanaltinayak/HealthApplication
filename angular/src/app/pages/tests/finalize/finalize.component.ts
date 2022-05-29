@@ -6,6 +6,7 @@ import { Diagnosis } from 'src/app/models/diagnosis';
 import { PatientsService } from 'src/app/service/patients.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { ChatService } from 'src/app/service/chat.service';
+import {FormControl} from '@angular/forms';
 @Component({
   selector: 'app-finalize',
   templateUrl: './finalize.component.html',
@@ -13,6 +14,8 @@ import { ChatService } from 'src/app/service/chat.service';
 })
 export class FinalizeComponent implements OnInit {
   
+  myControl = new FormControl();
+
   diagnoses: string[] = ["Fungal Infection","Allergy","GERD","Chronic Cholestasis","Drug Reaction","Peptic Ulcer Diseae","AIDS","Diabetes","Gastroenteritis","Bronchial Asthma","Hypertension","Migraine","Cervical Spondylosis","Paralysis (Brain Hemorrhage)","Jaundice","Malaria","Chicken Pox","Dengue","Typhoid","Hepatitis A","Hepatitis B","Hepatitis C","Hepatitis D","Hepatitis E","Alcoholic Hepatitis","Tuberculosis","Common Cold","Pneumonia","Dimorphic Hemmorhoids (Piles)","Hearth Attack","Varicose Veins","Hypothyroidism","Hypoglycemia","Osteoarthristis","Arthritis","(Vertigo) Paroynmsal Positional Vertigo","Acne","Urinary Tract Infection","Psoriasis","Impetigo"];
   currentTest = new Map<string, Test>();
   currentPatientName!: string;
@@ -92,13 +95,14 @@ export class FinalizeComponent implements OnInit {
 
   updateTest(){
     this._testsService.update(this.data.testID, localStorage.getItem('id')!);
+/*     this._testsService.updateFinalDiagnosis(this.data.testID, this.selectedValue!); */
+    this._testsService.getTestByID(this.data.testID).update({unRead : true});
     this._testsService.updateFinalDiagnosis(this.data.testID, this.selectedDiagnosis!);
 
   }
 
   changeSelectedDiagnosis(name: string){
     this.selectedDiagnosis = name;
-    console.log(name);
   }
 }
 

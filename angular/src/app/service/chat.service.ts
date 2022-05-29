@@ -5,8 +5,6 @@ import { combineLatest, map, Observable, of, switchMap, take } from 'rxjs';
 import { AuthService } from './auth.service';
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { UserService } from './user.service';
-import { User } from '../models/user';
 import { Chat } from '../models/chat';
 
 @Injectable({
@@ -16,7 +14,6 @@ export class ChatService {
   private dbPath = '/chats';
   authState: any = null;
   uids: string[] = [];
-  allUsers: User[]= [];
   chatRef: AngularFirestoreCollection<Chat>;
 
   constructor(
@@ -33,11 +30,11 @@ export class ChatService {
 
 
 
-   getUserIds(){
+   getPatientIds(){
     let uids: string[] = [];
 
-    // Unique User IDs
-    this.afs.collection('user_roles')
+    // Unique Patient IDs
+    this.afs.collection('Patient_roles')
     .get()
     .subscribe((snapshot) =>{
       snapshot.forEach( async doc => {
@@ -60,19 +57,12 @@ export class ChatService {
     return this.chatRef;
   }
 
-  getUserChats(id: string) {
-        return this.afs
-          .collection('chats', ref => ref.where('uid', '==', id))
-          .snapshotChanges()
-          .pipe(
-            map(actions => {
-              return actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, data };
-              });
-            })
-          );
+  getPatientChats(id: string): AngularFirestoreCollection<Chat> {
+    return this.afs.collection('chats', ref => ref.where('patientID', '==', id));
+  }
+
+  getDoctorChats(id: string): AngularFirestoreCollection<Chat> {
+    return this.afs.collection('chats', ref => ref.where('doctorID', '==', id));
   }
 
   getTestChat(id: string) {
@@ -100,7 +90,8 @@ export class ChatService {
       testID,
       createdAt: Date.now(),
       count: 0,
-      messages: []
+      messages: [],
+      unRead: true
     };
 
     const messageData = {
@@ -152,14 +143,14 @@ export class ChatService {
     }
   }
 
-  async deleteMessage(chatId: string, userId: string, msg: any) {
+  async deleteMessage(chatId: string, PatientId: string, msg: any) {
     const uid = localStorage.getItem("id");
 
     const ref = this.afs.collection('chats').doc(chatId);
     console.log(msg);
-    if (userId === uid || msg.uid === uid) {
+    if (PatientId === uid || msg.uid === uid) {
       // Allowed to delete
-      delete msg.user;
+      delete msg.Patient;
 
     //   const chatnRef = doc(this.db, "chats", "messages");
     //   await updateDoc(chatnRef, {

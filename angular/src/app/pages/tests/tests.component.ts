@@ -26,7 +26,7 @@ export class TestsComponent implements AfterViewInit {
 
   displayedColumnsReviewed: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-
+  chats!: Map<String, boolean>;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild('paginatorReviewed') paginatorReviewed!: MatPaginator;
   @ViewChild('sortPending') sortPending!: MatSort;
@@ -44,6 +44,16 @@ export class TestsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    let map = new Map();
+    this.chatService.getDoctorChats(localStorage.getItem("id")!).get().subscribe(data => {
+      data.forEach(fr=> {
+        if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
+          map.set(fr.id, fr.data().unRead);
+        }
+      });
+    });
+    this.chats = map;
+    console.log(this.chats)
     this._testsService.getPendingTests().valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
@@ -110,8 +120,24 @@ export class TestsComponent implements AfterViewInit {
       data: {chatID: chatId,testID: testId},
       hasBackdrop: true,
     });
+    this.chatService.getChat(chatId).get().forEach(f=> {
+      if(f.data()?.messages.pop()?.senderID != localStorage.getItem("id")){
+        this.chatService.getChat(chatId).update({unRead : false});
+      }
+    });
   }
 
+  isChatUnread(id : string){
+    if(this.chats.get(id) == true){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  parseSymptoms(symptoms: string) : string{
+    return symptoms.replace(",",", ");
+  }
 
   
 }

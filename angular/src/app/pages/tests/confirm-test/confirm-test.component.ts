@@ -93,6 +93,7 @@ export class ConfirmTestComponent implements OnInit {
 
   updateTest(){
     this._testsService.update(this.data.testID, localStorage.getItem('id')!);
+    this._testsService.getTestByID(this.data.testID).update({unRead : true});
   }
 }
 

@@ -6,7 +6,6 @@
 
 
 <mat-dialog-content class="mat-typography">
-
     <div class="container2">
 
         <div>
@@ -38,17 +37,23 @@
 
     <div class="container3">
         <h3 class="title">Final Decision: </h3>
-        <mat-form-field class="decision" appearance="fill">
-            <mat-label>Diagnosis</mat-label>
-            <mat-select [(ngModel)]="selectedDiagnosis">
-                <mat-option *ngFor="let option of diagnoses" [value]="option">{{option}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field class="decision" appearance="fill">
+                <mat-label>Diagnosis</mat-label>
+                <!-- <mat-select [(ngModel)]="selectedDiagnosis">
+                    <mat-option *ngFor="let option of diagnoses" [value]="option">{{option}}</mat-option>
+                </mat-select> -->
+                <input type="text" [(ngModel)]="selectedDiagnosis" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #diagnosisInput>
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of diagnoses" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
     </div>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <!-- <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button> -->
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close [disabled]="!selectedDiagnosis" (click)="updateTest(); ">Finalize the Test</button>
+    <button mat-button mat-dialog-close [disabled]="!diagnoses.includes(selectedDiagnosis)" (click)="updateTest(); ">Finalize the Test</button>
 </mat-dialog-actions>
