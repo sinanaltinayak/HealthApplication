@@ -25,7 +25,6 @@ export class TopbarComponent implements OnInit {
   forgotMode: boolean = false;
   currentUser: any = localStorage.getItem('name');
   histNotifCount: number = 0;
-
   @ViewChild('search', {static: false})
   inputElement: ElementRef | undefined;
 
@@ -53,9 +52,6 @@ export class TopbarComponent implements OnInit {
 
     this.histNotifCount = this.testHistoryNotification();
 
-/*     if (window.location.toString().endsWith("history") == true){
-      this.histNotifCount = 0;
-    } */
 
   }
   loginUser(){
@@ -133,10 +129,11 @@ menuOpened() {
           }
         });
       });
-      this._chatService.getPatientChats(localStorage.getItem("id")!).valueChanges({idField: 'id'}).subscribe(data => {
+      this._chatService.getPatientChats(localStorage.getItem("id")!).get().forEach(data => {
         data.forEach(fr=> {
-          if(localStorage.getItem("id") != fr.messages.pop()?.senderID){
-            if(fr.unRead == true){
+          console.log(fr.id, fr.data().messages.pop()?.senderID, fr.data().unRead)
+          if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
+            if(fr.data().unRead == true){
               this.histNotifCount++;
             }
           }
@@ -144,10 +141,11 @@ menuOpened() {
       });
     }
     if(localStorage.getItem("role")! == "doctor"){
-      this._chatService.getDoctorChats(localStorage.getItem("id")!).valueChanges({idField: 'id'}).subscribe(data => {
+      this._chatService.getDoctorChats(localStorage.getItem("id")!).get().forEach(data => {
         data.forEach(fr=> {
-          if(localStorage.getItem("id") != fr.messages.pop()?.senderID){
-            if(fr.unRead == true){
+          console.log(fr.id, fr.data().messages.pop()?.senderID, fr.data().unRead)
+          if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
+            if(fr.data().unRead == true){
               this.histNotifCount++;
             }
           }

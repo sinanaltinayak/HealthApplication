@@ -41,10 +41,10 @@ export class HistoryComponent implements AfterViewInit {
   ngAfterViewInit(){
 
     let map = new Map();
-    this._chatService.getPatientChats(localStorage.getItem("id")!).valueChanges({idField: 'id'}).subscribe(data => {
+    this._chatService.getPatientChats(localStorage.getItem("id")!).get().subscribe(data => {
       data.forEach(fr=> {
-        if(localStorage.getItem("id") != fr.messages.pop()?.senderID){
-          map.set(fr.id, fr.unRead);
+        if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
+          map.set(fr.id, fr.data().unRead);
         }
       });
     });
@@ -86,7 +86,11 @@ export class HistoryComponent implements AfterViewInit {
       data: {chatID: chatId,testID: testId},
       hasBackdrop: true,
     });
-    this._chatService.getChat(chatId).update({unRead : false});
+    this._chatService.getChat(chatId).get().forEach(f=> {
+      if(f.data()?.messages.pop()?.senderID != localStorage.getItem("id")){
+        this._chatService.getChat(chatId).update({unRead : false});
+      }
+    });
   }
 
   realignInkBar() {

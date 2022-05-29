@@ -45,10 +45,10 @@ export class TestsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     let map = new Map();
-    this.chatService.getDoctorChats(localStorage.getItem("id")!).valueChanges({idField: 'id'}).subscribe(data => {
+    this.chatService.getDoctorChats(localStorage.getItem("id")!).get().subscribe(data => {
       data.forEach(fr=> {
-        if(localStorage.getItem("id") != fr.messages.pop()?.senderID){
-          map.set(fr.id, fr.unRead);
+        if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
+          map.set(fr.id, fr.data().unRead);
         }
       });
     });
@@ -120,7 +120,11 @@ export class TestsComponent implements AfterViewInit {
       data: {chatID: chatId,testID: testId},
       hasBackdrop: true,
     });
-    this.chatService.getChat(chatId).update({unRead : false});
+    this.chatService.getChat(chatId).get().forEach(f=> {
+      if(f.data()?.messages.pop()?.senderID != localStorage.getItem("id")){
+        this.chatService.getChat(chatId).update({unRead : false});
+      }
+    });
   }
 
   isChatUnread(id : string){
