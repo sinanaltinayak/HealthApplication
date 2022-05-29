@@ -24,6 +24,7 @@ import { FinalizeComponent } from './finalize/finalize.component';
 import {MatSelectModule} from '@angular/material/select';
 
 import { ChatComponent } from './chat/chat.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 // importing classes that is needed for home page
@@ -35,6 +36,7 @@ import { ChatComponent } from './chat/chat.component';
     FormsModule,
     MatChipsModule,
     MatTabsModule,
+    MatBadgeModule,
     MatDividerModule,
     MatCardModule,
     MatButtonModule,

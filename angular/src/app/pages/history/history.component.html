@@ -129,6 +129,7 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Chat </th>
                             <td mat-cell *matCellDef="let row">
                                 <ng-template [ngIf]="row.chatID != '' ">
+                                    <span *ngIf="isChatUnread(row.chatID)" matBadge="*" matBadgePosition="after" matBadgeColor="accent"></span>
                                     <mat-icon color="warn" (click)="openChatDialog(row.chatID, row.id)">message</mat-icon>
                                 </ng-template>
                                 <ng-template [ngIf]="row.chatID == '' ">

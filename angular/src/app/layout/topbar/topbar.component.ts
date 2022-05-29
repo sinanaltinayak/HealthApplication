@@ -7,6 +7,7 @@ import { DoctorsService } from 'src/app/service/doctors.service';
 import { TestsService } from 'src/app/service/tests.service';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Test } from 'src/app/models/test';
+import { ChatService } from 'src/app/service/chat.service';
 
 @Component({
   selector: 'app-topbar',
@@ -41,6 +42,7 @@ export class TopbarComponent implements OnInit {
 
   constructor(
     public _testsService: TestsService,
+    public _chatService: ChatService,
     public _authService: AuthService,
     public myapp: AppComponent, 
     private _router: Router) 
@@ -128,6 +130,26 @@ menuOpened() {
         d.docs.forEach(a=> {
           if(a.data().unRead == true) {
             this.histNotifCount++;
+          }
+        });
+      });
+      this._chatService.getPatientChats(localStorage.getItem("id")!).valueChanges({idField: 'id'}).subscribe(data => {
+        data.forEach(fr=> {
+          if(localStorage.getItem("id") != fr.messages.pop()?.senderID){
+            if(fr.unRead == true){
+              this.histNotifCount++;
+            }
+          }
+        });
+      });
+    }
+    if(localStorage.getItem("role")! == "doctor"){
+      this._chatService.getDoctorChats(localStorage.getItem("id")!).valueChanges({idField: 'id'}).subscribe(data => {
+        data.forEach(fr=> {
+          if(localStorage.getItem("id") != fr.messages.pop()?.senderID){
+            if(fr.unRead == true){
+              this.histNotifCount++;
+            }
           }
         });
       });

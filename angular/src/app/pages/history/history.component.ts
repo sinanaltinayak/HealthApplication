@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, HostListener } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, HostListener, OnInit } from '@angular/core';
 import { Test } from 'src/app/models/test';
 import {MatTableDataSource} from '@angular/material/table';
 import { TestsService } from 'src/app/service/tests.service';
@@ -7,6 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import { AppComponent } from 'src/app/app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatComponent } from './chat/chat.component';
+import { ChatService } from 'src/app/service/chat.service';
 
 @Component({
   selector: 'app-history',
@@ -17,10 +18,9 @@ export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['status','date', 'symptoms', 'result'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-
   displayedColumnsReviewed: string[] = ['status','date', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-
+  chats!: Map<String, boolean>;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild(MatSort) sortPending!: MatSort;
   @ViewChild('paginatorReviewed') paginatorReviewed!: MatPaginator;
@@ -31,13 +31,24 @@ export class HistoryComponent implements AfterViewInit {
   role: string | undefined;
   
   constructor(public _testsService: TestsService,
+    public _chatService: ChatService,
     public dialog: MatDialog,
     public myapp: AppComponent) {
       this.id = localStorage.getItem('id')!;
       this.role = localStorage.getItem('role')!;
-     }
+  }
 
   ngAfterViewInit(){
+
+    let map = new Map();
+    this._chatService.getPatientChats(localStorage.getItem("id")!).valueChanges({idField: 'id'}).subscribe(data => {
+      data.forEach(fr=> {
+        if(localStorage.getItem("id") != fr.messages.pop()?.senderID){
+          map.set(fr.id, fr.unRead);
+        }
+      });
+    });
+    this.chats = map;
     if (this.role == 'patient'){
       this._testsService.getPendingTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
@@ -54,7 +65,6 @@ export class HistoryComponent implements AfterViewInit {
       });
     }
     
-
     this.dataSourcePending.paginator = this.paginatorPending;
     this.dataSourcePending.sort = this.sortPending;
     this.dataSourceReviewed.paginator = this.paginatorReviewed;
@@ -76,6 +86,7 @@ export class HistoryComponent implements AfterViewInit {
       data: {chatID: chatId,testID: testId},
       hasBackdrop: true,
     });
+    this._chatService.getChat(chatId).update({unRead : false});
   }
 
   realignInkBar() {
@@ -83,6 +94,14 @@ export class HistoryComponent implements AfterViewInit {
   }
 
   readTest(id: string){
-    this._testsService.getTestByID(id).update({unRead: true});
+    this._testsService.getTestByID(id).update({unRead: false});
+  }
+  isChatUnread(id : string){
+    if(this.chats.get(id) == true){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

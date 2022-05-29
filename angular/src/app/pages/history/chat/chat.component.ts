@@ -87,7 +87,8 @@ getDoctor(){
     this.newMsg = '';
     this.scrollBottom();
     this.getChat();
-    this.testService.getTestByID(this.data.testID).update({unRead : true});
+    /* this.testService.getTestByID(this.data.testID).update({unRead : true}); */
+    this.chatService.getChat(chatId).update({unRead : true});
   }
 
   delete(cid: string, uid: string, msg: string){

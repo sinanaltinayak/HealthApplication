@@ -6,6 +6,7 @@ export class Chat{
     senderID!: string;
     receiverID!: string;
     testID!: string;
+    unRead: boolean = true;
 
     constructor(id: string, count: number, createdAt: number, messages: Message[], senderID: string, receiverID: string, testID: string) {
         this.count = count;
@@ -20,13 +21,12 @@ export class Chat{
 
 export class Message{
     content!: string;
-    uid!: string;
+    senderID!: string;
     createdAt!: number;
-    unRead: boolean = true;
     
-    constructor(content: string, uid: string, createdAt: number) {
+    constructor(content: string, senderID: string, createdAt: number) {
         this.content = content;
-        this.uid = uid;
+        this.senderID = senderID;
         this.createdAt = createdAt;
     }
 }
