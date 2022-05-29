@@ -112,6 +112,9 @@ export class TestsComponent implements AfterViewInit {
     });
   }
 
+  parseSymptoms(symptoms: string) : string{
+    return symptoms.replace(",",", ");
+  }
 
   
 }

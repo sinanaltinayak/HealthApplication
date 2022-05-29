@@ -91,4 +91,8 @@ export class HistoryComponent implements AfterViewInit {
   realignInkBar() {
     this.tabs.realignInkBar();
   }
+
+  parseSymptoms(symptoms: string) : string{
+    return symptoms.replace(",",", ");
+  }
 }
