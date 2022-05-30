@@ -20,6 +20,9 @@
     <button *ngIf="userType == 'patient'" mat-button aria-label="Monitoring Button" routerLink="../monitoring" (click)='refresh("/monitoring")'>
         <mat-icon>tv</mat-icon> Monitoring
     </button>
+    <button *ngIf="userType == 'patient'" mat-button aria-label="Map Button" routerLink="../map" (click)='refresh("/map"); openSnackBar()'>
+        <mat-icon>map</mat-icon> Map
+    </button>
     <div>
         <ul class="nav nav-pills flex-column mb-auto">
             <div *ngIf="userType=='default'; then login; else logout"></div>
@@ -41,10 +44,10 @@
                                     <input matInput [(ngModel)]="password" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" #passInput="ngModel" minlength="6" [type]="hidePassword ? 'password' : 'text'" required tabindex="2">
                                     <mat-error>{{passwordErrorMessage}}</mat-error>
                                     <button tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>                        
+                              <mat-icon>{{hidePassword ? 'visibility_off ' : 'visibility '}}</mat-icon>                        
                             </button>
                                 </mat-form-field>
-                                <button tabindex="3" mat-raised-button color="primary" (click)='loginUser()' [disabled]="!email || !password || emailInput.errors || passInput.errors">Log In</button>
+                                <button tabindex="3" mat-raised-button color="primary" (click)='loginUser() ' [disabled]="!email || !password || emailInput.errors || passInput.errors">Log In</button>
                                 <button tabindex="4" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Don't you have an account? Sign Up</button>
                                 <button tabindex="5" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = true;signMode = '';">Forgot Password</button>
                             </div>

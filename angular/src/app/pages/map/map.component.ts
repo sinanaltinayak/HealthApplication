@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as mapboxgl from 'mapbox-gl';
-import { environment } from 'src/environments/environment.prod';
-import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Loader } from '@googlemaps/js-api-loader';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -9,63 +8,64 @@ import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 })
 export class MapComponent implements OnInit {
 
-  constructor() { }
+  constructor(public snackBar: MatSnackBar) { }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(MapComponent, {
+      duration: 500,
+    });
+  }
 
   ngOnInit(): void {
-    (mapboxgl as any).accessToken = environment.mapboxKey;
+    this.initMap();
+}
+
+initMap(): void {
+  let loader =new Loader({
+    apiKey: 'AIzaSyAFRms9o-1WMDcaOXa58C7AYpfbsuoJ8pM&libraries=places'
+  })
+
+  loader.load().then(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: any) => {
-          const map = new mapboxgl.Map({
-            container: 'map', // Container ID
-            style: 'mapbox://styles/mapbox/streets-v11', // Map style to use
-            center: [position.coords.longitude+0.001, position.coords.latitude-0.01], // Starting position [lng, lat]
-            zoom: 14, // Starting zoom level
-          });
+        const currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        const map = new google.maps.Map(
+          document.getElementById("map") as HTMLElement,
+          {
+            zoom: 13,
+            center: currentLocation,
+          }
+        );
 
-          const marker1 = new mapboxgl.Marker()
-          .setLngLat([position.coords.longitude, position.coords.latitude])
-          .addTo(map);
- 
-          const geocoder = new MapboxGeocoder({
-            // Initialize the geocoder
-            accessToken: mapboxgl.accessToken, // Set the access token
-            marker: false, // Do not use the default marker style
-            placeholder: 'Search for places in your area',
-            bbox: [position.coords.longitude - 0.02, position.coords.latitude - 0.02, position.coords.longitude + 0.02, position.coords.latitude + 0.02], // Boundary for Berkeley
-            proximity: {
-              longitude: position.coords.longitude,
-              latitude: position.coords.latitude
-            } // Coordinates of UC Berkeley
-          });
-          
-          // Add the geocoder to the map
-          map.addControl(geocoder);
+        var request = {
+          location: currentLocation,
+          radius: 3000,
+          type: 'hospital',
+          keyword: "(emergency) AND ((medical centre) OR hospital) OR (24 hours)",
+        };
 
-          map.on('load', () => {
-            map.addSource('single-point', {
-              type: 'geojson',
-              data: {
-                type: 'FeatureCollection',
-                features: []
-              }
-            });
-          
-            map.addLayer({
-              id: 'point',
-              source: 'single-point',
-              type: 'circle',
-              paint: {
-                'circle-radius': 10,
-                'circle-color': '#448ee4'
-              }
-            });
-            geocoder.on('result', (event) => {
-              const source: mapboxgl.GeoJSONSource = map.getSource('single-point') as mapboxgl.GeoJSONSource
-              source.setData(event.result.geometry);
-            });
-          
-      });
-      })
-    }
- }
+        let service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, (results: any, status: any) => {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+              if (!results[i].geometry || !results[i].geometry.location) return;
+            
+              const marker = new google.maps.Marker({
+                map,
+                position: results[i].geometry.location,
+                icon: '../../../assets/flag.png',
+              });
+            }
+          }
+        });
+
+        const marker = new google.maps.Marker({
+          position: currentLocation,
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+        });
+      })}
+})
+}
 }

@@ -49,11 +49,9 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   async ngOnInit() {
-
     this.histNotifCount = this.testHistoryNotification();
-
-
   }
+
   loginUser(){
     this._authService.login(this.email, this.password);
   }
@@ -153,6 +151,10 @@ menuOpened() {
       });
     }
     return this.histNotifCount;
+  }
+
+  openSnackBar() {
+    this.myapp.openSnackBar("Flags indicate nearby hospitals around your location.", "Continue");    
   }
 
 }

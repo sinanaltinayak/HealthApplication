@@ -9,5 +9,4 @@ export const environment = {
     messagingSenderId: '713297027048',
   },
   production: true,
-  mapboxKey: "pk.eyJ1IjoidHlhczEyMyIsImEiOiJjbDNvdWFubGEwbzFqM21zNmg5YmVnOTlrIn0.kw7k5ucPuxwmlg2L2EZnuA",
 };
