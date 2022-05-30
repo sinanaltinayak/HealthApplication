@@ -28,9 +28,11 @@ export class TestsService {
   getPendingTests(): AngularFirestoreCollection<Test> {
     return this.db.collection('tests', ref => ref.where('doctorID', '==', ''));
   }
-
-  getTestsByDoctorId(id: string): AngularFirestoreCollection<Test> {
-    return this.db.collection('tests', ref => ref.where('doctorID', '==', id));
+  getInProgressTestsByDoctorId(id: string): AngularFirestoreCollection<Test> {
+    return this.db.collection('tests', ref => ref.where('doctorID', '==', id).where('finalDiagnosis', '==' , ''));
+  }
+  getFinalizedTestsByDoctorId(id: string): AngularFirestoreCollection<Test> {
+    return this.db.collection('tests', ref => ref.where('doctorID', '==', id).where('finalDiagnosis', '!=' , ''));
   }
   getTestsByPatientId(id: string) : AngularFirestoreCollection<Test>{
     return this.db.collection('tests', ref => ref.where('patientID', '==', id));
@@ -38,9 +40,11 @@ export class TestsService {
   getPendingTestsByPatientId(id: string): AngularFirestoreCollection<Test> {
     return this.db.collection('tests', ref => ref.where('patientID', '==', id).where('doctorID', '==', ''));
   }
-
-  getReviewedTestsByPatientId(id: string): AngularFirestoreCollection<Test> {
-    return this.db.collection('tests', ref => ref.where('patientID', '==', id).where('doctorID', '!=', ''));
+  getInProgressTestsByPatientId(id: string): AngularFirestoreCollection<Test> {
+    return this.db.collection('tests', ref => ref.where('patientID', '==', id).where('doctorID', '!=', '').where('finalDiagnosis', '==', ''));
+  }
+  getFinalizedTestsByPatientId(id: string): AngularFirestoreCollection<Test> {
+    return this.db.collection('tests', ref => ref.where('patientID', '==', id).where('finalDiagnosis', '!=', ''));
   }
 
   create(test: Test): any {

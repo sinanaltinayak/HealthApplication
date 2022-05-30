@@ -18,13 +18,18 @@ export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['status','date', 'symptoms', 'result'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsReviewed: string[] = ['status','date', 'symptoms', 'result', 'final diagnosis', 'chat'];
-  dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+  displayedColumnsInProgress: string[] = ['status','date', 'symptoms', 'result', 'chat'];
+  dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+  displayedColumnsFinalized: string[] = ['status','date', 'symptoms', 'result', 'final diagnosis', 'chat'];
+  dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+
   chats!: Map<String, boolean>;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild(MatSort) sortPending!: MatSort;
-  @ViewChild('paginatorReviewed') paginatorReviewed!: MatPaginator;
-  @ViewChild(MatSort) sortReviewed!: MatSort;
+  @ViewChild('paginatorInProgress') paginatorInProgress!: MatPaginator;
+  @ViewChild(MatSort) sortInProgress!: MatSort;
+  @ViewChild('paginatorFinalized') paginatorFinalized!: MatPaginator;
+  @ViewChild(MatSort) sortFinalized!: MatSort;
   @ViewChild('tabs', {static: false}) tabs: any;
 
   id: string | undefined;
@@ -57,28 +62,36 @@ export class HistoryComponent implements AfterViewInit {
         this.dataSourcePending.data = data;
       });
 
-      this._testsService.getReviewedTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+      this._testsService.getInProgressTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
           el.result = this.myapp.parseDiagnosis(el.resultString);
         });
-        this.dataSourceReviewed.data = data;
+        this.dataSourceInProgress.data = data;
+      });
+
+      this._testsService.getFinalizedTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+        data.forEach(el => {
+          el.result = this.myapp.parseDiagnosis(el.resultString);
+        });
+        this.dataSourceFinalized.data = data;
       });
     }
     
     this.dataSourcePending.paginator = this.paginatorPending;
     this.dataSourcePending.sort = this.sortPending;
-    this.dataSourceReviewed.paginator = this.paginatorReviewed;
-    this.dataSourceReviewed.sort = this.sortReviewed;
+    this.dataSourceInProgress.paginator = this.paginatorInProgress;
+    this.dataSourceInProgress.sort = this.sortInProgress;
+    this.dataSourceFinalized.paginator = this.paginatorFinalized;
+    this.dataSourceFinalized.sort = this.sortFinalized;
   }
-  applyFilter(event: Event) {
+  applyFilter(event: Event, dataSource: MatTableDataSource<Test>) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourcePending.filter = filterValue.trim().toLowerCase();
+    dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSourcePending.paginator) {
-      this.dataSourcePending.paginator.firstPage();
-    }
-  
-  } 
+    if (dataSource.paginator) {
+      dataSource.paginator.firstPage();
+    }  
+  }
 
   openChatDialog(chatId: string, testId: string) {    
     const dialogRef = this.dialog.open(ChatComponent, {
