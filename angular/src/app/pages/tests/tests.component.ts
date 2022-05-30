@@ -23,14 +23,20 @@ export class TestsComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-
-  displayedColumnsReviewed: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
-  dataSourceReviewed: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+  displayedColumnsInProgress: string[] = ['status', 'date', 'fullname', 'symptoms', 'result','final diagnosis', 'chat'];
+  dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+  displayedColumnsFinalized: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
+  dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
+  
   chats!: Map<String, boolean>;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
-  @ViewChild('paginatorReviewed') paginatorReviewed!: MatPaginator;
+  @ViewChild('paginatorInProgress') paginatorInProgress!: MatPaginator;
+  @ViewChild('paginatorInProgress') paginatorFinalized!: MatPaginator;
+
   @ViewChild('sortPending') sortPending!: MatSort;
-  @ViewChild('sortReviewed') sortReviewed!: MatSort;
+  @ViewChild('sortInProgress') sortInProgress!: MatSort;
+  @ViewChild('sortInProgress') sortFinalized!: MatSort;
+
   @ViewChild('tabs', {static: false}) tabs: any;
 
   constructor(public _testsService: TestsService,
@@ -65,19 +71,32 @@ export class TestsComponent implements AfterViewInit {
       this.dataSourcePending.sort = this.sortPending;
     });
     
-    this._testsService.getTestsByDoctorId(localStorage.getItem('id')!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+    this._testsService.getInProgressTestsByDoctorId(localStorage.getItem('id')!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
         this.getPatient(el.patientID).then(d => {
           el.fullname = d.valueOf();
         });
       });
-      this.dataSourceReviewed.data = data;
-      this.dataSourceReviewed.sort = this.sortReviewed;
+      this.dataSourceInProgress.data = data;
+      this.dataSourceInProgress.sort = this.sortInProgress;
+    });
+
+    this._testsService.getFinalizedTestsByDoctorId(localStorage.getItem('id')!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+      data.forEach(el => {
+        el.result = this.myapp.parseDiagnosis(el.resultString);
+        this.getPatient(el.patientID).then(d => {
+          el.fullname = d.valueOf();
+        });
+      });
+      this.dataSourceFinalized.data = data;
+      this.dataSourceFinalized.sort = this.sortFinalized;
     });
 
     this.dataSourcePending.paginator = this.paginatorPending;
-    this.dataSourceReviewed.paginator = this.paginatorReviewed;
+    this.dataSourceInProgress.paginator = this.paginatorInProgress;
+    this.dataSourceFinalized.paginator = this.paginatorFinalized;
+
     //this.currentChat = this.chatService.getTestChat("");
   }
 
