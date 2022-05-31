@@ -24,7 +24,7 @@ export class TopbarComponent implements OnInit {
   hidePassword = true;
   forgotMode: boolean = false;
   currentUser: any = localStorage.getItem('name');
-  histNotifCount: number = 0;
+  /* histNotifCount: number = 0; */
   @ViewChild('search', {static: false})
   inputElement: ElementRef | undefined;
 
@@ -49,7 +49,8 @@ export class TopbarComponent implements OnInit {
 
   // ngOnInit function is called in launch
   async ngOnInit() {
-    this.histNotifCount = this.testHistoryNotification();
+    this.myapp.NotifCount = 0;
+    this.myapp.NotifCount = this.testHistoryNotification();
   }
 
   loginUser(){
@@ -123,7 +124,7 @@ menuOpened() {
       this._testsService.getTestsByPatientId(localStorage.getItem("id")!).get().forEach(d=> {
         d.docs.forEach(a=> {
           if(a.data().unRead == true) {
-            this.histNotifCount++;
+            this.myapp.NotifCount++;
           }
         });
       });
@@ -132,7 +133,7 @@ menuOpened() {
           console.log(fr.id, fr.data().messages.pop()?.senderID, fr.data().unRead)
           if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
             if(fr.data().unRead == true){
-              this.histNotifCount++;
+              this.myapp.NotifCount++;
             }
           }
         });
@@ -144,13 +145,13 @@ menuOpened() {
           console.log(fr.id, fr.data().messages.pop()?.senderID, fr.data().unRead)
           if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
             if(fr.data().unRead == true){
-              this.histNotifCount++;
+              this.myapp.NotifCount++;
             }
           }
         });
       });
     }
-    return this.histNotifCount;
+    return this.myapp.NotifCount;
   }
 
   openSnackBar() {

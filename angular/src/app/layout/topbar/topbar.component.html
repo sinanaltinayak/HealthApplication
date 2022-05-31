@@ -10,11 +10,11 @@
       <mat-icon>assignment</mat-icon> New Test
     </button>
     <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button" routerLink="../tests" (click)='refresh("/tests")'>
-        <span *ngIf="histNotifCount>0"matBadge="{{histNotifCount}}" matBadgePosition="after" matBadgeColor="warn"></span>
+        <span *ngIf="this.myapp.NotifCount>0"matBadge="{{this.myapp.NotifCount}}" matBadgePosition="after" matBadgeColor="warn"></span>
         <mat-icon>rate_review</mat-icon> Review Tests
     </button>
     <button *ngIf="userType == 'patient'" mat-button aria-label="Test History Button" routerLink="../history" (click)='refresh("/history")'>
-        <span *ngIf="histNotifCount>0"matBadge="{{histNotifCount}}" matBadgePosition="after" matBadgeColor="warn"></span>
+        <span *ngIf="this.myapp.NotifCount>0"matBadge="{{this.myapp.NotifCount}}" matBadgePosition="after" matBadgeColor="warn"></span>
         <mat-icon>history</mat-icon> Test History
     </button>
     <button *ngIf="userType == 'patient'" mat-button aria-label="Monitoring Button" routerLink="../monitoring" (click)='refresh("/monitoring")'>

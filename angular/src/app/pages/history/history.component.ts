@@ -104,6 +104,8 @@ export class HistoryComponent implements AfterViewInit {
         this._chatService.getChat(chatId).update({unRead : false});
       }
     });
+    this.chats.set(chatId, false);7
+    this.myapp.NotifCount--;
   }
 
   realignInkBar() {
@@ -112,6 +114,7 @@ export class HistoryComponent implements AfterViewInit {
 
   readTest(id: string){
     this._testsService.getTestByID(id).update({unRead: false});
+    this.myapp.NotifCount--;
   }
   isChatUnread(id : string){
     if(this.chats.get(id) == true){

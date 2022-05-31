@@ -11,7 +11,7 @@ import { Diagnosis } from './models/diagnosis';
 })
 export class AppComponent {
   title = 'angular';
-
+  NotifCount: number = 0;
   constructor (private _snackBar: MatSnackBar, private myRoute: Router) { }
 
     // function for displaying a message
