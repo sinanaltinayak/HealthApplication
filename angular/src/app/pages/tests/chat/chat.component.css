@@ -35,11 +35,21 @@ mat-dialog-content {
 }
 
 .container-photo{
-    min-width: 60px;
+   min-width: 60px;
 }
 
 .container-text{
     padding-right: 10px;
+    width: 100%;
+}
+
+.container-left{
+    justify-content: flex-start;
+}
+
+.container-right{
+    justify-content: flex-end;
+
 }
 
 .darker {
@@ -111,3 +121,9 @@ mat-dialog-content {
 }
 
 /* CLOSE BUTTON END*/
+
+.container-message{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

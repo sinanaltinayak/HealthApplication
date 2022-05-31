@@ -8,12 +8,12 @@
     <h3>Test Date: {{testDate}}</h3>
 </h2>
 
-<mat-dialog-content>
+<mat-dialog-content #scrollable [scrollTop]="scrollable.scrollHeight">
     <div *ngFor="let msg of currentMessages; trackBy: trackByCreated">
         <div *ngIf="msg">
 
             <div *ngIf="patientID == msg.senderID">
-                <mat-card class="container">
+                <mat-card class="container container-left">
                     <div class="container-photo">
                         <img src="../../../../assets/user.png" alt="Avatar" style="width:100%;">
                     </div>
@@ -26,14 +26,14 @@
             </div>
 
             <div *ngIf="userId == msg.senderID">
-                <mat-card class="container darker">
+                <mat-card class="container darker container-right">
                     <div class="container-text">
                         <p style="text-align: right"> <b>{{ getSender(msg.senderID) }}</b> </p>
                         <p class="deneme" style="text-align: right">{{ msg.content }}</p>
                         <span class="time-left">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
                     </div>
                     <div class="container-photo">
-                        <img src="../../../../assets/doctor.png" alt="Avatar" class="right" style="width:100%; display:block">
+                        <img src="../../../../assets/doctor.png" alt="Avatar" class="right" style="width:100%">
                     </div>
                 </mat-card>
             </div>
@@ -45,10 +45,10 @@
         <input class="input" [(ngModel)]="newMsg" maxlength="120" (keydown.enter)="submit(data.chatID)">
         <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
     </div> -->
-    <div *ngIf="finalDiagnosis == '' ">
+    <div *ngIf="finalDiagnosis == '' " class="container-message" >
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Send a message</mat-label>
-            <textarea [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput></textarea>
+            <input [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput>
         </mat-form-field>
         <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
     </div>
@@ -57,7 +57,3 @@
         <p>This chat is closed.</p>
     </div>
 </mat-dialog-content>
-
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Close</button>
-</mat-dialog-actions>
