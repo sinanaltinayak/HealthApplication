@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './pages/home/home.module';
 import { RecommendationModule } from './pages/recommendation/recommendation.module';
 import { MonitoringModule } from './pages/monitoring/monitoring.module';
-import { LoadingModule } from './pages/loading/loading.module';
 import { LayoutModule } from './layout/layout.module';
 import { TestsModule } from './pages/tests/tests.module';
 import { HistoryModule } from './pages/history/history.module';
@@ -64,7 +63,6 @@ const routes: Routes = [
     RecommendationModule,
     MonitoringModule,
     LayoutModule,
-    LoadingModule,
     TestsModule,
     HistoryModule,
     ProfileModule,
@@ -87,7 +85,7 @@ const routes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  static userType: string = "default";
+   static userType: string = "default";
 
    static userPatient = new Map<string, Patient>();
    static userDoctor = new Map<string, Doctor>();

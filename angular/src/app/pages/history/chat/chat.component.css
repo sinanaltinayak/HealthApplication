@@ -68,3 +68,30 @@ mat-dialog-content {
 .example-full-width {
     width: 90%;
 }
+
+/* CLOSE BUTTON */
+.close-button{
+    float: right;
+    top:-18px;
+    right:-18px;
+}
+  
+.close-icon {
+    transition: 1s ease-in-out;
+}
+  
+.close-icon:hover {
+    transform: rotate(180deg);
+}
+  
+::ng-deep .icon-outside .close-button{
+    float: right;
+    top:-52px;
+    right:-52px;
+}
+  
+::ng-deep .icon-outside .mat-dialog-container {
+   overflow: unset
+}
+
+/* CLOSE BUTTON END*/

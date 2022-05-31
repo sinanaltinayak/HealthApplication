@@ -25,11 +25,11 @@ export class HistoryComponent implements AfterViewInit {
 
   chats!: Map<String, boolean>;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
-  @ViewChild(MatSort) sortPending!: MatSort;
+  @ViewChild('sortPending') sortPending!: MatSort;
   @ViewChild('paginatorInProgress') paginatorInProgress!: MatPaginator;
-  @ViewChild(MatSort) sortInProgress!: MatSort;
+  @ViewChild('sortInProgress') sortInProgress!: MatSort;
   @ViewChild('paginatorFinalized') paginatorFinalized!: MatPaginator;
-  @ViewChild(MatSort) sortFinalized!: MatSort;
+  @ViewChild('sortFinalized') sortFinalized!: MatSort;
   @ViewChild('tabs', {static: false}) tabs: any;
 
   id: string | undefined;
@@ -60,6 +60,7 @@ export class HistoryComponent implements AfterViewInit {
           el.result = this.myapp.parseDiagnosis(el.resultString);
         });
         this.dataSourcePending.data = data;
+        this.dataSourcePending.sort = this.sortPending;
       });
 
       this._testsService.getInProgressTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
@@ -67,6 +68,7 @@ export class HistoryComponent implements AfterViewInit {
           el.result = this.myapp.parseDiagnosis(el.resultString);
         });
         this.dataSourceInProgress.data = data;
+        this.dataSourceInProgress.sort = this.sortInProgress;
       });
 
       this._testsService.getFinalizedTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
@@ -74,15 +76,13 @@ export class HistoryComponent implements AfterViewInit {
           el.result = this.myapp.parseDiagnosis(el.resultString);
         });
         this.dataSourceFinalized.data = data;
+        this.dataSourceFinalized.sort = this.sortFinalized;
       });
     }
     
     this.dataSourcePending.paginator = this.paginatorPending;
-    this.dataSourcePending.sort = this.sortPending;
     this.dataSourceInProgress.paginator = this.paginatorInProgress;
-    this.dataSourceInProgress.sort = this.sortInProgress;
     this.dataSourceFinalized.paginator = this.paginatorFinalized;
-    this.dataSourceFinalized.sort = this.sortFinalized;
   }
   applyFilter(event: Event, dataSource: MatTableDataSource<Test>) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -122,6 +122,6 @@ export class HistoryComponent implements AfterViewInit {
     }
 }
 parseSymptoms(symptoms: string) : string{
-  return symptoms.replace(",",", ");
+  return symptoms.replace(/,/g,", ");
 }
 }

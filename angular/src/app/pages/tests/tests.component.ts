@@ -21,7 +21,7 @@ import { FinalizeComponent } from './finalize/finalize.component';
 })
 export class TestsComponent implements AfterViewInit {
 
-  displayedColumnsPending: string[] = ['status', 'date', 'patient', 'symptoms', 'result', 'actions'];
+  displayedColumnsPending: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   displayedColumnsInProgress: string[] = ['status', 'date', 'fullname', 'symptoms', 'result','final diagnosis', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
@@ -31,11 +31,11 @@ export class TestsComponent implements AfterViewInit {
   chats!: Map<String, boolean>;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild('paginatorInProgress') paginatorInProgress!: MatPaginator;
-  @ViewChild('paginatorInProgress') paginatorFinalized!: MatPaginator;
+  @ViewChild('paginatorFinalized') paginatorFinalized!: MatPaginator;
 
   @ViewChild('sortPending') sortPending!: MatSort;
   @ViewChild('sortInProgress') sortInProgress!: MatSort;
-  @ViewChild('sortInProgress') sortFinalized!: MatSort;
+  @ViewChild('sortFinalized') sortFinalized!: MatSort;
 
   @ViewChild('tabs', {static: false}) tabs: any;
 
@@ -155,7 +155,7 @@ export class TestsComponent implements AfterViewInit {
     }
   }
   parseSymptoms(symptoms: string) : string{
-    return symptoms.replace(",",", ");
+    return symptoms.replace(/,/g,", ");
   }
 
   

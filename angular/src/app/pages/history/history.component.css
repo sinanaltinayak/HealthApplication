@@ -84,5 +84,15 @@ mat-card {
 }
 
 .read {
-    background-color: #c8e0de !important;
+    
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
+
+
+@keyframes example {
+    0%   {background-color: #c8e0de;}
+    50%  {background-color: white;}
+    100% {background-color: #c8e0de;}
+  }
