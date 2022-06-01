@@ -14,7 +14,7 @@ import { ChatService } from 'src/app/service/chat.service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
-export class HistoryComponent implements AfterViewInit {
+export class HistoryComponent implements AfterViewInit, OnInit {
 
   displayedColumnsPending: string[] = ['status','date', 'symptoms', 'result'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
@@ -34,7 +34,9 @@ export class HistoryComponent implements AfterViewInit {
 
   id: string | undefined;
   role: string | undefined;
-  
+/*   unReadTest!: number;
+  unReadChat!: number; */
+
   constructor(public _testsService: TestsService,
     public _chatService: ChatService,
     public dialog: MatDialog,
@@ -42,9 +44,11 @@ export class HistoryComponent implements AfterViewInit {
       this.id = localStorage.getItem('id')!;
       this.role = localStorage.getItem('role')!;
   }
+  ngOnInit(): void {
+    /* this.notifMessages(); */
+  }
 
   ngAfterViewInit(){
-
     let map = new Map();
     this._chatService.getPatientChats(localStorage.getItem("id")!).get().subscribe(data => {
       data.forEach(fr=> {
@@ -53,6 +57,7 @@ export class HistoryComponent implements AfterViewInit {
         }
       });
     });
+
     this.chats = map;
     if (this.role == 'patient'){
       this._testsService.getPendingTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
@@ -126,5 +131,25 @@ export class HistoryComponent implements AfterViewInit {
 }
 parseSymptoms(symptoms: string) : string{
   return symptoms.replace(/,/g,", ");
+}
+notifMessages(){
+  let unReadTest: number;
+  let unReadChat: number;
+  this.chats.forEach(a=> {
+    this._chatService.getChat(a).get().forEach(f=> {
+      this._testsService.getTestByID(f.data()!.testID).get().forEach(e=> {
+        if (e.data()?.unRead == true){
+          unReadTest++;
+        }
+      });
+    });
+    if(a.valueOf() == true){
+      unReadChat++;
+    }
+  });
+  console.log(unReadChat!, unReadTest!)
+  if(unReadChat! > 0 || unReadTest! > 0){
+    this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats and " + unReadTest! + " unread test", "Continue");    
+  }
 }
 }

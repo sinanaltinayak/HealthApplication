@@ -144,6 +144,8 @@ export class TestsComponent implements AfterViewInit {
         this.chatService.getChat(chatId).update({unRead : false});
       }
     });
+    this.chats.set(chatId, false);7
+    this.myapp.NotifCount--;
   }
 
   isChatUnread(id : string){
