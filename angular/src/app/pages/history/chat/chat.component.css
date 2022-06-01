@@ -29,7 +29,26 @@ mat-dialog-content {
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
+    display: flex;
+    flex-direction: row;
 }
+
+.container-photo{
+    min-width: 60px;
+ }
+ 
+ .container-text{
+     padding-right: 10px;
+     width: 100%;
+ }
+ 
+ .container-left{
+     justify-content: flex-start;
+ }
+ 
+ .container-right{
+     justify-content: flex-end;
+ }
 
 .darker {
     background-color: #e0e7ea;
@@ -75,23 +94,25 @@ mat-dialog-content {
     top:-18px;
     right:-18px;
 }
-  
 .close-icon {
     transition: 1s ease-in-out;
 }
-  
 .close-icon:hover {
     transform: rotate(180deg);
 }
-  
 ::ng-deep .icon-outside .close-button{
     float: right;
     top:-52px;
     right:-52px;
 }
-  
 ::ng-deep .icon-outside .mat-dialog-container {
    overflow: unset
 }
 
 /* CLOSE BUTTON END*/
+
+.container-message{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

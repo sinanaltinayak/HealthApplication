@@ -25,7 +25,7 @@
             <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 diagnosisTable">
                 <ng-container matColumnDef="name">
                     <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> - %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
+                    <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>
@@ -42,7 +42,7 @@
                 <!-- <mat-select [(ngModel)]="selectedDiagnosis">
                     <mat-option *ngFor="let option of diagnoses" [value]="option">{{option}}</mat-option>
                 </mat-select> -->
-                <input type="text" [(ngModel)]="selectedDiagnosis" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #diagnosisInput>
+                <input type="text" [(ngModel)]="selectedDiagnosis" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #diagnosisInput tabindex="-1">
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let option of diagnoses" [value]="option">
                         {{option}}
@@ -54,6 +54,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <!-- <button mat-button mat-dialog-close (click)="updateTest(note)">Send Report</button> -->
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close [disabled]="!diagnoses.includes(selectedDiagnosis)" (click)="updateTest(); ">Finalize the Test</button>
+    <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+    <button mat-button mat-dialog-close [disabled]="!diagnoses.includes(selectedDiagnosis)" (click)="updateTest();" tabindex="-1">Finalize the Test</button>
 </mat-dialog-actions>

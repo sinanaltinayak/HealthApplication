@@ -142,7 +142,9 @@
                             <td mat-cell *matCellDef="let row">
                                 <ng-template [ngIf]="row.chatID != '' ">
                                     <span *ngIf="isChatUnread(row.chatID)" matBadge="*" matBadgePosition="after" matBadgeColor="accent"></span>
-                                    <mat-icon color="warn" (click)="openChatDialog(row.chatID, row.id)">message</mat-icon>
+                                    <button mat-icon-button  (click)="openChatDialog(row.chatID, row.id)" >
+                                        <mat-icon color="warn">message</mat-icon>
+                                    </button>
                                 </ng-template>
                                 <ng-template [ngIf]="row.chatID == '' ">
                                     -
@@ -224,7 +226,9 @@
                             <td mat-cell *matCellDef="let row">
                                 <ng-template [ngIf]="row.chatID != '' ">
                                     <span *ngIf="isChatUnread(row.chatID)" matBadge="*" matBadgePosition="after" matBadgeColor="accent"></span>
-                                    <mat-icon color="warn" (click)="openChatDialog(row.chatID, row.id)">message</mat-icon>
+                                    <button mat-icon-button  (click)="openChatDialog(row.chatID, row.id)" >
+                                        <mat-icon color="warn">message</mat-icon>
+                                    </button>
                                 </ng-template>
                                 <ng-template [ngIf]="row.chatID == '' ">
                                     -
