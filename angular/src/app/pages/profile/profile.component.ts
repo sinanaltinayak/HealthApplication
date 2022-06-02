@@ -50,22 +50,21 @@ export class ProfileComponent implements OnInit {
    }
 
   async ngOnInit() {
+    this.storage.storage.ref("ProfileImages/"+this.currentUserId+".jpg").getDownloadURL().then(
+      (url: string) => {
+        this.profileImage = url;
+      }
+    ).catch(error => {
+      this.profileImage = 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg';
+    });
+
     this._authService.getUser(this.currentUserId).valueChanges().subscribe(xd => {
       this.currentUser.set(this.currentUserId, xd!);
       this.inputName =  Array.from(this.currentUser.values())[0].fullname;
       this.inputMail =  Array.from(this.currentUser.values())[0].email;
       this.inputGender = Array.from(this.currentUser.values())[0].gender;
       this.inputBirthday = Array.from(this.currentUser.values())[0].birthday;
-      this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;
-
-      this.storage.storage.ref("ProfileImages/"+this.currentUserId+".jpg").getDownloadURL().then(
-        (url: string) => {
-          this.profileImage = url;
-        }
-      ).catch(error => {
-        this.profileImage = 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg';
-      });
-      
+      this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;      
     });
     let count = 0;
     await this._testsService.getFinalizedTestsByDoctorId(localStorage.getItem("id")!).get().forEach(fh=>{
