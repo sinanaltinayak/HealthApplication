@@ -18,6 +18,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatNativeDateModule} from '@angular/material/core';
+import { NgxMaterialRatingModule } from 'ngx-material-rating';
 
 // importing classes that is needed for profile page
 
@@ -25,6 +26,7 @@ import {MatNativeDateModule} from '@angular/material/core';
   imports: [
     CommonModule,
     ProfileRoutingModule,
+    NgxMaterialRatingModule,
     FormsModule,
     ReactiveFormsModule,
     MatGridListModule,

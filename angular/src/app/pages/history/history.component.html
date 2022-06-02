@@ -122,7 +122,6 @@
                             </td>
                         </ng-container>
 
-
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsInProgress"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumnsInProgress;" (click)="readTest(row.id)" [ngClass]="{'read': row.unRead }"></tr>
 
@@ -200,6 +199,17 @@
                             </td>
                         </ng-container>
 
+                        <ng-container matColumnDef="rate">
+                            <th mat-header-cell *matHeaderCellDef> Rate </th>
+                            <td mat-cell *matCellDef="let row">
+                                <div class="rating">
+                                    <div>
+                                        <ngx-material-rating [(ngModel)]="row.rate" [max]="5" (click)="rate(row.id, row.rate)">
+                                        </ngx-material-rating>
+                                    </div>
+                                </div>
+                            </td>                           
+                        </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsFinalized"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumnsFinalized;" (click)="readTest(row.id)" [ngClass]="{'read': row.unRead }"></tr>

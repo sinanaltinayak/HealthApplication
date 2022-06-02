@@ -14,13 +14,13 @@ import { ChatService } from 'src/app/service/chat.service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
-export class HistoryComponent implements AfterViewInit, OnInit {
+export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['status','date', 'symptoms', 'result'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   displayedColumnsInProgress: string[] = ['status','date', 'symptoms', 'result', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsFinalized: string[] = ['status','date', 'symptoms', 'result', 'finalDiagnosis', 'chat'];
+  displayedColumnsFinalized: string[] = ['status','date', 'symptoms', 'result', 'finalDiagnosis', 'chat', 'rate'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   chats!: Map<String, boolean>;
@@ -34,8 +34,6 @@ export class HistoryComponent implements AfterViewInit, OnInit {
 
   id: string | undefined;
   role: string | undefined;
-/*   unReadTest!: number;
-  unReadChat!: number; */
 
   constructor(public _testsService: TestsService,
     public _chatService: ChatService,
@@ -43,12 +41,6 @@ export class HistoryComponent implements AfterViewInit, OnInit {
     public myapp: AppComponent) {
       this.id = localStorage.getItem('id')!;
       this.role = localStorage.getItem('role')!;
-  }
-  ngOnInit(): void {
-/*     setTimeout(() => {
-      this.notifMessages();
-    },
-    1500); */
   }
 
   ngAfterViewInit(){
@@ -111,12 +103,14 @@ export class HistoryComponent implements AfterViewInit, OnInit {
       hasBackdrop: true,
     });
     this._chatService.getChat(chatId).get().forEach(f=> {
-      if(f.data()?.messages.pop()?.senderID != localStorage.getItem("id")){
-        this._chatService.getChat(chatId).update({unRead : false});
+      if(f.data()?.unRead == true){
+        if(f.data()?.messages.pop()?.senderID != localStorage.getItem("id")){
+          this._chatService.getChat(chatId).update({unRead : false});
+        }
+        this.myapp.NotifCount--;
       }
     });
-    this.chats.set(chatId, false);7
-    this.myapp.NotifCount--;
+    this.chats.set(chatId, false);
   }
 
   realignInkBar() {
@@ -124,8 +118,12 @@ export class HistoryComponent implements AfterViewInit, OnInit {
   }
 
   readTest(id: string){
-    this._testsService.getTestByID(id).update({unRead: false});
-    this.myapp.NotifCount--;
+    this._testsService.getTestByID(id).get().forEach(f=> {
+      if(f.data()?.unRead == true){
+        this._testsService.getTestByID(id).update({unRead: false});
+        this.myapp.NotifCount--;
+      } 
+    });
   }
   isChatUnread(id : string){
     if(this.chats.get(id) == true){
@@ -155,14 +153,17 @@ parseSymptoms(symptoms: string) : string{
       unReadChat++;
     }
   });
-  if(unReadChat! > 0 || unReadTest! == 0){
+  if(unReadChat! > 0 && unReadTest! == 0){
     this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
   }
-  if(unReadChat! == 0 || unReadTest! > 0){
+  if(unReadChat! == 0 && unReadTest! > 0){
     this.myapp.openSnackBar("You have " + unReadTest! + " unread test", "Continue");    
   }
-  if(unReadChat! > 0 || unReadTest! > 0){
+  if(unReadChat! > 0 && unReadTest! > 0){
     this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats and " + unReadTest! + " unread test", "Continue");    
   }
+}
+rate(testID: string, rate: string){
+  this._testsService.getTestByID(testID).update({rate : rate.toString()});
 }
 }

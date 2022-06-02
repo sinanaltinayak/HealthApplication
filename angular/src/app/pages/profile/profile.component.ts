@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TestsService } from 'src/app/service/tests.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit {
   birthday = "";
   phoneNumber= "";
   address= "";
+  rate = 0;
   cities: string[] = ["Adana","Adiyaman","Afyon","Agri","Aksaray","Amasya","Ankara","Antalya","Ardahan","Artvin","Aydin","Balikesir","Bartin","Batman","Bayburt","Bilecik","Bingol","Bitlis","Bolu","Burdur","Bursa","Canakkale","Cankiri","Corum","Denizli","Diyarbakir","Duzce","Edirne","Elazig","Erzincan","Erzurum","Eskisehir","Gaziantep","Giresun","Gumushane","Hakkari","Hatay","Igdir","Isparta","Istanbul","Izmir","Kahramanmaras","Karabuk","Karaman","Kars","Kastamonu","Kayseri","Kilis","Kirikkale","Kirklareli","Kirsehir","Kocaeli","Konya","Kutahya","Malatya","Manisa","Mardin","Mersin","Mugla","Mus","Nevsehir","Nigde","Ordu","Osmaniye","Rize","Sakarya","Samsun","Sanliurfa","Siirt","Sinop","Sirnak","Sivas","Tekirdag","Tokat","Trabzon","Tunceli","Usak","Van","Yalova","Yozgat","Zonguldak"];
   currentUserName = localStorage.getItem('name') as string;
   currentUserMail = localStorage.getItem('email') as string;
@@ -35,11 +37,12 @@ export class ProfileComponent implements OnInit {
     public _authService: AuthService,
     public _userService: UserService,
     private _snackBar: MatSnackBar,
+    public _testsService: TestsService,
   ) {
    
    }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this._authService.getUser(this.currentUserId).valueChanges().subscribe(xd => {
       this.currentUser.set(this.currentUserId, xd!);
       this.inputName =  Array.from(this.currentUser.values())[0].fullname;
@@ -49,6 +52,16 @@ export class ProfileComponent implements OnInit {
       this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;
       
     });
+    let count = 0;
+    await this._testsService.getFinalizedTestsByDoctorId(localStorage.getItem("id")!).get().forEach(fh=>{
+      fh.docs.forEach(fr=>{
+        if(fr.data().rate != ""){
+          count++;        
+          this.rate += Number(fr.data().rate);
+        }
+      });
+    });
+    this.rate = this.rate / count;
   }
 
 

@@ -19,6 +19,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatChipsModule} from '@angular/material/chips';
 import { ChatComponent } from './chat/chat.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { NgxMaterialRatingModule } from 'ngx-material-rating';
 
 // importing classes that is needed for history page
 
@@ -26,6 +27,7 @@ import { MatBadgeModule } from '@angular/material/badge';
   imports: [
     CommonModule,
     HistoryRoutingModule,
+    NgxMaterialRatingModule,
     FormsModule,
     MatChipsModule,
     MatBadgeModule,
