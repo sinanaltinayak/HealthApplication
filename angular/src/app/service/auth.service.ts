@@ -9,7 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AuthService {
   role: string = "";
-  name: string = "";  
+  name: string = "";
+  department: string = "";
   errorInRegister: boolean = false;
   constructor(
     private _snackBar: MatSnackBar,
@@ -43,6 +44,8 @@ export class AuthService {
           console.log('Nice, it worked!');
           if(this.role == 'doctor'){
             this.router.navigate(['tests']);
+            this.department = (await firstValueFrom(user$)).payload.get("department");
+            localStorage.setItem('department', this.department);
           }
           else{
             setTimeout(() => {
