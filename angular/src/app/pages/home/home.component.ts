@@ -13,6 +13,7 @@ import { TestsService } from 'src/app/service/tests.service';
 import { Test } from 'src/app/models/test';
 import { AppModule } from 'src/app/app.module';
 import { DiagnosisService } from 'src/app/service/diagnosis.service';
+import { DepartmentService } from 'src/app/service/department.service';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit{
   @ViewChild(MatTable) table!: MatTable<Diagnosis>;
   @ViewChild('symptomInput') symptomInput!: ElementRef<HTMLInputElement>;
 
-  constructor( public _service: FlaskService, public _serviceTests: TestsService,private _diagnosisService: DiagnosisService ) 
+  constructor( public _service: FlaskService, public _serviceDepartment: DepartmentService, public _serviceTests: TestsService,private _diagnosisService: DiagnosisService ) 
   {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(null),
@@ -140,7 +141,8 @@ export class HomeComponent implements OnInit{
         this.possibleDiagnosis = diagnosis;
         
         if(localStorage.getItem('role') == "patient"){
-          let newTest = new Test(localStorage.getItem('id')!, "", "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis), "")
+          let dep = this._serviceDepartment.getDepartment(this.possibleDiagnosis[0].name)
+          let newTest = new Test(localStorage.getItem('id')!, "", "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis), "", dep)
           this._serviceTests.create(newTest);
         }
         this.showLoader = false;

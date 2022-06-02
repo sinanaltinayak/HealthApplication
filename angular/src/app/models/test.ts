@@ -13,8 +13,9 @@ export class Test{
     finalDiagnosis?: string;
     unRead: boolean = false;
     rate!: string;
+    department!: string;
 
-    constructor(patientID: string, doctorID: string, chatID: string, date: string, symptoms: string, resultString: string, finalDiagnosis: string) {
+    constructor(patientID: string, doctorID: string, chatID: string, date: string, symptoms: string, resultString: string, finalDiagnosis: string, department: string) {
         this.patientID = patientID;
         this.doctorID = doctorID;
         this.chatID = chatID;
@@ -22,6 +23,7 @@ export class Test{
         this.symptoms = symptoms;
         this.resultString = resultString;
         this.finalDiagnosis = finalDiagnosis;
+        this.department = department;
 
     }
 }
