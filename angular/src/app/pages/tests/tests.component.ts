@@ -97,7 +97,10 @@ export class TestsComponent implements AfterViewInit {
     this.dataSourceInProgress.paginator = this.paginatorInProgress;
     this.dataSourceFinalized.paginator = this.paginatorFinalized;
 
-    //this.currentChat = this.chatService.getTestChat("");
+    setTimeout(() => {
+      this.notifMessages();
+    },
+    1500);
   }
 
   openConfirmTestDialog(id: any) {    
@@ -159,6 +162,16 @@ export class TestsComponent implements AfterViewInit {
   parseSymptoms(symptoms: string) : string{
     return symptoms.replace(/,/g,", ");
   }
-
+  async notifMessages(){
+    let unReadChat: number = 0;
+    this.chats.forEach(a=> {
+      if(a == true){
+        unReadChat++;
+      }
+    });
+    if(unReadChat! > 0){
+      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
+    }
+  }
   
 }

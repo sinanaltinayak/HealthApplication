@@ -80,7 +80,7 @@ export class HistoryComponent implements AfterViewInit {
       setTimeout(() => {
         this.notifMessages();
       },
-      1500);
+      1000);
     }
     
     this.dataSourcePending.paginator = this.paginatorPending;
@@ -144,6 +144,7 @@ parseSymptoms(symptoms: string) : string{
       this._testsService.getTestByID(f.data()!.testID).get().forEach(e=> {
         if (e.data()?.unRead == true){
           unReadTest++;
+          console.log(unReadTest)
         }
       });
     });
@@ -153,15 +154,18 @@ parseSymptoms(symptoms: string) : string{
       unReadChat++;
     }
   });
-  if(unReadChat! > 0 && unReadTest! == 0){
-    this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
-  }
-  if(unReadChat! == 0 && unReadTest! > 0){
-    this.myapp.openSnackBar("You have " + unReadTest! + " unread test", "Continue");    
-  }
-  if(unReadChat! > 0 && unReadTest! > 0){
-    this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats and " + unReadTest! + " unread test", "Continue");    
-  }
+  setTimeout(() => {
+    if(unReadChat! > 0 && unReadTest! == 0){
+      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
+    }
+    if(unReadChat! == 0 && unReadTest! > 0){
+      this.myapp.openSnackBar("You have " + unReadTest! + " unread tests", "Continue");    
+    }
+    if(unReadChat! > 0 && unReadTest! > 0){
+      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats and " + unReadTest! + " unread tests", "Continue");    
+    }
+  },
+  500);
 }
 rate(testID: string, rate: string){
   this._testsService.getTestByID(testID).update({rate : rate.toString()});
