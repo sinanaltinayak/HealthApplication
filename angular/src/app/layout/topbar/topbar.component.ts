@@ -48,7 +48,7 @@ export class TopbarComponent implements OnInit {
   { }
 
   // ngOnInit function is called in launch
-  async ngOnInit() {
+  ngOnInit() {
     this.myapp.NotifCount = 0;
     this.myapp.NotifCount = this.testHistoryNotification();
   }
@@ -130,7 +130,6 @@ menuOpened() {
       });
       this._chatService.getPatientChats(localStorage.getItem("id")!).get().forEach(data => {
         data.forEach(fr=> {
-          console.log(fr.id, fr.data().messages.pop()?.senderID, fr.data().unRead)
           if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
             if(fr.data().unRead == true){
               this.myapp.NotifCount++;

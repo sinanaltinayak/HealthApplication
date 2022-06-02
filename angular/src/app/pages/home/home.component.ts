@@ -43,7 +43,8 @@ export class HomeComponent implements OnInit{
   diagnosisDescription!: string;
   selectedGender = "";
   selectedYear = "";
-  haveATest!: boolean ;
+  haveATest: boolean = false;
+  limitedTestNumber = 3;
   selectedSymptomsIndex: Array<number> = new Array<number>(132).fill(0);
 
   displayedColumns: string[] = ['name'];
@@ -62,13 +63,20 @@ export class HomeComponent implements OnInit{
   }
   async ngOnInit(): Promise<void> {
     //function for if user have already a pending test
-    await this._serviceTests.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(f=> {
-      if(f.empty){
-        this.haveATest = false;
-      }
-      else {
-        this.haveATest = true;
-      }
+    let count = 0;
+    await this._serviceTests.getTestsByPatientId(localStorage.getItem("id")!).get().forEach(data=> {
+      data.forEach(data=> {  
+        if(data.data().finalDiagnosis == ""){        
+          let date = new Date(data.data().date);
+          let curmonth = new Date().getMonth();
+          if(date.getMonth() == curmonth){
+            count++;
+          }
+          if(count == this.limitedTestNumber){
+            this.haveATest = true;
+          }
+        } 
+      });
     });
   }
 

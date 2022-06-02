@@ -104,7 +104,7 @@
                 <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
 
                 <button mat-raised-button matStepperNext color="accent" (click)='getResult()' [disabled]="(haveATest == true) || (selectedSymptoms.length == 0) || (selectedGender.length == 0) || (selectedYear.toString().length == 0)">Continue</button>
-                <mat-error *ngIf="haveATest">You have already have a pending test</mat-error>
+                <mat-error *ngIf="haveATest">You have reached max limit (3) tests for this month</mat-error>
             </div>
 
         </mat-step>
