@@ -5,7 +5,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TestsService } from 'src/app/service/tests.service';
-
+import { AngularFireStorage } from "@angular/fire/compat/storage";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -32,12 +33,18 @@ export class ProfileComponent implements OnInit {
   inputPhoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
   date = new FormControl(new Date());
 
+  selectedImage!: any;
+  fb!: string;
+  downloadURL!: Observable<string>;
+
+  profileImage: any;
 
   constructor(
     public _authService: AuthService,
     public _userService: UserService,
     private _snackBar: MatSnackBar,
     public _testsService: TestsService,
+    private storage: AngularFireStorage
   ) {
    
    }
@@ -50,6 +57,14 @@ export class ProfileComponent implements OnInit {
       this.inputGender = Array.from(this.currentUser.values())[0].gender;
       this.inputBirthday = Array.from(this.currentUser.values())[0].birthday;
       this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;
+
+      this.storage.storage.ref("ProfileImages/"+this.currentUserId+".jpg").getDownloadURL().then(
+        (url: string) => {
+          this.profileImage = url;
+        }
+      ).catch(error => {
+        this.profileImage = 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg';
+      });
       
     });
     let count = 0;
@@ -96,6 +111,18 @@ export class ProfileComponent implements OnInit {
      refresh(){
       window.location.reload();
      }
+
+     // takes the file uploaded
+    onFileSelected(event: any) {
+      this.selectedImage = event.target.files[0];
+      const file = this.selectedImage;
+      this.storage.upload('ProfileImages/'+this.currentUserId+'.jpg', file);
+    }
+
+    // gets the url of the necessary picture
+    getDownloadURL(){
+      return this.profileImage;
+    }
   }
 
 

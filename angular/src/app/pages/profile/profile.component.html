@@ -9,7 +9,13 @@
             <div class="card mb-4 mb-xl-0">
                 <h1 class="card-header title text-center">Profile</h1>
                 <div class="card-body text-center">
-                    <img class="img-account-profile rounded-circle mb-2" src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg" alt="">
+
+                    <img class="img-account-profile rounded-circle mb-2" mat-card-image [src]="getDownloadURL()">
+
+                    <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+                    <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                    <button mat-raised-button (click)="refresh()">Save</button>
+
                     <div class="title font-italic">{{ inputName }}</div>
                     <div class="title font-italic">{{ inputMail }}</div>
                     <div class="rating">
