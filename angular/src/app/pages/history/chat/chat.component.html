@@ -18,7 +18,7 @@
                     </div>
                     <div class="container-text">
                         <p> <b>{{ getSender(msg.senderID) }}</b> </p>
-                        <p>{{ msg.content }}</p>
+                        <p class="content-left">{{ msg.content }}</p>
                         <span class="time-right">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
                     </div>
                 </mat-card>
@@ -28,13 +28,13 @@
                 <mat-card class="container darker container-right">
                     <div class="container-text">
                         <p style="text-align: right"> <b>{{ getSender(msg.senderID) }}</b> </p>
-                        <p style="text-align: right">{{ msg.content }}</p>
+                        <p class="content-right">{{ msg.content }}</p> <br>
                         <span class="time-left">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
                     </div>
                     <div class="container-photo">
                         <img src="../../../../assets/user.png" alt="Avatar" class="right" style="width:100%;">
                     </div>
-                   
+
                 </mat-card>
             </div>
 

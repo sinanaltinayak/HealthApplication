@@ -19,7 +19,7 @@
                     </div>
                     <div class="container-text">
                         <p> <b>{{ getSender(msg.senderID) }}</b> </p>
-                        <p class="deneme">{{ msg.content }}</p>
+                        <p class="content-left">{{ msg.content }}</p>
                         <span class="time-right">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
                     </div>
                 </mat-card>
@@ -29,7 +29,7 @@
                 <mat-card class="container darker container-right">
                     <div class="container-text">
                         <p style="text-align: right"> <b>{{ getSender(msg.senderID) }}</b> </p>
-                        <p class="deneme" style="text-align: right">{{ msg.content }}</p>
+                        <p class="content-right">{{ msg.content }}</p> <br>
                         <span class="time-left">{{ msg.createdAt | date:'dd/MM/yyyy h:mm a' }}</span>
                     </div>
                     <div class="container-photo">
@@ -45,7 +45,7 @@
         <input class="input" [(ngModel)]="newMsg" maxlength="120" (keydown.enter)="submit(data.chatID)">
         <button mat-raised-button color="accent" class="sendButton" (click)="submit(data.chatID)" [disabled]="!newMsg">Send</button>
     </div> -->
-    <div *ngIf="finalDiagnosis == '' " class="container-message" >
+    <div *ngIf="finalDiagnosis == '' " class="container-message">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Send a message</mat-label>
             <input [(ngModel)]="newMsg" (keydown.enter)="submit(data.chatID)" matInput>

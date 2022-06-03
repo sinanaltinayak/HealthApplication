@@ -48,9 +48,7 @@ export class ChatService {
   }
 
   getChat(chatId: any): AngularFirestoreDocument<Chat> {
-    return this.afs
-      .collection('chats')
-      .doc(chatId);
+      return this.chatRef.doc(chatId);
   }
 
   getAllChats(){

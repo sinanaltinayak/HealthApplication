@@ -31,25 +31,23 @@ mat-dialog-content {
     margin: 10px 0;
     display: flex;
     flex-direction: row;
-
 }
 
-.container-photo{
-   min-width: 60px;
+.container-photo {
+    min-width: 60px;
 }
 
-.container-text{
+.container-text {
     padding-right: 10px;
     width: 100%;
 }
 
-.container-left{
+.container-left {
     justify-content: flex-start;
 }
 
-.container-right{
+.container-right {
     justify-content: flex-end;
-
 }
 
 .darker {
@@ -90,39 +88,46 @@ mat-dialog-content {
     width: 90%;
 }
 
-.deneme {
+.content-left {
     word-break: break-all;
+}
+
+.content-right {
+    word-break: break-all;
+    float: right;
 }
 
 
 /* CLOSE BUTTON */
-.close-button{
+
+.close-button {
     float: right;
-    top:-18px;
-    right:-18px;
+    top: -18px;
+    right: -18px;
 }
-  
+
 .close-icon {
     transition: 1s ease-in-out;
 }
-  
+
 .close-icon:hover {
     transform: rotate(180deg);
 }
-  
-::ng-deep .icon-outside .close-button{
+
+::ng-deep .icon-outside .close-button {
     float: right;
-    top:-52px;
-    right:-52px;
+    top: -52px;
+    right: -52px;
 }
-  
+
 ::ng-deep .icon-outside .mat-dialog-container {
-   overflow: unset
+    overflow: unset
 }
+
 
 /* CLOSE BUTTON END*/
 
-.container-message{
+.container-message {
     display: flex;
     flex-direction: row;
     align-items: center;

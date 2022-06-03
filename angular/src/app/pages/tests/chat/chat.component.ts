@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { lastValueFrom, map} from 'rxjs';
+import { map} from 'rxjs';
+import { Chat } from 'src/app/models/chat';
 import { Test } from 'src/app/models/test';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
@@ -21,8 +22,7 @@ export class ChatComponent implements OnInit {
 
   userId = localStorage.getItem("id") as string;
 
-  // currentChat = new Map<string, Chat>();
-  currentChat!: any;
+  currentChat = new Map<string, Chat>();
   currentTest = new Map<string, Test>();
 
   testDate!: string;
@@ -54,20 +54,16 @@ export class ChatComponent implements OnInit {
       this.getPatient()
       this.testDate = Array.from(this.currentTest.values())[0].date;
       this.finalDiagnosis = Array.from(this.currentTest.values())[0].finalDiagnosis;
+      this.patientID = Array.from(this.currentTest.values())[0].patientID;
     });
   }
 
-  async getChat(){
-    this.currentChat = (await lastValueFrom(this.chatService.getChat(this.data.chatID).get())).data(); 
-    this.currentMessages = this.currentChat.messages;
-    this.patientID = this.currentChat.patientID;
+  getChat(){
+    this.chatService.getChat(this.data.chatID).valueChanges().subscribe(async xd => {
+      this.currentChat.set(this.data.testID, xd!);
+      this.currentMessages = xd?.messages;      
+    });
   }
-
-//   async getTest(){
-//   this.currentTest =(await lastValueFrom(this.testService.getTestByID(this.data.testID).get())).data(); 
-//   console.log(this.currentTest);
-//   console.log(this.data.testID);
-// }
 
 getPatient(){
   this.authService.getUser(Array.from(this.currentTest.values())[0].patientID).valueChanges().subscribe(data=> {
