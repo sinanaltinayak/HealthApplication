@@ -37,5 +37,6 @@
     {"disease" : "(Vertigo) Paroynmsal Positional Vertigo", "department" : "Neurology"},
     {"disease" : "Urinary tract infection", "department" : "Internal Diseases"},
     {"disease" : "Psoriasis", "department" : "Dermatology"},
-    {"disease" : "Impetigo", "department" : "Dermatology"}
+    {"disease" : "Impetigo", "department" : "Dermatology"},
+    {"disease" : "Fungal Infection", "department" : "Infectious diseases"}
     ]
