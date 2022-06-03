@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { Test } from 'src/app/models/test';
 import {MatTableDataSource} from '@angular/material/table';
 import { TestsService } from 'src/app/service/tests.service';
@@ -13,6 +13,7 @@ import { ChatService } from 'src/app/service/chat.service';
 import { ChatComponent } from './chat/chat.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { FinalizeComponent } from './finalize/finalize.component';
+import { firstValueFrom, take } from 'rxjs';
 
 @Component({
   selector: 'app-tests',
@@ -27,7 +28,7 @@ export class TestsComponent implements AfterViewInit {
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   displayedColumnsFinalized: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  
+  department!: string;
   chats!: Map<String, boolean>;
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild('paginatorInProgress') paginatorInProgress!: MatPaginator;
@@ -49,7 +50,8 @@ export class TestsComponent implements AfterViewInit {
       // this.getTestsByDoctorID(Array.from(AppModule.userDoctor.keys())[0]);
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+    await this.getDepartment();
     let map = new Map();
     this.chatService.getDoctorChats(localStorage.getItem("id")!).get().subscribe(data => {
       data.forEach(fr=> {
@@ -59,7 +61,7 @@ export class TestsComponent implements AfterViewInit {
       });
     });
     this.chats = map;
-    this._testsService.getPendingTestsForDoctors(localStorage.getItem("department")!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+    this._testsService.getPendingTestsForDoctors(this.department).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
         this.getPatient(el.patientID).then(d => {
@@ -171,6 +173,11 @@ export class TestsComponent implements AfterViewInit {
     if(unReadChat! > 0){
       this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
     }
+  }
+
+   async getDepartment(){
+    const user$ =  this._authService.getUser(localStorage.getItem("id")!).snapshotChanges().pipe(take(1));
+    this.department = (await firstValueFrom(user$)).payload.get("department");
   }
   
 }
