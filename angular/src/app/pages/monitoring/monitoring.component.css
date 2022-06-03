@@ -10,15 +10,45 @@
 
 }
 
+mat-form-field{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 30px;
+}
+
+.container-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+table {
+    width: 100%;
+}
+
+mat-chip{
+    height: 40px;
+}
+
 .mat-form-field {
     font-size: 14px;
 }
 
-td,
-th {
+td{
     width: 25%;
+    text-align: center !important;
 }
 
+::ng-deep .mat-sort-header-container, .mat-header-cell {
+    justify-content: center!important;
+    text-align: center !important;
+}
+
+.mat-column-productId {
+    flex: 0 0 10%;
+}
+.mat-column-productName {
+    flex: 0 0 50%;
+}
 
 mat-card{
     margin: 20px;
