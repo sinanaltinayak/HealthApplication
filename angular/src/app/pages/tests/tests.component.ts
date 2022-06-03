@@ -59,8 +59,7 @@ export class TestsComponent implements AfterViewInit {
       });
     });
     this.chats = map;
-    console.log(this.chats)
-    this._testsService.getPendingTests().valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
+    this._testsService.getPendingTestsForDoctors(localStorage.getItem("department")!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
       data.forEach(el => {
         el.result = this.myapp.parseDiagnosis(el.resultString);
         this.getPatient(el.patientID).then(d => {

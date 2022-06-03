@@ -141,7 +141,6 @@ menuOpened() {
     if(localStorage.getItem("role")! == "doctor"){
       this._chatService.getDoctorChats(localStorage.getItem("id")!).get().forEach(data => {
         data.forEach(fr=> {
-          console.log(fr.id, fr.data().messages.pop()?.senderID, fr.data().unRead)
           if(localStorage.getItem("id") != fr.data().messages.pop()?.senderID){
             if(fr.data().unRead == true){
               this.myapp.NotifCount++;

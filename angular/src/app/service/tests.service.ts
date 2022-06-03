@@ -28,6 +28,9 @@ export class TestsService {
   getPendingTests(): AngularFirestoreCollection<Test> {
     return this.db.collection('tests', ref => ref.where('doctorID', '==', ''));
   }
+  getPendingTestsForDoctors(dep: string): AngularFirestoreCollection<Test> {
+    return this.db.collection('tests', ref => ref.where('doctorID', '==', '').where('department', '==', dep));
+  }
   getInProgressTestsByDoctorId(id: string): AngularFirestoreCollection<Test> {
     return this.db.collection('tests', ref => ref.where('doctorID', '==', id).where('finalDiagnosis', '==' , ''));
   }

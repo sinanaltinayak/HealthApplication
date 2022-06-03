@@ -16,11 +16,11 @@ import { ChatService } from 'src/app/service/chat.service';
 })
 export class HistoryComponent implements AfterViewInit {
 
-  displayedColumnsPending: string[] = ['status','date', 'symptoms', 'result'];
+  displayedColumnsPending: string[] = ['status','date', 'symptoms', 'result', 'department'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsInProgress: string[] = ['status','date', 'symptoms', 'result', 'chat'];
+  displayedColumnsInProgress: string[] = ['status','date', 'symptoms', 'result', 'department', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsFinalized: string[] = ['status','date', 'symptoms', 'result', 'finalDiagnosis', 'chat', 'rate'];
+  displayedColumnsFinalized: string[] = ['status','date', 'symptoms', 'result', 'department', 'finalDiagnosis', 'chat', 'rate'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   chats!: Map<String, boolean>;
