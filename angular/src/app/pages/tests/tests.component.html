@@ -18,20 +18,14 @@
                 <div class="mat-elevation-z8">
                     <table mat-table #sortPending="matSort" [dataSource]="dataSourcePending" matSort>
 
-
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef> Status </th>
-                            <td mat-cell *matCellDef="let row">
-                                <mat-chip-list>
-                                    <mat-chip class="pending"> Pending</mat-chip>
-                                </mat-chip-list>
-                            </td>
-                        </ng-container>
-
                         <ng-container matColumnDef="date">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
-                                {{row.date | date:'dd/MM/yyyy'}}
+                                <mat-chip-list>
+                                    <mat-chip class="pending">
+                                        {{row.date | date:'dd/MM/yyyy'}}
+                                    </mat-chip>
+                                </mat-chip-list>
                             </td>
                         </ng-container>
 
@@ -92,22 +86,18 @@
                 <div class="mat-elevation-z8">
                     <table mat-table #sortInProgress="matSort" [dataSource]="dataSourceInProgress" matSort>
 
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef> Status </th>
-                            <td mat-cell *matCellDef="let row">
-                                <mat-chip-list>
-                                    <mat-chip class="inProgress"> In Progress</mat-chip>
-                                </mat-chip-list>
-                            </td>
-                        </ng-container>
-
                         <!-- Progress Column -->
                         <ng-container matColumnDef="date">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
-                                {{row.date | date:'dd/MM/yyyy'}}
+                                <mat-chip-list>
+                                    <mat-chip class="inProgress">
+                                        {{row.date | date:'dd/MM/yyyy'}}
+                                    </mat-chip>
+                                </mat-chip-list>
                             </td>
                         </ng-container>
+
 
                         <!-- Name Column -->
                         <ng-container matColumnDef="fullname">
@@ -142,7 +132,7 @@
                             <td mat-cell *matCellDef="let row">
                                 <ng-template [ngIf]="row.chatID != '' ">
                                     <span *ngIf="isChatUnread(row.chatID)" matBadge="*" matBadgePosition="after" matBadgeColor="accent"></span>
-                                    <button mat-icon-button  (click)="openChatDialog(row.chatID, row.id)" >
+                                    <button mat-icon-button (click)="openChatDialog(row.chatID, row.id)">
                                         <mat-icon color="warn">message</mat-icon>
                                     </button>
                                 </ng-template>
@@ -179,19 +169,15 @@
                 <div class="mat-elevation-z8">
                     <table mat-table #sortFinalized="matSort" [dataSource]="dataSourceFinalized" matSort>
 
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef> Status </th>
-                            <td mat-cell *matCellDef="let row">
-                                <mat-chip-list>
-                                    <mat-chip class="finalized"> Finalized</mat-chip>
-                                </mat-chip-list>
-                            </td>
-                        </ng-container>
 
                         <ng-container matColumnDef="date">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
-                                {{row.date | date:'dd/MM/yyyy'}}
+                                <mat-chip-list>
+                                    <mat-chip class="finalized">
+                                        {{row.date | date:'dd/MM/yyyy'}}
+                                    </mat-chip>
+                                </mat-chip-list>
                             </td>
                         </ng-container>
 
@@ -226,7 +212,7 @@
                             <td mat-cell *matCellDef="let row">
                                 <ng-template [ngIf]="row.chatID != '' ">
                                     <span *ngIf="isChatUnread(row.chatID)" matBadge="*" matBadgePosition="after" matBadgeColor="accent"></span>
-                                    <button mat-icon-button  (click)="openChatDialog(row.chatID, row.id)" >
+                                    <button mat-icon-button (click)="openChatDialog(row.chatID, row.id)">
                                         <mat-icon color="warn">message</mat-icon>
                                     </button>
                                 </ng-template>

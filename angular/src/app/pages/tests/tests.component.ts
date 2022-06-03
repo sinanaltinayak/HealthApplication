@@ -21,11 +21,11 @@ import { FinalizeComponent } from './finalize/finalize.component';
 })
 export class TestsComponent implements AfterViewInit {
 
-  displayedColumnsPending: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'actions'];
+  displayedColumnsPending: string[] = ['date', 'fullname', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsInProgress: string[] = ['status', 'date', 'fullname', 'symptoms', 'result','final diagnosis', 'chat'];
+  displayedColumnsInProgress: string[] = ['date', 'fullname', 'symptoms', 'result','final diagnosis', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsFinalized: string[] = ['status', 'date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
+  displayedColumnsFinalized: string[] = ['date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   
   chats!: Map<String, boolean>;
