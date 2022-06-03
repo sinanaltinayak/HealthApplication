@@ -29,8 +29,12 @@ export class ProfileComponent implements OnInit {
   inputName = this.currentUser.get(this.currentUserId)?.fullname;
   inputMail = this.currentUser.get(this.currentUserId)?.email;
   inputGender = this.currentUser.get(this.currentUserId)?.gender;
-  inputBirthday= this.currentUser.get(this.currentUserId)?.birthday;
+  inputBirthday = this.currentUser.get(this.currentUserId)?.birthday;
   inputPhoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+  userRole = this.currentUser.get(this.currentUserId)?.role;
+  profilePicture = localStorage.getItem('profilePicture') as string;
+  control: any;
+  
   date = new FormControl(new Date());
 
   selectedImage!: any;
@@ -50,23 +54,18 @@ export class ProfileComponent implements OnInit {
    }
 
   async ngOnInit() {
-    this._authService.getUser(this.currentUserId).valueChanges().subscribe(xd => {
+      this._authService.getUser(this.currentUserId).valueChanges().subscribe(xd => {
       this.currentUser.set(this.currentUserId, xd!);
       this.inputName =  Array.from(this.currentUser.values())[0].fullname;
       this.inputMail =  Array.from(this.currentUser.values())[0].email;
       this.inputGender = Array.from(this.currentUser.values())[0].gender;
       this.inputBirthday = Array.from(this.currentUser.values())[0].birthday;
       this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;
+      this.userRole = Array.from(this.currentUser.values())[0].role;
 
-      this.storage.storage.ref("ProfileImages/"+this.currentUserId+".jpg").getDownloadURL().then(
-        (url: string) => {
-          this.profileImage = url;
-        }
-      ).catch(error => {
-        this.profileImage = 'https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg';
-      });
-      
     });
+
+    
     let count = 0;
     await this._testsService.getFinalizedTestsByDoctorId(localStorage.getItem("id")!).get().forEach(fh=>{
       fh.docs.forEach(fr=>{
@@ -77,6 +76,13 @@ export class ProfileComponent implements OnInit {
       });
     });
     this.rate = this.rate / count;
+    
+    await this.storage.storage.ref(this.profilePicture).getDownloadURL().then(
+      (url: string) => {
+        this.profileImage = url;
+      }
+    )
+    
   }
 
 
@@ -115,8 +121,17 @@ export class ProfileComponent implements OnInit {
      // takes the file uploaded
     onFileSelected(event: any) {
       this.selectedImage = event.target.files[0];
+      if(this.selectedImage.size > 1048576 ){
+        alert("Please select an image smaller than 1MB");
+     }
+     else{
+      this.control = "yes";
       const file = this.selectedImage;
-      this.storage.upload('ProfileImages/'+this.currentUserId+'.jpg', file);
+      const name = this.selectedImage.name;
+      this.storage.upload('ProfileImages/'+name, file);
+      this._userService.userRef.doc(this.currentUserId).update({profilePicture: 'ProfileImages/'+name});
+      localStorage.setItem('profilePicture', 'ProfileImages/'+name);
+    }
     }
 
     // gets the url of the necessary picture

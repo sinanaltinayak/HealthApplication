@@ -8,16 +8,29 @@
         <div class="col-xl-4 profile">
             <div class="card mb-4 mb-xl-0">
                 <h1 class="card-header title text-center">Profile</h1>
-                <div class="card-body text-center">
+                <div class="card-body">
 
                     <img class="img-account-profile rounded-circle mb-2" mat-card-image [src]="getDownloadURL()">
+                    <div>
+                        <button type="button" mat-icon-button color="warn" (click)="fileInput.click()">
+                            <mat-icon>edit</mat-icon>
+                            </button>
+                        <input hidden accept=".png,.jpg, .webp" (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                        <button mat-raised-button color="accent" (click)="refresh()">Save</button>
+                    </div>
+                    <span *ngIf="control == 'yes'">Choosen File:</span>
+                    <span *ngIf="control == 'yes'">{{selectedImage.name}}</span>
 
-                    <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-                    <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
-                    <button mat-raised-button (click)="refresh()">Save</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="card-body">
 
-                    <div class="title font-italic">{{ inputName }}</div>
-                    <div class="title font-italic">{{ inputMail }}</div>
+                    <div class="title">{{ inputName }}</div>
+                    <div class="title">{{ inputMail }}</div>
+                </div>
+                <mat-divider></mat-divider>
+
+                <div class="card-body" *ngIf="userRole == 'doctor'">
                     <div class="rating">
                         <div>
                             <ngx-material-rating [(ngModel)]="this.rate" [max]="5" [disabled]="true">
@@ -25,6 +38,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="col-xl-8 changes">

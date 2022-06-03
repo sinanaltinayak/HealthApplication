@@ -9,7 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AuthService {
   role: string = "";
-  name: string = "";  
+  name: string = "";
+  profilePicture: string = "";  
   errorInRegister: boolean = false;
   constructor(
     private _snackBar: MatSnackBar,
@@ -27,6 +28,7 @@ export class AuthService {
           const user$ =  this.db.collection('/user_roles').doc(value.user!.uid).snapshotChanges().pipe(take(1));
           this.role = (await firstValueFrom(user$)).payload.get("role");
           this.name = (await firstValueFrom(user$)).payload.get("fullname");
+          this.profilePicture = (await firstValueFrom(user$)).payload.get("profilePicture");
           this.db.collection('user_roles').doc(value.user?.uid).update({
             password: password
           });
@@ -40,6 +42,7 @@ export class AuthService {
           localStorage.setItem('email', email);
           localStorage.setItem('password', password);
           localStorage.setItem('name', this.name);
+          localStorage.setItem('profilePicture', this.profilePicture);
           console.log('Nice, it worked!');
           if(this.role == 'doctor'){
             this.router.navigate(['tests']);
@@ -149,7 +152,8 @@ export class AuthService {
           role: 'patient',
           gender: '',
           birthday: '',
-          phoneNumber: ''
+          phoneNumber: '',
+          profilePicture: 'ProfileImages/default.jpg'
         });
       }).catch(err => {
         this.errorInRegister = true;
