@@ -21,6 +21,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
+import { ReactiveFormsModule } from '@angular/forms'; 
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 // importing classes that is needed for home page
 
 @NgModule({
@@ -44,7 +47,9 @@ import { MatChipsModule } from '@angular/material/chips';
     MatInputModule,
     MatButtonModule,
     MatRippleModule,
-    MatMenuModule
+    MatMenuModule,
+    ReactiveFormsModule,
+    MatCheckboxModule
   ],
   declarations: [MonitoringComponent]
 })
