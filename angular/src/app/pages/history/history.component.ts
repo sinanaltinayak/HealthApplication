@@ -152,11 +152,18 @@ parseSymptoms(symptoms: string) : string{
       this._testsService.getTestByID(f.data()!.testID).get().forEach(e=> {
         if (e.data()?.unRead == true){
           unReadTest++;
-          console.log(unReadTest)
         }
       });
     });
   }
+  await this._testsService.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(fe=> {
+    fe.docs.forEach(x=> {
+      if(x.get("unRead") == true){
+        unReadTest++;
+        console.log(unReadTest);
+      }
+    });
+  });
   this.chats.forEach(a=> {
     if(a == true){
       unReadChat++;

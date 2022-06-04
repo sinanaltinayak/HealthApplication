@@ -120,10 +120,12 @@
                             </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="final diagnosis">
-                            <th mat-header-cell *matHeaderCellDef> Finalize </th>
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef> Actions </th>
                             <td mat-cell *matCellDef="let row">
                                 <button mat-raised-button color="warn" (click)="openFinalizeDialog(row.id)">Finalize</button>
+                                <br>
+                                <button mat-raised-button color="warn" (click)="openDepartmentDialog(row.id)">Change Department</button>
                             </td>
                         </ng-container>
 
