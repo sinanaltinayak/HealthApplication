@@ -49,3 +49,10 @@ mat-card {
 .pending {
     background-color: rgb(253, 215, 215);
 }
+
+.actionbuttons {
+    display: flex;
+    margin: 15px;
+    flex-direction: column;
+    align-content: center;
+}

@@ -145,13 +145,20 @@ parseSymptoms(symptoms: string) : string{
   return symptoms.replace(/,/g,", ");
 }
   async notifMessages(){
-  let unReadTest: number = 0;
+  let unReadFinalizedTest: number = 0;
+  let unReadProgressTest: number = 0;
+  let unReadReassignedTest: number = 0;
   let unReadChat: number = 0;
   for(var i = 0; i <= this.chats.size-1; i++){
      await this._chatService.getChat(Array.from(this.chats.keys())[i]).get().forEach(f=> {
       this._testsService.getTestByID(f.data()!.testID).get().forEach(e=> {
         if (e.data()?.unRead == true){
-          unReadTest++;
+          if(e.data()?.finalDiagnosis == ""){
+            unReadProgressTest++;
+          }
+          else{
+            unReadFinalizedTest++;
+          }
         }
       });
     });
@@ -159,8 +166,7 @@ parseSymptoms(symptoms: string) : string{
   await this._testsService.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(fe=> {
     fe.docs.forEach(x=> {
       if(x.get("unRead") == true){
-        unReadTest++;
-        console.log(unReadTest);
+        unReadReassignedTest++;
       }
     });
   });
@@ -170,17 +176,42 @@ parseSymptoms(symptoms: string) : string{
     }
   });
   setTimeout(() => {
-    if(unReadChat! > 0 && unReadTest! == 0){
-      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
+    if(unReadChat! == 1){
+      this.myapp.openSnackBar("New messages from " + unReadChat! +  " unread chat!", "Continue");    
     }
-    if(unReadChat! == 0 && unReadTest! > 0){
-      this.myapp.openSnackBar("You have " + unReadTest! + " unread tests", "Continue");    
-    }
-    if(unReadChat! > 0 && unReadTest! > 0){
-      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats and " + unReadTest! + " unread tests", "Continue");    
+    if(unReadChat! > 1){
+      this.myapp.openSnackBar("New messages from " + unReadChat! +  " unread chats!", "Continue");    
     }
   },
-  500);
+  0);
+  setTimeout(() => {
+    if(unReadProgressTest! == 1){
+      this.myapp.openSnackBar(unReadProgressTest! + " test started to be monitoring!", "Continue");    
+    }
+    if(unReadProgressTest! > 1){
+      this.myapp.openSnackBar(unReadProgressTest! + " tests started to be monitoring", "Continue");    
+    }
+  },
+  1000);
+  setTimeout(() => {
+    if(unReadFinalizedTest! == 1){
+      this.myapp.openSnackBar(unReadFinalizedTest! + " test has been finalized!", "Continue");    
+    }
+    if(unReadFinalizedTest! > 1){
+      this.myapp.openSnackBar(unReadFinalizedTest! + " tests have been finalized!", "Continue");    
+    }
+  },
+  2000);
+  setTimeout(() => {
+
+    if(unReadReassignedTest! == 1){
+      this.myapp.openSnackBar("The department of " + unReadReassignedTest! + " test has been reassigned by the doctor", "Continue");    
+    }
+    if(unReadReassignedTest! > 1){
+      this.myapp.openSnackBar("The departments of " + unReadReassignedTest! + " tests have been reassigned by the doctors", "Continue");    
+    }
+  },
+  3000);
 }
 rate(testID: string, rate: string){
   this._testsService.getTestByID(testID).update({rate : rate.toString()});

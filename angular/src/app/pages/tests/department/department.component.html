@@ -8,7 +8,8 @@
 
 
     <div class="container3">
-        <h3 class="title">Final Decision: </h3>
+        <h3 class="title">Current Department: {{ data.department}}</h3>
+        <h3 class="title">New Department: </h3>       
             <mat-form-field class="decision" appearance="fill">
                 <mat-label>Departments</mat-label>
                 <input type="text" [(ngModel)]="selectedDepartment" aria-label="Symptom" matInput [matAutocomplete]="auto" #diagnosisInput tabindex="-1">

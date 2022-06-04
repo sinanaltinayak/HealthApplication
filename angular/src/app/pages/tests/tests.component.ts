@@ -120,10 +120,10 @@ export class TestsComponent implements AfterViewInit {
     });
   }
 
-  openDepartmentDialog(id: any) {    
+  openDepartmentDialog(id: any, dep: any) {    
     const dialogRef = this.dialog.open(DepartmentComponent, {
-      width: "30%", 
-      data: {testID: id},
+      width: "20%", 
+      data: {testID: id, department: dep},
       hasBackdrop: true,
     });
   }
