@@ -8,6 +8,7 @@ import { AppComponent } from 'src/app/app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from 'src/app/service/chat.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-history',
@@ -18,9 +19,9 @@ export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['date', 'symptoms', 'result', 'department'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsInProgress: string[] = ['date', 'symptoms', 'result', 'department', 'chat'];
+  displayedColumnsInProgress: string[] = ['date', 'symptoms', 'result', 'doctor', 'department', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsFinalized: string[] = ['date', 'symptoms', 'result', 'department', 'finalDiagnosis', 'chat', 'rate'];
+  displayedColumnsFinalized: string[] = ['date', 'symptoms', 'result', 'doctor', 'department', 'finalDiagnosis', 'chat', 'rate'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   chats!: Map<String, boolean>;
@@ -37,6 +38,7 @@ export class HistoryComponent implements AfterViewInit {
 
   constructor(public _testsService: TestsService,
     public _chatService: ChatService,
+    public _authService: AuthService,
     public dialog: MatDialog,
     public myapp: AppComponent) {
       this.id = localStorage.getItem('id')!;
@@ -65,6 +67,9 @@ export class HistoryComponent implements AfterViewInit {
       this._testsService.getInProgressTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
           el.result = this.myapp.parseDiagnosis(el.resultString);
+          this.getDoctor(el.doctorID).then(d=> {
+            el.doctorname = d.valueOf();
+          });
         });
         this.dataSourceInProgress.data = data;
         this.dataSourceInProgress.sort = this.sortInProgress;
@@ -73,6 +78,9 @@ export class HistoryComponent implements AfterViewInit {
       this._testsService.getFinalizedTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
           el.result = this.myapp.parseDiagnosis(el.resultString);
+          this.getDoctor(el.doctorID).then(d=> {
+            el.doctorname = d.valueOf();
+          });
         });
         this.dataSourceFinalized.data = data;
         this.dataSourceFinalized.sort = this.sortFinalized;
@@ -169,5 +177,13 @@ parseSymptoms(symptoms: string) : string{
 }
 rate(testID: string, rate: string){
   this._testsService.getTestByID(testID).update({rate : rate.toString()});
+}
+
+async getDoctor(id: string){
+  let name: string;
+  await this._authService.getUser(id).ref.get().then((doc) => {
+    name = doc.get("fullname");
+  });
+  return name!;
 }
 }

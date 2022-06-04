@@ -14,6 +14,7 @@ export class Test{
     unRead: boolean = false;
     rate!: string;
     department!: string;
+    doctorname!: string;
 
     constructor(patientID: string, doctorID: string, chatID: string, date: string, symptoms: string, resultString: string, finalDiagnosis: string, department: string) {
         this.patientID = patientID;

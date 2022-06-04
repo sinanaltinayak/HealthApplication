@@ -90,6 +90,10 @@ mat-card {
     animation-iteration-count: infinite;
 }
 
+.star{
+    display: flex;
+    flex-direction: row;
+}
 
 @keyframes example {
     0%   {background-color: #c8e0de;}
