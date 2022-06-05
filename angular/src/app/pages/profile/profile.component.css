@@ -91,6 +91,10 @@ td {
     margin-top: 150px;
 }
 
+.history {
+    margin-top: 50px;
+}
+
 .card-body {
     display: flex;
     flex-direction: column;

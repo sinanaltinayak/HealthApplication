@@ -42,69 +42,118 @@
             </div>
         </div>
         <div class="col-xl-8 changes">
-            <div class="card mb-4">
-                <h1 class="card-header title text-center">Account Details</h1>
-                <div class="card-body">
-                    <form class="example-form">
-                        <table class="example-full-width" cellspacing="0">
-                            <tr>
-                                <td>
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Full Name</mat-label>
-                                        <input matInput ngModel="{{inputName }}" [(ngModel)]="name" name="name">
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Phone Number</mat-label>
-                                        <input matInput ngModel="{{ inputPhoneNumber }}" [(ngModel)]="phoneNumber" name="phoneNumber">
-                                    </mat-form-field>
-                                </td>
-                            </tr>
-                        </table>
-                        <table class="example-full-width" cellspacing="0">
-                            <tr>
-                                <td>
-                                    <!-- <mat-form-field class="example-full-width" appearance="fill">
+            <div>
+                <div class="card mb-4">
+                    <h1 class="card-header title text-center">Account Details</h1>
+                    <div class="card-body">
+                        <form class="example-form">
+                            <table class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <mat-label>Full Name</mat-label>
+                                            <input matInput ngModel="{{inputName }}" [(ngModel)]="name" name="name">
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <mat-label>Phone Number</mat-label>
+                                            <input matInput ngModel="{{ inputPhoneNumber }}" [(ngModel)]="phoneNumber" name="phoneNumber">
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <!-- <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Gender</mat-label>
                                         <input matInput ngModel="{{ inputGender }}" [(ngModel)]="gender" name="gender">
                                     </mat-form-field> -->
-                                    <mat-form-field appearance="fill" class="example-full-width">
-                                        <mat-label>Gender</mat-label>
-                                        <mat-select ngModel="{{ inputGender }}" [(ngModel)]="gender" name="gender">
-                                            <mat-option value="female">Female</mat-option>
-                                            <mat-option value="male">Male</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </td>
-                                <td>
-                                    <!-- <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-form-field appearance="fill" class="example-full-width">
+                                            <mat-label>Gender</mat-label>
+                                            <mat-select ngModel="{{ inputGender }}" [(ngModel)]="gender" name="gender">
+                                                <mat-option value="female">Female</mat-option>
+                                                <mat-option value="male">Male</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <!-- <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Birthday</mat-label>
                                         <input matInput ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
                                     </mat-form-field> -->
 
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Birth Year</mat-label>
-                                        <!-- <mat-select ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <mat-label>Birth Year</mat-label>
+                                            <!-- <mat-select ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
                                             <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
                                         </mat-select> -->
-                                        <input matInput ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
-                                    </mat-form-field>
+                                            <input matInput ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
+                                        </mat-form-field>
 
-                                </td>
-                            </tr>
-                        </table>
+                                    </td>
+                                </tr>
+                            </table>
 
-                        <!-- <p>
+                            <!-- <p>
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>Address</mat-label>
                                 <textarea matInput></textarea>
                             </mat-form-field>
                         </p> -->
-                        <button mat-raised-button color="accent" (click)="saveChanges(name, gender, birthday, phoneNumber)">Save Changes</button>
-                    </form>
+                            <button mat-raised-button color="accent" (click)="saveChanges(name, gender, birthday, phoneNumber)">Save Changes</button>
+                        </form>
+                    </div>
+                    <div>
+                        <div class="history" *ngIf="userRole != 'doctor'">
+                            <h1 class="card-header title text-center">Medical History</h1>
+                            <div class="card-body">
+                                <form class="example-form">
+
+
+                                    <p>
+                                        What are your medical and surgical histories? Please specify.
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <textarea ngModel="{{ inputQuestion1 }}" name="question1" [(ngModel)]="question1" matInput></textarea>
+                                        </mat-form-field>
+                                    </p>
+                                    <p>
+                                        Do you take prescription or non-prescription medications? If yes, please specify.
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <textarea ngModel="{{ inputQuestion2 }}" name="question2" [(ngModel)]="question2" matInput></textarea>
+                                        </mat-form-field>
+                                    </p>
+                                    <p>
+                                        Do you have any allergies? If yes, please specify.
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <textarea ngModel="{{ inputQuestion3 }}" name="question3" [(ngModel)]="question3" matInput></textarea>
+                                        </mat-form-field>
+                                    </p>
+                                    <p>
+                                        What is your smoking, alcohol, and illicit drug use history? Please specify.
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <textarea ngModel="{{ inputQuestion4 }}" name="question4" [(ngModel)]="question4" matInput></textarea>
+                                        </mat-form-field>
+                                    </p>
+                                    <p>
+                                        Is there any diagnosed disease in your family? If yes, please specify.
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <textarea ngModel="{{ inputQuestion5 }}" name="question5" [(ngModel)]="question5" matInput></textarea>
+                                        </mat-form-field>
+                                    </p>
+                                    <button mat-raised-button color="accent" (click)="saveChanges2(question1, question2, question3, question4, question5)">Save Changes</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
+
+
     </div>
 </div>
