@@ -91,6 +91,10 @@ td {
     margin-top: 150px;
 }
 
+.documents {
+    margin-top: 30px;
+}
+
 .history {
     margin-top: 50px;
 }
@@ -108,4 +112,15 @@ td {
 
 .title {
     font-family: 'Poppins', sans-serif;
+}
+
+.save {
+    margin-left: 5px;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+    color: inherit;
 }

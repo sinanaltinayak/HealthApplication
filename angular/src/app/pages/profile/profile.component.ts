@@ -54,6 +54,9 @@ export class ProfileComponent implements OnInit {
   inputQuestion4 = this.medicalHistory.get(this.currentUserId)?.question4;
   inputQuestion5 = this.medicalHistory.get(this.currentUserId)?.question5;
   angularFirestore: any;
+  selectedFile: any;
+  selectedFile2: any;
+  fileList = new Map<string, string>();
 
   constructor(
     public _authService: AuthService,
@@ -68,7 +71,7 @@ export class ProfileComponent implements OnInit {
    }
 
   async ngOnInit() {
-    
+      this.getFileList()
       this._medicalHistoryService.getMedicalHistory(this.currentUserId).valueChanges().subscribe(xd => {
       this.medicalHistory.set(this.currentUserId, xd!);
       this.inputQuestion1 =  Array.from(this.medicalHistory.values())[0].question1;
@@ -105,7 +108,8 @@ export class ProfileComponent implements OnInit {
         this.profileImage = url;
       }
     )
-    
+
+
   }
 
 
@@ -198,10 +202,40 @@ export class ProfileComponent implements OnInit {
     }
     }
 
+    onFileSelected2(event: any) {
+      let patientID = localStorage.getItem("id")!;
+      this.selectedFile = event.target.files[0];
+      const file = this.selectedFile;
+      const name = this.selectedFile.name;
+      this.storage.upload(patientID + '/' + name, file);
+    
+    }
+
     // gets the url of the necessary picture
     getDownloadURL(){
       return this.profileImage;
     }
+
+
+    getFileList() {
+      const ref = this.storage.ref(this.currentUserId);
+      let myurlsubscription = ref.listAll().subscribe((data) => {
+        for (let i = 0; i < data.items.length; i++) {
+          let name = data.items[i].name;
+          let newref = this.storage.ref(this.currentUserId + '/' + data.items[i].name);
+          let url = newref.getDownloadURL().subscribe((data) => {
+            this.fileList.set(
+              name, data
+            );
+          });
+        }
+      });
+    }
+
+    delete(name: string) {
+      return this.storage.storage.ref(this.currentUserId + '/' + name).delete();
+    }
+
   }
 
 

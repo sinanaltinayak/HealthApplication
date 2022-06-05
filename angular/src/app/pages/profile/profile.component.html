@@ -14,8 +14,8 @@
                     <div>
                         <button type="button" mat-icon-button color="warn" (click)="fileInput.click()">
                             <mat-icon>edit</mat-icon>
-                            </button>
-                        <input hidden accept=".png,.jpg, .webp" (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                        </button>
+                        <input hidden accept=".png, .jpg, .webp" (change)="onFileSelected($event)" #fileInput type="file" id="file">
                         <button mat-raised-button color="accent" (click)="refresh()">Save</button>
                     </div>
                     <span *ngIf="control == 'yes'">Choosen File:</span>
@@ -28,7 +28,7 @@
                     <div class="title">{{ inputName }}</div>
                     <div class="title">{{ inputMail }}</div>
                 </div>
-                <mat-divider></mat-divider>
+                <mat-divider *ngIf="userRole == 'doctor'"></mat-divider>
 
                 <div class="card-body" *ngIf="userRole == 'doctor'">
                     <div class="rating">
@@ -39,6 +39,28 @@
                     </div>
                 </div>
 
+                <div *ngIf="userRole == 'patient'" class="documents">
+                    <h1 class="card-header title text-center">Documents</h1>
+                    <div class="card-body">
+                        <div>
+                            <button mat-raised-button color="accent" (click)="fileInput.click()">Upload New File</button>
+                            <input hidden (change)="onFileSelected2($event)" #fileInput type="file" id="file">
+                            <button class="save" mat-raised-button color="accent" (click)="refresh()">Save</button>
+                        </div>
+                        <span *ngIf="selectedFile != null">Choosen File:</span>
+                        <span *ngIf="selectedFile != null">{{selectedFile.name}}</span>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li *ngFor="let file of fileList | keyvalue">
+                                <a href="{{ file.value }}">{{file.key}}</a>
+                                <button type="button" (click)="delete(file.key); refresh()" mat-icon-button color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xl-8 changes">
