@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from 'src/app/service/chat.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { DiagnosisDialogComponent } from 'src/app/dialogs/diagnosis-dialog/diagnosis-dialog.component';
 
 @Component({
   selector: 'app-history',
@@ -104,6 +105,13 @@ export class HistoryComponent implements AfterViewInit {
     }  
   }
 
+  openDiagnosisDialog(diagnosisName: string) {    
+    const dialogRef = this.dialog.open(DiagnosisDialogComponent, {
+      width: "50%", 
+      data: {diagnosisName: diagnosisName},
+      hasBackdrop: true,
+    });
+  }
   openChatDialog(chatId: string, testId: string) {    
     const dialogRef = this.dialog.open(ChatComponent, {
       width: "50%", 

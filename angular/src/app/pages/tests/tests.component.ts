@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { FinalizeComponent } from './finalize/finalize.component';
 import { firstValueFrom, take } from 'rxjs';
 import { DepartmentComponent } from './department/department.component';
+import { DiagnosisDialogComponent } from 'src/app/dialogs/diagnosis-dialog/diagnosis-dialog.component';
 
 @Component({
   selector: 'app-tests',
@@ -143,6 +144,14 @@ export class TestsComponent implements AfterViewInit {
     if (dataSource.paginator) {
       dataSource.paginator.firstPage();
     }  
+  }
+
+  openDiagnosisDialog(diagnosisName: string) {    
+    const dialogRef = this.dialog.open(DiagnosisDialogComponent, {
+      width: "50%", 
+      data: {diagnosisName: diagnosisName},
+      hasBackdrop: true,
+    });
   }
 
   openChatDialog(chatId: string, testId: string) {    

@@ -9,6 +9,13 @@
     margin: 12px;
 
 }
+.container-display{
+    padding: 30px;
+}
+
+mat-checkbox{
+    padding-right: 30px;
+}
 
 mat-form-field{
     padding-top: 10px;

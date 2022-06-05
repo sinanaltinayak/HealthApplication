@@ -60,7 +60,7 @@
 <div #target class="container">
 
     <mat-stepper [linear]="true" #stepper id="toggle-linear">
-        <mat-step>
+        <mat-step [editable]="false">
             <ng-template matStepLabel>Fill out the form</ng-template>
             <div class="symptomsForm">
 
@@ -150,6 +150,7 @@
                     </ng-container>
                     
                     <ng-container *ngIf="!showLoaderResult">
+                        <mat-card-title> Recommendation </mat-card-title>
                         <ul>
                             <ng-container *ngFor="let item of possibleDiagnosisInformation[selectedDiagnosisIndex].precautions; let i=index">
                                 <br> <li>{{item}}</li>

@@ -1,0 +1,57 @@
+
+<mat-dialog-content>
+    <h1 mat-dialog-title> {{currentDiagnosisInformation.name}}</h1>
+    <mat-grid-list cols="2">
+        <mat-grid-tile>
+            <mat-card class="recommendation-card">
+        
+                <mat-card-title>Information</mat-card-title>
+                <mat-card-content>
+                   
+                    <ng-container *ngIf="showLoaderResult">
+                        <div class="mt-5 center">     
+                                <mat-spinner></mat-spinner>
+                        </div>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="!showLoaderResult">
+                        <mat-card-content>
+                            {{ currentDiagnosisInformation.description }}
+                        </mat-card-content>
+        
+                    </ng-container>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-card class="precautions-card">
+                <mat-card-title>Precautions</mat-card-title>
+                <mat-card-content>
+                   
+                    <ng-container *ngIf="showLoaderResult">
+                        <div class="mt-5 center">     
+                                <mat-spinner></mat-spinner>
+                        </div>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="!showLoaderResult">
+                        <ul>
+                            <ng-container *ngFor="let item of currentDiagnosisInformation.precautions; let i=index">
+                                <br> <li>{{item}}</li>
+                            </ng-container>    
+                        </ul>
+                    </ng-container>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+      
+    
+       
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

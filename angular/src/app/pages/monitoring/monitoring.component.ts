@@ -17,7 +17,7 @@ import { Observable, of } from 'rxjs';
   templateUrl: './monitoring.component.html',
 })
 export class MonitoringComponent implements AfterViewInit {
-  displayedColumns: string[] = ['createdAt', 'highBP', 'lowBP', 'temp', 'sugar', 'delete'];
+  displayedColumns: string[] = ['createdAt', 'highBP', 'lowBP', 'temperature', 'bloodSugarLevel', 'delete'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   
   dataSourceMonitor: MatTableDataSource<Monitor> = new MatTableDataSource<Monitor>();
@@ -34,7 +34,8 @@ export class MonitoringComponent implements AfterViewInit {
     temperature:  [Validators.min(0), Validators.max(100)],
     bloodSugarLevel:  [Validators.min(50), Validators.max(150)],
   });
-  
+
+  saveMonitorDisabled = false;
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -78,31 +79,27 @@ export class MonitoringComponent implements AfterViewInit {
     return result;
   }
 
-  controlView(view: boolean, index: number){
-    console.log(view);
-    view ? this.addColumn(index) : this.removeColumn(index);
+  controlView(view: boolean, name: string){
+    view ? this.addColumn(name) : this.removeColumn(name);
   }
   
-  addColumn(index: number) {
-    var tempList = this.columnsToDisplay.slice(index);
+  addColumn(name: string) {
+    this.columnsToDisplay.pop();
+    var index = this.displayedColumns.findIndex(el => el == name);
+
+    var tempList = this.columnsToDisplay.slice(index);    
+    
     this.columnsToDisplay.splice(index);
     this.columnsToDisplay.push(this.displayedColumns[index]);
+
     this.columnsToDisplay.push(...tempList);
+    this.columnsToDisplay.push("delete");
 
-    // var elem = document.getElementById(index.toString());
-    
-    // var attribute = elem?.getAttribute('formcontrolname') as string;
-
-    // this.viewControl.get(attribute)?.enable();
   }
   
-  removeColumn(index: number) {
+  removeColumn(name: string) {
+    var index = this.columnsToDisplay.findIndex(el => el == name);
     this.columnsToDisplay.splice(index, 1);
 
-    // var elem = document.getElementById(index.toString());
-    
-    // var attribute = elem?.getAttribute('formcontrolname') as string;
-
-    // this.viewControl.get(attribute)?.disable();
   }
 }
