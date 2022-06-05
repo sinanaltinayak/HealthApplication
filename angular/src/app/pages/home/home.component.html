@@ -83,7 +83,7 @@
                 <form class="example-form">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Symptoms</mat-label>
-                        <input type="text" placeholder="Select Your Symptoms" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #symptomInput formControlName="formControl">
+                        <input type="text" placeholder="Select Your Symptoms" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #symptomInput >
                         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selected($event)">
                             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                                 {{option}}
