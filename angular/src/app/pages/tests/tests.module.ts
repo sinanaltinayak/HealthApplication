@@ -26,6 +26,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { ChatComponent } from './chat/chat.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { DepartmentComponent } from './department/department.component';
 
 
 // importing classes that is needed for home page
@@ -53,6 +54,6 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatAutocompleteModule
 
   ],
-  declarations: [TestsComponent, ConfirmTestComponent, ChatComponent, FinalizeComponent]
+  declarations: [TestsComponent, ConfirmTestComponent, ChatComponent, FinalizeComponent, DepartmentComponent]
 })
 export class TestsModule { }

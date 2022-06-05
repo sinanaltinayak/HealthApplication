@@ -105,6 +105,13 @@
                             </td>
                         </ng-container>
 
+                        <ng-container matColumnDef="doctor">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Doctor </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.doctorname }}
+                            </td>
+                        </ng-container>
+
                         <ng-container matColumnDef="department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
                             <td mat-cell *matCellDef="let row">
@@ -178,6 +185,13 @@
                             </td>
                         </ng-container>
 
+                        <ng-container matColumnDef="doctor">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Doctor </th>
+                            <td mat-cell *matCellDef="let row">
+                                {{ row.doctorname }}
+                            </td>
+                        </ng-container>
+
                         <ng-container matColumnDef="department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
                             <td mat-cell *matCellDef="let row">
@@ -212,7 +226,7 @@
                             <td mat-cell *matCellDef="let row">
                                 <div class="rating">
                                     <div>
-                                        <ngx-material-rating [(ngModel)]="row.rate" [max]="5" (click)="rate(row.id, row.rate)">
+                                        <ngx-material-rating class="star" [(ngModel)]="row.rate" [max]="5" (click)="rate(row.id, row.rate)">
                                         </ngx-material-rating>
                                     </div>
                                 </div>

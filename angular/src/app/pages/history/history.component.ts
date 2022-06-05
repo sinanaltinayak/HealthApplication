@@ -8,6 +8,7 @@ import { AppComponent } from 'src/app/app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from 'src/app/service/chat.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-history',
@@ -18,9 +19,9 @@ export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['date', 'symptoms', 'result', 'department'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsInProgress: string[] = ['date', 'symptoms', 'result', 'department', 'chat'];
+  displayedColumnsInProgress: string[] = ['date', 'symptoms', 'result', 'doctor', 'department', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsFinalized: string[] = ['date', 'symptoms', 'result', 'department', 'finalDiagnosis', 'chat', 'rate'];
+  displayedColumnsFinalized: string[] = ['date', 'symptoms', 'result', 'doctor', 'department', 'finalDiagnosis', 'chat', 'rate'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   chats!: Map<String, boolean>;
@@ -37,6 +38,7 @@ export class HistoryComponent implements AfterViewInit {
 
   constructor(public _testsService: TestsService,
     public _chatService: ChatService,
+    public _authService: AuthService,
     public dialog: MatDialog,
     public myapp: AppComponent) {
       this.id = localStorage.getItem('id')!;
@@ -65,6 +67,9 @@ export class HistoryComponent implements AfterViewInit {
       this._testsService.getInProgressTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
           el.result = this.myapp.parseDiagnosis(el.resultString);
+          this.getDoctor(el.doctorID).then(d=> {
+            el.doctorname = d.valueOf();
+          });
         });
         this.dataSourceInProgress.data = data;
         this.dataSourceInProgress.sort = this.sortInProgress;
@@ -73,6 +78,9 @@ export class HistoryComponent implements AfterViewInit {
       this._testsService.getFinalizedTestsByPatientId(this.id!).valueChanges({ idField: 'id' }).subscribe((data: Test[]) => {
         data.forEach(el => {
           el.result = this.myapp.parseDiagnosis(el.resultString);
+          this.getDoctor(el.doctorID).then(d=> {
+            el.doctorname = d.valueOf();
+          });
         });
         this.dataSourceFinalized.data = data;
         this.dataSourceFinalized.sort = this.sortFinalized;
@@ -137,37 +145,83 @@ parseSymptoms(symptoms: string) : string{
   return symptoms.replace(/,/g,", ");
 }
   async notifMessages(){
-  let unReadTest: number = 0;
+  let unReadFinalizedTest: number = 0;
+  let unReadProgressTest: number = 0;
+  let unReadReassignedTest: number = 0;
   let unReadChat: number = 0;
   for(var i = 0; i <= this.chats.size-1; i++){
      await this._chatService.getChat(Array.from(this.chats.keys())[i]).get().forEach(f=> {
       this._testsService.getTestByID(f.data()!.testID).get().forEach(e=> {
         if (e.data()?.unRead == true){
-          unReadTest++;
-          console.log(unReadTest)
+          if(e.data()?.finalDiagnosis == ""){
+            unReadProgressTest++;
+          }
+          else{
+            unReadFinalizedTest++;
+          }
         }
       });
     });
   }
+  await this._testsService.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(fe=> {
+    fe.docs.forEach(x=> {
+      if(x.get("unRead") == true){
+        unReadReassignedTest++;
+      }
+    });
+  });
   this.chats.forEach(a=> {
     if(a == true){
       unReadChat++;
     }
   });
   setTimeout(() => {
-    if(unReadChat! > 0 && unReadTest! == 0){
-      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
+    if(unReadChat! == 1){
+      this.myapp.openSnackBar("New messages from " + unReadChat! +  " unread chat!", "Continue");    
     }
-    if(unReadChat! == 0 && unReadTest! > 0){
-      this.myapp.openSnackBar("You have " + unReadTest! + " unread tests", "Continue");    
-    }
-    if(unReadChat! > 0 && unReadTest! > 0){
-      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats and " + unReadTest! + " unread tests", "Continue");    
+    if(unReadChat! > 1){
+      this.myapp.openSnackBar("New messages from " + unReadChat! +  " unread chats!", "Continue");    
     }
   },
-  500);
+  0);
+  setTimeout(() => {
+    if(unReadProgressTest! == 1){
+      this.myapp.openSnackBar(unReadProgressTest! + " test started to be monitoring!", "Continue");    
+    }
+    if(unReadProgressTest! > 1){
+      this.myapp.openSnackBar(unReadProgressTest! + " tests started to be monitoring", "Continue");    
+    }
+  },
+  1000);
+  setTimeout(() => {
+    if(unReadFinalizedTest! == 1){
+      this.myapp.openSnackBar(unReadFinalizedTest! + " test has been finalized!", "Continue");    
+    }
+    if(unReadFinalizedTest! > 1){
+      this.myapp.openSnackBar(unReadFinalizedTest! + " tests have been finalized!", "Continue");    
+    }
+  },
+  2000);
+  setTimeout(() => {
+
+    if(unReadReassignedTest! == 1){
+      this.myapp.openSnackBar("The department of " + unReadReassignedTest! + " test has been reassigned by the doctor", "Continue");    
+    }
+    if(unReadReassignedTest! > 1){
+      this.myapp.openSnackBar("The departments of " + unReadReassignedTest! + " tests have been reassigned by the doctors", "Continue");    
+    }
+  },
+  3000);
 }
 rate(testID: string, rate: string){
   this._testsService.getTestByID(testID).update({rate : rate.toString()});
+}
+
+async getDoctor(id: string){
+  let name: string;
+  await this._authService.getUser(id).ref.get().then((doc) => {
+    name = doc.get("fullname");
+  });
+  return name!;
 }
 }

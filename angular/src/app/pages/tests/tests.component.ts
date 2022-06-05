@@ -13,6 +13,7 @@ import { ChatComponent } from './chat/chat.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { FinalizeComponent } from './finalize/finalize.component';
 import { firstValueFrom, take } from 'rxjs';
+import { DepartmentComponent } from './department/department.component';
 
 @Component({
   selector: 'app-tests',
@@ -23,7 +24,7 @@ export class TestsComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['date', 'fullname', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsInProgress: string[] = ['date', 'fullname', 'symptoms', 'result','final diagnosis', 'chat'];
+  displayedColumnsInProgress: string[] = ['date', 'fullname', 'symptoms', 'result','actions', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   displayedColumnsFinalized: string[] = ['date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
@@ -115,6 +116,14 @@ export class TestsComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(FinalizeComponent, {
       width: "30%", 
       data: {testID: id},
+      hasBackdrop: true,
+    });
+  }
+
+  openDepartmentDialog(id: any, dep: any) {    
+    const dialogRef = this.dialog.open(DepartmentComponent, {
+      width: "20%", 
+      data: {testID: id, department: dep},
       hasBackdrop: true,
     });
   }
