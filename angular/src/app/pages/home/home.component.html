@@ -60,11 +60,11 @@
 <div #target class="container">
 
     <mat-stepper [linear]="true" #stepper id="toggle-linear">
-        <mat-step [stepControl]="firstFormGroup">
+        <mat-step>
             <ng-template matStepLabel>Fill out the form</ng-template>
             <div class="symptomsForm">
 
-                <mat-form-field class="example-form" appearance="fill">
+                <!-- <mat-form-field class="example-form" appearance="fill">
                     <mat-label>Birth Year</mat-label>
                     <mat-select [(ngModel)]="selectedYear" required>
                         <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
@@ -77,13 +77,13 @@
                         <mat-option value="female">Female</mat-option>
                         <mat-option value="male">Male</mat-option>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
 
 
                 <form class="example-form">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Symptoms</mat-label>
-                        <input type="text" placeholder="Select Your Symptoms" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #symptomInput>
+                        <input type="text" placeholder="Select Your Symptoms" aria-label="Symptom" matInput [formControl]="myControl" [matAutocomplete]="auto" #symptomInput formControlName="formControl">
                         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selected($event)">
                             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                                 {{option}}
@@ -103,22 +103,22 @@
 
                 <h5 *ngIf="selectedSymptoms.length == 0">Please Select Some Symptoms</h5>
 
-                <button mat-raised-button matStepperNext color="accent" (click)='getResult()' [disabled]="(haveATest == true) || (selectedSymptoms.length == 0) || (selectedGender.length == 0) || (selectedYear.toString().length == 0)">Continue</button>
+                <button mat-raised-button matStepperNext color="accent" (click)='getResult()' [disabled]="(haveATest == true) || (selectedSymptoms.length == 0)">Continue</button>
                 <mat-error *ngIf="haveATest">You have reached max limit (3) tests for this month</mat-error>
             </div>
 
         </mat-step>
 
-        <mat-step [stepControl]="secondFormGroup">
+        <mat-step>
             <ng-template matStepLabel>Check Your Results</ng-template>
-            <ng-container *ngIf="showLoader">
-                <div class="mt-5 text-center">
-                    <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" />
+            <ng-container *ngIf="showLoaderResult">
+                <div class="mt-5 center">     
+                        <mat-spinner></mat-spinner>
                 </div>
+                <!-- <img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" /> -->
 
-                <!-- <mat-spinner></mat-spinner> -->
             </ng-container>
-            <div class="container2" *ngIf="!showLoader">
+            <div class="container2" *ngIf="!showLoaderResult">
                 <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 table">
                     <ng-container matColumnDef="name">
                         <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
@@ -133,12 +133,35 @@
                     <mat-card-title> {{ possibleDiagnosis[selectedDiagnosisIndex].name }}</mat-card-title>
                     <mat-card-subtitle>%{{ (possibleDiagnosis[selectedDiagnosisIndex].probability* 100).toFixed(2) }}</mat-card-subtitle>
                     <mat-card-content>
-                        {{getDescription(possibleDiagnosis[selectedDiagnosisIndex].name)}}
+                        {{ possibleDiagnosisInformation[selectedDiagnosisIndex].description }}
                     </mat-card-content>
-                    <mat-divider inset></mat-divider>
-                    <mat-card-actions>
+
+                     <!--<mat-divider inset></mat-divider>
+                     
+                   <mat-card-actions>
                         <button mat-button [routerLink]="['/recommendation', { diagnosis: possibleDiagnosis[selectedDiagnosisIndex].name} ]">Recommendation</button>
-                    </mat-card-actions>
+                    </mat-card-actions> -->
+                </mat-card>
+                <mat-card class="precautions-card">
+                    <ng-container *ngIf="showLoaderResult">
+                        <div class="mt-5 center">     
+                                <mat-spinner></mat-spinner>
+                        </div>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="!showLoaderResult">
+                        <ul>
+                            <ng-container *ngFor="let item of possibleDiagnosisInformation[selectedDiagnosisIndex].precautions; let i=index">
+                                <br> <li>{{item}}</li>
+                            </ng-container>    
+                        </ul>
+                    </ng-container>
+<!--                     
+                    <mat-divider inset></mat-divider><br>
+                    
+                    <mat-card-actions>
+                        <button mat-button routerLink="/monitoring" [disabled]="isDisabled">Start Monitoring</button>
+                    </mat-card-actions> -->
                 </mat-card>
             </div>
 

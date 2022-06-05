@@ -19,7 +19,7 @@ export class FinalizeComponent implements OnInit {
   diagnoses: string[] = ["Fungal Infection","Allergy","GERD","Chronic Cholestasis","Drug Reaction","Peptic Ulcer Disease","AIDS","Diabetes","Gastroenteritis","Bronchial Asthma","Hypertension","Migraine","Cervical Spondylosis","Paralysis (Brain Hemorrhage)","Jaundice","Malaria","Chicken Pox","Dengue","Typhoid","Hepatitis A","Hepatitis B","Hepatitis C","Hepatitis D","Hepatitis E","Alcoholic Hepatitis","Tuberculosis","Common Cold","Pneumonia","Dimorphic Hemorrhoids (Piles)","Heart Attack","Varicose Veins","Hypothyroidism","Hypoglycemia","Osteoarthritis","Arthritis","(Vertigo) Paroxysmal Positional Vertigo","Acne","Urinary Tract Infection","Psoriasis","Impetigo"];
   currentTest = new Map<string, Test>();
   currentPatientName!: string;
-  currentDate!: string;
+  currentDate!: number;
 
   note!:string;
 
@@ -47,7 +47,7 @@ export class FinalizeComponent implements OnInit {
       this.symptoms = this.parseSymptoms(Array.from(this.currentTest.values())[0].symptoms);
       this.possibleDiagnosis = this.parseDiagnosis(Array.from(this.currentTest.values())[0].resultString);
       this.getPatient();
-      this.currentDate = Array.from(this.currentTest.values())[0].date;
+      this.currentDate = Array.from(this.currentTest.values())[0].createdAt;
     });
 
   }

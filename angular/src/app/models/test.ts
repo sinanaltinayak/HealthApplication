@@ -4,7 +4,7 @@ export class Test{
     patientID!: string;
     doctorID!: string;
     chatID!: string;
-    date!: string;
+    createdAt!: number;
     symptoms!: string;
     resultString!: string;
     result!: Diagnosis[];
@@ -16,11 +16,11 @@ export class Test{
     department!: string;
     doctorname!: string;
 
-    constructor(patientID: string, doctorID: string, chatID: string, date: string, symptoms: string, resultString: string, finalDiagnosis: string, department: string) {
+    constructor(patientID: string, doctorID: string, chatID: string, createdAt: number, symptoms: string, resultString: string, finalDiagnosis: string, department: string) {
         this.patientID = patientID;
         this.doctorID = doctorID;
         this.chatID = chatID;
-        this.date = date;
+        this.createdAt = createdAt;
         this.symptoms = symptoms;
         this.resultString = resultString;
         this.finalDiagnosis = finalDiagnosis;

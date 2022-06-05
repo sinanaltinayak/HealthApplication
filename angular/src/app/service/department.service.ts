@@ -11,7 +11,12 @@ export class DepartmentService {
   constructor() { }
 
   getDepartment(disease: string){
-    
-    return this.departmentList.filter(x => x.disease == disease)[0].department;
+    console.log(this.departmentList.find(x => x.disease == disease));
+
+    var diagnosis = this.departmentList.find(x => x.disease == disease)
+    if (diagnosis != null)
+      return diagnosis.department;
+    else
+      return ""
   }
 }

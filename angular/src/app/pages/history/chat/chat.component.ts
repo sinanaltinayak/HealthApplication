@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
   currentChat = new Map<string, Chat>();
   currentTest = new Map<string, Test>();
 
-  testDate!: string;
+  testDate!: number;
 
   doctorName!: string;
   doctorID!: string;
@@ -49,7 +49,7 @@ export class ChatComponent implements OnInit {
     this.testService.getTestByID(this.data.testID).valueChanges().subscribe(xd => {
       this.currentTest.set(this.data.testID, xd!);
       this.getDoctor()
-      this.testDate = Array.from(this.currentTest.values())[0].date;
+      this.testDate = Array.from(this.currentTest.values())[0].createdAt;
       this.finalDiagnosis = Array.from(this.currentTest.values())[0].finalDiagnosis;
       this.doctorID = Array.from(this.currentTest.values())[0].doctorID;
     });

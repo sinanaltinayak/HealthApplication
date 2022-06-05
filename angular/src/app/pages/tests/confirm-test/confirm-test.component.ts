@@ -17,7 +17,7 @@ export class ConfirmTestComponent implements OnInit {
   currentTest = new Map<string, Test>();
 
   currentPatientName!: string;
-  currentDate!: string;
+  currentDate!: number;
 
   note!:string;
 
@@ -45,7 +45,7 @@ export class ConfirmTestComponent implements OnInit {
       this.symptoms = this.parseSymptoms(Array.from(this.currentTest.values())[0].symptoms);
       this.possibleDiagnosis = this.parseDiagnosis(Array.from(this.currentTest.values())[0].resultString);
       this.getPatient();
-      this.currentDate = Array.from(this.currentTest.values())[0].date;
+      this.currentDate = Array.from(this.currentTest.values())[0].createdAt;
     });
 
   }

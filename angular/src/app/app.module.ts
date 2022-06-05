@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { HomeModule } from './pages/home/home.module';
-import { RecommendationModule } from './pages/recommendation/recommendation.module';
 import { MonitoringModule } from './pages/monitoring/monitoring.module';
 import { LayoutModule } from './layout/layout.module';
 import { TestsModule } from './pages/tests/tests.module';
@@ -60,7 +59,6 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     HomeModule,
-    RecommendationModule,
     MonitoringModule,
     LayoutModule,
     TestsModule,

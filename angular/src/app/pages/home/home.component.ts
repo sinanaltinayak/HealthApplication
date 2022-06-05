@@ -14,6 +14,7 @@ import { Test } from 'src/app/models/test';
 import { AppModule } from 'src/app/app.module';
 import { DiagnosisService } from 'src/app/service/diagnosis.service';
 import { DepartmentService } from 'src/app/service/department.service';
+import { DiagnosisInformation } from 'src/app/models/diagnosisInformation';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -38,9 +39,7 @@ export class HomeComponent implements OnInit{
   years: number[] = Array(71).fill(1).map((_, idx) => 2021 - idx)
   filteredOptions!: Observable<string[]>;
   selectedSymptoms: string[] = [];
-  firstFormGroup!: FormGroup;
-  secondFormGroup!: FormGroup;
-  showLoader: boolean = false;
+  
   diagnosisDescription!: string;
   selectedGender = "";
   selectedYear = "";
@@ -50,12 +49,20 @@ export class HomeComponent implements OnInit{
 
   displayedColumns: string[] = ['name'];
   possibleDiagnosis: Diagnosis[] = [];
+  possibleDiagnosisInformation: DiagnosisInformation[] = [new DiagnosisInformation("","","",[])];
   selectedDiagnosisIndex: number = 0;
+
+  showLoaderResult: boolean = false;
   
   @ViewChild(MatTable) table!: MatTable<Diagnosis>;
   @ViewChild('symptomInput') symptomInput!: ElementRef<HTMLInputElement>;
 
-  constructor( public _service: FlaskService, public _serviceDepartment: DepartmentService, public _serviceTests: TestsService,private _diagnosisService: DiagnosisService ) 
+  constructor( 
+    public _service: FlaskService, 
+    public _serviceDepartment: DepartmentService,
+    public _serviceTests: TestsService,
+    public _diagnosisService: DiagnosisService,
+    public _formBuilder: FormBuilder ) 
   {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(null),
@@ -68,7 +75,7 @@ export class HomeComponent implements OnInit{
     await this._serviceTests.getTestsByPatientId(localStorage.getItem("id")!).get().forEach(data=> {
       data.forEach(data=> {  
         if(data.data().finalDiagnosis == ""){        
-          let date = new Date(data.data().date);
+          let date = new Date(data.data().createdAt);
           let curmonth = new Date().getMonth();
           if(date.getMonth() == curmonth){
             count++;
@@ -94,22 +101,18 @@ export class HomeComponent implements OnInit{
       this.myControl.setValue(null); 
     }
     else {
-      console.log(event);
-
       this.selectedSymptoms.push(event.option.viewValue);
       this.selectedSymptomsIndex[this.options.indexOf(event.option.value)] = 1;
   
       // loginleyince matoptionların sayıları değişiyor, selectedSymptomsIndex bozuluyor
       //this.selectedSymptomsIndex[Number(event.option.id.slice(11))-2] = 1;
       
-      console.log(this.selectedSymptomsIndex);
       this.symptomInput.nativeElement.value = '';
       this.myControl.setValue(null);      
     }    
   }
 
   remove(symptom: string): void {
-    console.log(symptom);
     const index = this.selectedSymptoms.indexOf(symptom);
     
     const finder = (element: any) => element == symptom;
@@ -118,7 +121,6 @@ export class HomeComponent implements OnInit{
 
     this.selectedSymptomsIndex[result] = 0;
 
-    console.log(this.selectedSymptomsIndex)
 
     if (index >= 0) {
       this.selectedSymptoms.splice(index, 1);
@@ -126,7 +128,7 @@ export class HomeComponent implements OnInit{
   }
 
   getResult(){
-    this.showLoader = true;
+    this.showLoaderResult = true;
     let diagnosis: Diagnosis[] = [];
    
     // let subscribeData = this._service.getResult(this.selectedSymptomsIndex).subscribe( data => {
@@ -140,12 +142,17 @@ export class HomeComponent implements OnInit{
         }
         this.possibleDiagnosis = diagnosis;
         
+        this.possibleDiagnosisInformation = [];
+        for ( let i = 0; i < diagnosis.length; i++){
+          this.possibleDiagnosisInformation.push(this._diagnosisService.getDiagnosisInformation(diagnosis[i].name));
+        }
+
         if(localStorage.getItem('role') == "patient"){
-          let dep = this._serviceDepartment.getDepartment(this.possibleDiagnosis[0].name)
-          let newTest = new Test(localStorage.getItem('id')!, "", "", new Date().toDateString(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis), "", dep)
+          let dep = this._diagnosisService.getDiagnosisInformation(this.possibleDiagnosis[0].name)?.department as string;
+          let newTest = new Test(localStorage.getItem('id')!, "", "", Date.now(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis), "", dep)
           this._serviceTests.create(newTest);
         }
-        this.showLoader = false;
+        this.showLoaderResult = false;
       }
     );
     this.table.renderRows();
@@ -166,10 +173,6 @@ export class HomeComponent implements OnInit{
     return result;
   }
   
-  getDescription(title: string){
-    return this._diagnosisService.diagnosisList.find(el => el.name == title)!.description;
-  }
-
   scroll(el: HTMLElement) {
     el.scrollIntoView({behavior: 'smooth'});
 }

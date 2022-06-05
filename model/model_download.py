@@ -11,7 +11,7 @@ import joblib
 
 
 # read data set
-df = pd.read_csv('./model/dataset.csv')  
+df = pd.read_csv('./dataset.csv')  
 
 cols = df.columns
 data = df[cols].values.flatten()
@@ -21,7 +21,7 @@ df_array = pd.Series(data)
 df_array = df_array.str.strip()
 df_array = df_array.values.reshape(df.shape)
 
-df1 = pd.read_csv('./model/Symptom-severity.csv')
+df1 = pd.read_csv('./Symptom-severity.csv')
 
 symptoms = df1['Symptom'].unique()
 merged = np.zeros((df.shape[0], len(symptoms)+1))

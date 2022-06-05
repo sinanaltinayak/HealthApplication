@@ -89,6 +89,16 @@ mat-row {
     padding-top: 20px;
 }
 
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
 
 /* .symptom {
     border: 3px solid #b2dfdb !important;
