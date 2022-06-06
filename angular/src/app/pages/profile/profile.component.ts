@@ -111,7 +111,7 @@ export class ProfileComponent implements OnInit {
     )
 
     if(this.userRole == 'doctor'){
-      this._userService.getDepartment(this.currentUserId).ref.get().then((doc) => {
+      this._userService.getUser(this.currentUserId).ref.get().then((doc) => {
       this.inputDepartment = doc.get("department");});
     }
 

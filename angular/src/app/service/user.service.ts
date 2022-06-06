@@ -23,7 +23,4 @@ export class UserService {
     return this.db.collection("user_roles").doc(userId);
   }
 
-  getDepartment(userId: string): AngularFirestoreDocument {
-    return this.db.collection("user_roles").doc(userId);
-  }
 }
