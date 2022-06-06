@@ -31,7 +31,11 @@
 
                         <ng-container matColumnDef="fullname">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fullname}} </td>
+                            <td mat-cell *matCellDef="let row"> 
+                                <p (click)="openPatientInformationDialog(row.patientID, row.fullname)" class="clickableText">
+                                    {{row.fullname}} 
+                                </p>
+                            </td>
                         </ng-container>
 
                         <ng-container matColumnDef="symptoms">
@@ -42,7 +46,7 @@
                         <ng-container matColumnDef="result">
                             <th mat-header-cell *matHeaderCellDef> Result </th>
                             <td mat-cell *matCellDef="let row">
-                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)">
+                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)" class="clickableText">
                                     {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
                                 </p>
                             </td>
@@ -101,7 +105,13 @@
 
                         <ng-container matColumnDef="fullname">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fullname}} </td>
+                            <td mat-cell *matCellDef="let row"> 
+                                    
+                                <p (click)="openPatientInformationDialog(row.patientID, row.fullname)" class="clickableText align-center">
+                                    {{row.fullname}}
+                                </p>
+                                
+                            </td>
                         </ng-container>
 
                         <ng-container matColumnDef="symptoms">
@@ -112,7 +122,7 @@
                         <ng-container matColumnDef="result">
                             <th mat-header-cell *matHeaderCellDef> Result </th>
                             <td mat-cell *matCellDef="let row">
-                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)">
+                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)" class="clickableText">
                                     {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
                                 </p>
                             </td>
@@ -121,6 +131,7 @@
                         <ng-container matColumnDef="actions">
                             <th mat-header-cell *matHeaderCellDef> Actions </th>
                             <td mat-cell *matCellDef="let row">
+                                <button mat-raised-button class="actionbuttons" color="warn" (click)="openPatientMonitoringDialog(row.patientID, row.fullname)">Patient Monitoring</button> 
                                 <button mat-raised-button class="actionbuttons" color="warn" (click)="openFinalizeDialog(row.id)">Finalize</button>    
                                 <button mat-raised-button class="actionbuttons" color="warn" (click)="openDepartmentDialog(row.id, row.department)">Re-assign</button>
                             </td>
@@ -182,7 +193,13 @@
 
                         <ng-container matColumnDef="fullname">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fullname}} </td>
+                            <td mat-cell *matCellDef="let row"> 
+                                <p (click)="openPatientInformationDialog(row.patientID, row.fullname)" class="clickableText">
+                                    {{row.fullname}} 
+                                </p>
+                                
+
+                            </td>
                         </ng-container>
 
                         <ng-container matColumnDef="symptoms">
@@ -193,7 +210,7 @@
                         <ng-container matColumnDef="result">
                             <th mat-header-cell *matHeaderCellDef> Result </th>
                             <td mat-cell *matCellDef="let row">
-                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)">
+                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)" class="clickableText">
                                     {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
                                 </p>
                             </td>

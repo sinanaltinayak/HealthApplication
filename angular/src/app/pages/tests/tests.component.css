@@ -56,3 +56,11 @@ mat-card {
     flex-direction: column;
     align-content: center;
 }
+
+.clickableText{
+    cursor: pointer!important;
+}
+
+.clickableText:hover{
+    text-shadow: 1px 1px #251d4b9b;
+}

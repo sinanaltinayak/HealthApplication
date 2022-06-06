@@ -14,3 +14,11 @@
 mat-grid-tile{
     width: 50%;
 }
+
+.clickableText{
+    cursor: pointer!important;
+}
+
+.clickableText:hover{
+    text-shadow: 1px 1px #251d4b9b;
+}
