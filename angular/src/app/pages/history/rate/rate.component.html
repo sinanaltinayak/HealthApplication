@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>
+
+    Rate the Service of {{this.data.drname}}
+</h2>
+
+
+<mat-dialog-content class="mat-typography">
+
+
+    <div class="container3">
+        <div class="rating">
+            <div>
+                <ngx-material-rating mat-button mat-dialog-close class="star" [(ngModel)]="this.data.rate" [max]="5" (click)="rate(this.data.testID, this.data.rate)">
+                </ngx-material-rating>
+            </div>
+        </div>
+    </div>
+
+</mat-dialog-content>

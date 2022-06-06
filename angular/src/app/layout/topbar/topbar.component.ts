@@ -83,7 +83,7 @@ menuOpened() {
     this.email = "";
     this.password = "";
     this.emailErrorMessage = "";       
-    this.myapp.openSnackBar("Successfully logged out.", "Continue");    
+    this.myapp.openSnackBar("Successfully logged out.", "Continue", 'mat-primary');    
   }
 
   // changeSignMode function is a switch for changing the log in menu
@@ -153,7 +153,7 @@ menuOpened() {
   }
 
   openSnackBar() {
-    this.myapp.openSnackBar("Flags indicate nearby hospitals around your location.", "Continue");    
+    this.myapp.openSnackBar("Flags indicate nearby hospitals around your location.", "Continue", 'mat-primary');    
   }
 
 }

@@ -188,7 +188,7 @@ export class TestsComponent implements AfterViewInit {
       }
     });
     if(unReadChat! > 0){
-      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue");    
+      this.myapp.openSnackBar("You have " + unReadChat! +  " unread chats", "Continue", 'mat-primary');    
     }
   }
 

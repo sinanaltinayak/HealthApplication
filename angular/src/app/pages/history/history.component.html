@@ -222,14 +222,11 @@
                         </ng-container>
 
                         <ng-container matColumnDef="rate">
-                            <th mat-header-cell *matHeaderCellDef> Rate </th>
+                            <th mat-header-cell *matHeaderCellDef> Review </th>
                             <td mat-cell *matCellDef="let row">
-                                <div class="rating">
-                                    <div>
-                                        <ngx-material-rating class="star" [(ngModel)]="row.rate" [max]="5" (click)="rate(row.id, row.rate)">
-                                        </ngx-material-rating>
-                                    </div>
-                                </div>
+                                <button mat-icon-button (click)="openRateDialog(row.rate, row.id, row.doctorname)">
+                                    <mat-icon mat-icon-button color="warn"> rate_review</mat-icon>
+                                </button>
                             </td>
                         </ng-container>
 

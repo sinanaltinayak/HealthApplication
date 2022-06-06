@@ -7,6 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import { AppComponent } from 'src/app/app.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatComponent } from './chat/chat.component';
+import { RateComponent } from './rate/rate.component';
 import { ChatService } from 'src/app/service/chat.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { DiagnosisDialogComponent } from 'src/app/dialogs/diagnosis-dialog/diagnosis-dialog.component';
@@ -129,6 +130,14 @@ export class HistoryComponent implements AfterViewInit {
     this.chats.set(chatId, false);
   }
 
+  openRateDialog(rate: string, testId: string, name: string) {    
+    const dialogRef = this.dialog.open(RateComponent, {
+      width: "20%", 
+      data: {rate: rate,testID: testId, drname: name},
+      hasBackdrop: true,
+    });
+  }
+
   realignInkBar() {
     this.tabs.realignInkBar();
   }
@@ -171,6 +180,13 @@ parseSymptoms(symptoms: string) : string{
       });
     });
   }
+  await this._testsService.getFinalizedTestsByPatientId(localStorage.getItem("id")!).get().forEach(af=> {
+    af.docs.forEach(ab=> {
+      if(ab.data().unRead == true){
+        unReadFinalizedTest++;
+      }
+    });
+  });
   await this._testsService.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(fe=> {
     fe.docs.forEach(x=> {
       if(x.get("unRead") == true){
@@ -183,46 +199,37 @@ parseSymptoms(symptoms: string) : string{
       unReadChat++;
     }
   });
-  setTimeout(() => {
-    if(unReadChat! == 1){
-      this.myapp.openSnackBar("New messages from " + unReadChat! +  " unread chat!", "Continue");    
-    }
-    if(unReadChat! > 1){
-      this.myapp.openSnackBar("New messages from " + unReadChat! +  " unread chats!", "Continue");    
-    }
-  },
-  0);
-  setTimeout(() => {
-    if(unReadProgressTest! == 1){
-      this.myapp.openSnackBar(unReadProgressTest! + " test started to be monitoring!", "Continue");    
-    }
-    if(unReadProgressTest! > 1){
-      this.myapp.openSnackBar(unReadProgressTest! + " tests started to be monitoring", "Continue");    
-    }
-  },
-  1000);
-  setTimeout(() => {
-    if(unReadFinalizedTest! == 1){
-      this.myapp.openSnackBar(unReadFinalizedTest! + " test has been finalized!", "Continue");    
-    }
-    if(unReadFinalizedTest! > 1){
-      this.myapp.openSnackBar(unReadFinalizedTest! + " tests have been finalized!", "Continue");    
-    }
-  },
-  2000);
-  setTimeout(() => {
+setTimeout(() => {
+  let messages = [
+    {
+      count: unReadChat,
+      text: "New messages from " + unReadChat! +  " unread chat!",
+      text2: "New messages from " + unReadChat! +  " unread chats!",
+      color: 'mat-primary'
+    },
+    {
+      count: unReadProgressTest,
+      text: unReadProgressTest! + " test started to be monitoring!",
+      text2: unReadProgressTest! + " tests started to be monitoring!",
+      color: 'mat-warn'
+    },
+    {
+      count: unReadFinalizedTest,
+      text: unReadFinalizedTest! + " test has been finalized!",
+      text2: unReadFinalizedTest! + " tests has been finalized!",
+      color: 'mat-accent'
+    },
+    {
+      count: unReadReassignedTest,
+      text: "The department of " + unReadReassignedTest! + " test has been reassigned by the doctor",
+      text2: "The department of " + unReadReassignedTest! + " tests has been reassigned by the doctor",
+      color: 'mat-primary'
+    },
+];
+  this.myapp.openMultiSnackBar(messages);    
 
-    if(unReadReassignedTest! == 1){
-      this.myapp.openSnackBar("The department of " + unReadReassignedTest! + " test has been reassigned by the doctor", "Continue");    
-    }
-    if(unReadReassignedTest! > 1){
-      this.myapp.openSnackBar("The departments of " + unReadReassignedTest! + " tests have been reassigned by the doctors", "Continue");    
-    }
-  },
-  3000);
-}
-rate(testID: string, rate: string){
-  this._testsService.getTestByID(testID).update({rate : rate.toString()});
+},
+750);
 }
 
 async getDoctor(id: string){
