@@ -38,5 +38,5 @@
     { "disease": "Urinary Tract Infection", "department": "Internal Diseases" },
     { "disease": "Psoriasis", "department": "Dermatology" },
     { "disease": "Impetigo", "department": "Dermatology" },
-    { "disease": "Fungal Infection", "department": "Infectious diseases" }
+    { "disease": "Fungal Infection", "department": "Infectious Diseases" }
 ]

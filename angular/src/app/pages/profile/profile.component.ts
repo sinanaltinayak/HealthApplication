@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   inputPhoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
   userRole = this.currentUser.get(this.currentUserId)?.role;
   profilePicture = localStorage.getItem('profilePicture') as string;
+  inputDepartment = "";
   control: any;
   date = new FormControl(new Date());
   selectedImage!: any;
@@ -109,6 +110,10 @@ export class ProfileComponent implements OnInit {
       }
     )
 
+    if(this.userRole == 'doctor'){
+      this._userService.getDepartment(this.currentUserId).ref.get().then((doc) => {
+      this.inputDepartment = doc.get("department");});
+    }
 
   }
 

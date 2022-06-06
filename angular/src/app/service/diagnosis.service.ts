@@ -144,7 +144,7 @@ export class DiagnosisService {
       ["Consult nearest hospital","Vaccination","Eat healthy","Medication"]),
     new DiagnosisInformation(
       "Fungal Infection",
-      "Infectious diseases",
+      "Infectious Diseases",
       "In humans, fungal infections occur when an invading fungus takes over an area of the body and is too much for the immune system to handle. Fungi can live in the air, soil, water, and plants. There are also some fungi that live naturally in the human body. Like many microbes, there are helpful fungi and harmful fungi.",
       ["Bath twice","Use detol or neem in bathing water","Keep infected area dry","Use clean cloths"]),
     new DiagnosisInformation(
