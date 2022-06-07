@@ -50,6 +50,30 @@ mat-card {
     background-color: rgb(253, 215, 215);
 }
 
+@keyframes weekago {
+    0%   {background-color: rgb(255, 248, 184);}
+    50%  {background-color: white;}
+    100% {background-color: rgb(255, 248, 184);}
+}
+
+@keyframes monthago {
+    0%   {background-color: #ffa9a8;}
+    50%  {background-color: white;}
+    100% {background-color: #ffa9a8;}
+}
+
+.week {
+    animation-name: weekago;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.month {
+    animation-name: monthago;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
 .actionbuttons {
     display: flex;
     margin: 15px;

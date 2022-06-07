@@ -189,8 +189,34 @@ export class TestsComponent implements AfterViewInit {
         this.chatService.getChat(chatId).update({unRead : false});
       }
     });
-    this.chats.set(chatId, false);7
+    this.chats.set(chatId, false);
     this.myapp.NotifCount--;
+  }
+
+  isPendingLong(datetime: string){
+    let cssClasses = {
+      'week': false,
+      'month': false,
+    };
+    var testdate = new Date(datetime);
+    var weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    if(weekAgo > testdate) {
+      cssClasses = {
+        'week': true,
+        'month': false
+       }
+    }
+    var monthAgo = new Date();
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    console.log(monthAgo)
+    if (monthAgo > testdate){
+      cssClasses = {
+        'week': false,
+        'month': true
+       }
+    }
+    return cssClasses;
   }
 
   isChatUnread(id : string){

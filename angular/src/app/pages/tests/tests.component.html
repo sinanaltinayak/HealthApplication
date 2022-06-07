@@ -67,7 +67,7 @@
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumnsPending"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPending;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsPending;" [ngClass]="isPendingLong(row.createdAt)"></tr>
 
                     </table>
 
