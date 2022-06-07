@@ -46,11 +46,11 @@
                     <mat-label>Low Blood Pressure</mat-label>
                 </mat-checkbox>
 
-                <mat-checkbox (change)="controlView($event.checked, 'temp')" [checked]="true">
+                <mat-checkbox (change)="controlView($event.checked, 'temperature')" [checked]="true">
                     <mat-label>Temperature</mat-label>
                 </mat-checkbox>
 
-                <mat-checkbox (change)="controlView($event.checked, 'sugar')" [checked]="true">
+                <mat-checkbox (change)="controlView($event.checked, 'bloodSugarLevel')" [checked]="true">
                     <mat-label>Blood Sugar Level</mat-label>
                 </mat-checkbox>
             </div>

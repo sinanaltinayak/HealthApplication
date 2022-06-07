@@ -101,11 +101,10 @@ mat-card {
     100% {background-color: #c8e0de;}
   }
 
-.clickableDiagnosis{
+.clickableText{
     cursor: pointer!important;
 }
 
-.clickableDiagnosis:hover{
+.clickableText:hover{
     text-shadow: 1px 1px #251d4b9b;
-    
 }

@@ -38,7 +38,7 @@
                         <ng-container matColumnDef="result">
                             <th mat-header-cell *matHeaderCellDef> Result </th>
                             <td mat-cell *matCellDef="let row">
-                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)" class="clickableDiagnosis">
+                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)" class="clickableText">
                                     {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
                                 </p>
                             </td>
@@ -99,7 +99,7 @@
                         <ng-container matColumnDef="result">
                             <th mat-header-cell *matHeaderCellDef> Result </th>
                             <td mat-cell *matCellDef="let row">
-                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)">
+                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)" class="clickableText">
                                     {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
                                 </p>
                             </td>
@@ -179,7 +179,7 @@
                         <ng-container matColumnDef="result">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Result </th>
                             <td mat-cell *matCellDef="let row">
-                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)">
+                                <p *ngFor="let diagnosis of row.result" (click)="openDiagnosisDialog(diagnosis.name)" class="clickableText">
                                     {{ diagnosis.name }} - %{{ (diagnosis.probability * 100).toFixed(2)}}
                                 </p>
                             </td>

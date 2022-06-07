@@ -1,0 +1,61 @@
+
+<mat-dialog-content>
+    <h1 mat-dialog-title class="card-header title text-center"> User Information of {{data.patientName}}</h1>
+
+    <div class="card-body">
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-label>Full Name</mat-label>
+                        <p> {{ currentUser.fullname }} </p>
+                    </td>
+                    <td>
+                        <mat-label>Phone Number</mat-label>
+                        <p> {{ currentUser.phoneNumber }} </p>
+                    </td>
+                </tr>
+            </table>
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-label>Gender</mat-label>
+                        <p> {{ currentUser.gender }} </p>
+                    </td>
+                    <td>
+
+                        <mat-label>Birth Year</mat-label>
+                        <p> {{ currentUser.birthday }} </p>
+
+                    </td>
+                </tr>
+            </table>
+    </div>
+    <h1 mat-dialog-title class="card-header title text-center"> Medical History of {{data.patientName}}</h1>
+    <div class="history">
+        <div class="card-body">
+            <p>What are your medical and surgical histories? Please specify.</p>
+            <textarea matInput disabled> {{currentMedicalHistory.question1}}</textarea>
+
+            <p>Do you take prescription or non-prescription medications? If yes, please specify.</p>
+            <textarea matInput disabled> {{currentMedicalHistory.question2}}</textarea>
+
+            <p> Do you have any allergies? If yes, please specify.</p>
+            <textarea matInput disabled> {{currentMedicalHistory.question3}}</textarea>
+            
+            <p>What is your smoking, alcohol, and illicit drug use history? Please specify.</p>
+            <textarea matInput disabled> {{currentMedicalHistory.question4}}</textarea>
+            
+            <p>Is there any diagnosed disease in your family? If yes, please specify.</p>
+            <textarea matInput disabled> {{currentMedicalHistory.question5}}</textarea>
+
+        </div>
+    </div>
+      
+    
+       
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

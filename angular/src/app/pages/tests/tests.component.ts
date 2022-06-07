@@ -15,6 +15,8 @@ import { FinalizeComponent } from './finalize/finalize.component';
 import { firstValueFrom, take } from 'rxjs';
 import { DepartmentComponent } from './department/department.component';
 import { DiagnosisDialogComponent } from 'src/app/dialogs/diagnosis-dialog/diagnosis-dialog.component';
+import { PatientInformationDialogComponent } from 'src/app/dialogs/patient-information-dialog/patient-information-dialog.component';
+import { PatientMonitoringDialogComponent } from 'src/app/dialogs/patient-monitoring-dialog/patient-monitoring-dialog.component';
 
 @Component({
   selector: 'app-tests',
@@ -150,6 +152,28 @@ export class TestsComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DiagnosisDialogComponent, {
       width: "50%", 
       data: {diagnosisName: diagnosisName},
+      hasBackdrop: true,
+    });
+  }
+
+  openPatientInformationDialog(patientID: string, patientName: string) {    
+    const dialogRef = this.dialog.open(PatientInformationDialogComponent, {
+      width: "50%", 
+      data: {
+        patientID: patientID,
+        patientName: patientName
+      },
+      hasBackdrop: true,
+    });
+  }
+
+  openPatientMonitoringDialog(patientID: string, patientName: string) {    
+    const dialogRef = this.dialog.open(PatientMonitoringDialogComponent, {
+      width: "50%", 
+      data: {
+        patientID: patientID,
+        patientName: patientName
+      },
       hasBackdrop: true,
     });
   }

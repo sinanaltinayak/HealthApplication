@@ -27,6 +27,8 @@
 
                     <div class="title">{{ inputName }}</div>
                     <div class="title">{{ inputMail }}</div>
+                    <br>
+                    <div *ngIf="userRole == 'doctor'" class="title">Department: {{ inputDepartment }}</div>
                 </div>
                 <mat-divider *ngIf="userRole == 'doctor'"></mat-divider>
 
