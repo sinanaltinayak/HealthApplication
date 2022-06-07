@@ -217,7 +217,7 @@ export class DiagnosisService {
   constructor() { }
 
     getDiagnosisInformation(diagnosisName: string) : DiagnosisInformation{
-      var result = this.diagnosisList.find( el => el.name == diagnosisName);
+      var result = this.diagnosisList.find( el => el.name == diagnosisName.trimEnd());
 
       if(result != null)
         return result;
