@@ -173,9 +173,6 @@ parseSymptoms(symptoms: string) : string{
           if(e.data()?.finalDiagnosis == ""){
             unReadProgressTest++;
           }
-          else{
-            unReadFinalizedTest++;
-          }
         }
       });
     });
