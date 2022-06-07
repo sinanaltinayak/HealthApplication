@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
   profilePicture = localStorage.getItem('profilePicture') as string;
   inputDepartment = "";
   control: any;
+  control2: any;
   date = new FormControl(new Date());
   selectedImage!: any;
   fb!: string;
@@ -210,10 +211,16 @@ export class ProfileComponent implements OnInit {
     onFileSelected2(event: any) {
       let patientID = localStorage.getItem("id")!;
       this.selectedFile = event.target.files[0];
+      if(this.selectedFile.size > 1048576 ){
+        alert("Please select a file smaller than 1MB");
+     }
+     else{
+      this.control2 = "yes";
       const file = this.selectedFile;
       const name = this.selectedFile.name;
       this.storage.upload(patientID + '/' + name, file);
-    
+     }
+
     }
 
     // gets the url of the necessary picture

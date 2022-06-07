@@ -49,8 +49,8 @@
                             <input hidden (change)="onFileSelected2($event)" #fileInput type="file" id="file">
                             <button class="save" mat-raised-button color="accent" (click)="refresh()">Save</button>
                         </div>
-                        <span *ngIf="selectedFile != null">Choosen File:</span>
-                        <span *ngIf="selectedFile != null">{{selectedFile.name}}</span>
+                        <span *ngIf="control2 == 'yes'">Choosen File:</span>
+                        <span *ngIf="control2 == 'yes'">{{selectedFile.name}}</span>
                     </div>
                     <div class="card-body">
                         <ul>
