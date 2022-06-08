@@ -73,6 +73,8 @@ export class ProfileComponent implements OnInit {
    }
 
   async ngOnInit() {
+
+    if(localStorage.getItem("role") == 'patient'){
       this.getFileList()
       this._medicalHistoryService.getMedicalHistory(this.currentUserId).valueChanges().subscribe(xd => {
       this.medicalHistory.set(this.currentUserId, xd!);
@@ -82,6 +84,7 @@ export class ProfileComponent implements OnInit {
       this.inputQuestion4 = Array.from(this.medicalHistory.values())[0].question4;
       this.inputQuestion5 = Array.from(this.medicalHistory.values())[0].question5;
     });
+    }
 
     this._authService.getUser(this.currentUserId).valueChanges().subscribe(xd => {
       this.currentUser.set(this.currentUserId, xd!);
@@ -92,7 +95,6 @@ export class ProfileComponent implements OnInit {
       this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;
       this.userRole = Array.from(this.currentUser.values())[0].role;
     });
-
     
     let count = 0;
     await this._testsService.getFinalizedTestsByDoctorId(localStorage.getItem("id")!).get().forEach(fh=>{
