@@ -42,11 +42,12 @@ export class ChatComponent implements OnInit {
     public userService: UserService,
     public dialog: MatDialogModule,
     @Inject(MAT_DIALOG_DATA) public data: {chatID: string, testID: string}
-  ) {}
+  ) {
+    this.getAllUsers();
+  }
 
   ngOnInit() {
     this.getChat();
-    this.getAllUsers();
 
     this.testService.getTestByID(this.data.testID).valueChanges().subscribe(xd => {
       

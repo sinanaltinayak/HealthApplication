@@ -4,7 +4,7 @@
 
 <h2 mat-dialog-title>
     Chat with {{doctorName}}
-    <h3>Test Date: {{testDate}}</h3>
+    <h3>Test Date: {{testDate | date:'dd/MM/yyyy h:mm a'}}</h3>
 </h2>
 
 <mat-dialog-content #scrollable [scrollTop]="scrollable.scrollHeight">
