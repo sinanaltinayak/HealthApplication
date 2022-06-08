@@ -75,15 +75,19 @@ export class ProfileComponent implements OnInit {
   async ngOnInit() {
 
     if(localStorage.getItem("role") == 'patient'){
-      this.getFileList()
-      this._medicalHistoryService.getMedicalHistory(this.currentUserId).valueChanges().subscribe(xd => {
-      this.medicalHistory.set(this.currentUserId, xd!);
-      this.inputQuestion1 =  Array.from(this.medicalHistory.values())[0].question1;
-      this.inputQuestion2 =  Array.from(this.medicalHistory.values())[0].question2;
-      this.inputQuestion3 = Array.from(this.medicalHistory.values())[0].question3;
-      this.inputQuestion4 = Array.from(this.medicalHistory.values())[0].question4;
-      this.inputQuestion5 = Array.from(this.medicalHistory.values())[0].question5;
-    });
+      this.getFileList();
+      this._medicalHistoryService.getMedicalHistory(this.currentUserId).get().forEach(x=> {
+        if(x.exists.valueOf() == true){
+          this._medicalHistoryService.getMedicalHistory(this.currentUserId).valueChanges().subscribe(xd => {
+            this.medicalHistory.set(this.currentUserId, xd!);
+            this.inputQuestion1 =  Array.from(this.medicalHistory.values())[0].question1;
+            this.inputQuestion2 =  Array.from(this.medicalHistory.values())[0].question2;
+            this.inputQuestion3 = Array.from(this.medicalHistory.values())[0].question3;
+            this.inputQuestion4 = Array.from(this.medicalHistory.values())[0].question4;
+            this.inputQuestion5 = Array.from(this.medicalHistory.values())[0].question5;
+          });
+        }
+      });
     }
 
     this._authService.getUser(this.currentUserId).valueChanges().subscribe(xd => {
