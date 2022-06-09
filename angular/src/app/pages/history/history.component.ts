@@ -11,6 +11,7 @@ import { RateComponent } from './rate/rate.component';
 import { ChatService } from 'src/app/service/chat.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { DiagnosisDialogComponent } from 'src/app/dialogs/diagnosis-dialog/diagnosis-dialog.component';
+import { RemoveComponent } from './remove/remove.component';
 
 @Component({
   selector: 'app-history',
@@ -19,7 +20,7 @@ import { DiagnosisDialogComponent } from 'src/app/dialogs/diagnosis-dialog/diagn
 })
 export class HistoryComponent implements AfterViewInit {
 
-  displayedColumnsPending: string[] = ['date', 'symptoms', 'result', 'department'];
+  displayedColumnsPending: string[] = ['date', 'symptoms', 'result', 'department', 'remove'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   displayedColumnsInProgress: string[] = ['date', 'symptoms', 'result', 'doctor', 'department', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
@@ -134,6 +135,14 @@ export class HistoryComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(RateComponent, {
       width: "20%", 
       data: {rate: rate,testID: testId, drname: name},
+      hasBackdrop: true,
+    });
+  }
+
+  openRemovePendingDialog(testId: string) {    
+    const dialogRef = this.dialog.open(RemoveComponent, {
+      width: "20%", 
+      data: {testID: testId},
       hasBackdrop: true,
     });
   }

@@ -21,6 +21,7 @@ import { ChatComponent } from './chat/chat.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgxMaterialRatingModule } from 'ngx-material-rating';
 import { RateComponent } from './rate/rate.component';
+import { RemoveComponent } from './remove/remove.component';
 
 // importing classes that is needed for history page
 
@@ -45,6 +46,6 @@ import { RateComponent } from './rate/rate.component';
     MatIconModule,
 
   ],
-  declarations: [HistoryComponent, ChatComponent, RateComponent]
+  declarations: [HistoryComponent, ChatComponent, RateComponent, RemoveComponent]
 })
 export class HistoryModule { }

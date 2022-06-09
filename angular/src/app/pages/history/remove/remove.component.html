@@ -1,0 +1,9 @@
+<mat-dialog-content class="mat-typography">
+    <div class="container3">
+        <h3 class="title">Are you sure you want to delete your test? </h3>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close  tabindex="-1">Cancel</button>
+    <button mat-button mat-dialog-close color="primary" (click)="delete(data.testID)" tabindex="-1">Delete</button>
+</mat-dialog-actions>
