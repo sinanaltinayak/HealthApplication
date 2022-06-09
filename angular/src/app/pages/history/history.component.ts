@@ -20,7 +20,7 @@ import { RemoveComponent } from './remove/remove.component';
 })
 export class HistoryComponent implements AfterViewInit {
 
-  displayedColumnsPending: string[] = ['date', 'symptoms', 'result', 'department', 'remove'];
+  displayedColumnsPending: string[] = ['createdAt', 'symptoms', 'result', 'department', 'remove'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   displayedColumnsInProgress: string[] = ['createdAt', 'symptoms', 'result', 'doctor', 'department', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
