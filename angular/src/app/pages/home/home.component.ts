@@ -15,6 +15,7 @@ import { AppModule } from 'src/app/app.module';
 import { DiagnosisService } from 'src/app/service/diagnosis.service';
 import { DepartmentService } from 'src/app/service/department.service';
 import { DiagnosisInformation } from 'src/app/models/diagnosisInformation';
+import { AppComponent } from 'src/app/app.component';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -62,7 +63,8 @@ export class HomeComponent implements OnInit{
     public _serviceDepartment: DepartmentService,
     public _serviceTests: TestsService,
     public _diagnosisService: DiagnosisService,
-    public _formBuilder: FormBuilder ) 
+    public _formBuilder: FormBuilder,
+    public myapp: AppComponent) 
   {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(null),
@@ -141,17 +143,21 @@ export class HomeComponent implements OnInit{
           this.possibleDiagnosisInformation.push(this._diagnosisService.getDiagnosisInformation(diagnosis[i].name));
         }
 
-        if(localStorage.getItem('role') == "patient"){
-          let dep = this._diagnosisService.getDiagnosisInformation(this.possibleDiagnosis[0].name)?.department as string;
-          let newTest = new Test(localStorage.getItem('id')!, "", "", Date.now(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis), "", dep)
-          this._serviceTests.create(newTest);
-        }
         this.showLoaderResult = false;
       }
     );
     this.table.renderRows();
     this.selectedDiagnosisIndex = 0;
 
+  }
+
+  recordTest(){
+    if(localStorage.getItem('role') == "patient"){
+      let dep = this._diagnosisService.getDiagnosisInformation(this.possibleDiagnosis[0].name)?.department as string;
+      let newTest = new Test(localStorage.getItem('id')!, "", "", Date.now(), this.selectedSymptoms.toString(), this.diagnosisListToString(this.possibleDiagnosis), "", dep)
+      this._serviceTests.create(newTest);
+    }
+    this.myapp.openSnackBar("Test has been created! Visit test history page.","Continue",'mat-primary')
   }
 
   diagnosisListToString(list: Diagnosis[]){
