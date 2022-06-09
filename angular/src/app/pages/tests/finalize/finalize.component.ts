@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Test } from 'src/app/models/test';
 import { TestsService } from 'src/app/service/tests.service';
@@ -7,6 +7,8 @@ import { PatientsService } from 'src/app/service/patients.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { ChatService } from 'src/app/service/chat.service';
 import {FormControl} from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 @Component({
   selector: 'app-finalize',
   templateUrl: './finalize.component.html',
@@ -30,6 +32,8 @@ export class FinalizeComponent implements OnInit {
   symptoms: string[] = [];
 
   selectedDiagnosis: string = "";
+  filteredDiagnoses!: Observable<string[]>;
+  @ViewChild('diagnosisInput') diagnosisInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     public dialog: MatDialogModule,
@@ -38,7 +42,12 @@ export class FinalizeComponent implements OnInit {
     public _authService: AuthService,
     public chatService: ChatService,
     @Inject(MAT_DIALOG_DATA) public data: {testID: string}
-  ) { }
+  ) { 
+    this.filteredDiagnoses = this.myControl.valueChanges.pipe(
+      startWith(null),
+      map((symptom: string | null) => (symptom ? this._filter(symptom) : this.diagnoses.slice())),
+    );
+  }
 
   ngOnInit(): void {
     this._testsService.getTestByID(this.data.testID).valueChanges().subscribe(xd => {
@@ -99,6 +108,16 @@ export class FinalizeComponent implements OnInit {
     this._testsService.getTestByID(this.data.testID).update({unRead : true});
     this._testsService.updateFinalDiagnosis(this.data.testID, this.selectedDiagnosis!);
 
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.diagnoses.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.selectedDiagnosis = event.option.viewValue;    
   }
 
   changeSelectedDiagnosis(name: string){

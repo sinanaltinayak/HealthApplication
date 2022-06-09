@@ -25,11 +25,11 @@ import { PatientMonitoringDialogComponent } from 'src/app/dialogs/patient-monito
 })
 export class TestsComponent implements AfterViewInit {
 
-  displayedColumnsPending: string[] = ['date', 'fullname', 'symptoms', 'result', 'actions'];
+  displayedColumnsPending: string[] = ['createdAt', 'fullname', 'symptoms', 'result', 'actions'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsInProgress: string[] = ['date', 'fullname', 'symptoms', 'result','actions', 'chat'];
+  displayedColumnsInProgress: string[] = ['createdAt', 'fullname', 'symptoms', 'result','actions', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsFinalized: string[] = ['date', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
+  displayedColumnsFinalized: string[] = ['createdAt', 'fullname', 'symptoms', 'result', 'final diagnosis', 'chat'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   department!: string;
   chats!: Map<String, boolean>;
@@ -209,7 +209,6 @@ export class TestsComponent implements AfterViewInit {
     }
     var monthAgo = new Date();
     monthAgo.setMonth(monthAgo.getMonth() - 1);
-    console.log(monthAgo)
     if (monthAgo > testdate){
       cssClasses = {
         'week': false,

@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     MatTableModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule
 
   ],
   declarations: [DiagnosisDialogComponent, PatientInformationDialogComponent, PatientMonitoringDialogComponent]
