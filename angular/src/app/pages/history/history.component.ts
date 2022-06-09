@@ -22,9 +22,9 @@ export class HistoryComponent implements AfterViewInit {
 
   displayedColumnsPending: string[] = ['date', 'symptoms', 'result', 'department', 'remove'];
   dataSourcePending: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsInProgress: string[] = ['date', 'symptoms', 'result', 'doctor', 'department', 'chat'];
+  displayedColumnsInProgress: string[] = ['createdAt', 'symptoms', 'result', 'doctor', 'department', 'chat'];
   dataSourceInProgress: MatTableDataSource<Test> = new MatTableDataSource<Test>();
-  displayedColumnsFinalized: string[] = ['date', 'symptoms', 'result', 'doctor', 'department', 'finalDiagnosis', 'chat', 'rate'];
+  displayedColumnsFinalized: string[] = ['createdAt', 'symptoms', 'result', 'doctor', 'department', 'finalDiagnosis', 'chat', 'rate'];
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
 
   chats!: Map<String, boolean>;

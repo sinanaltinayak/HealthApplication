@@ -16,10 +16,10 @@
                 </mat-form-field>
 
                 <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="dataSourcePending" #sortPending="matSort" matSort>
+                    <table mat-table [dataSource]="dataSourcePending" #sortPending="matSort" matSort matSortActive="createdAt" matSortDirection="desc">
 
 
-                        <ng-container matColumnDef="date">
+                        <ng-container matColumnDef="createdAt">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
                                 <mat-chip-list>
@@ -84,11 +84,11 @@
                 </mat-form-field>
 
                 <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="dataSourceInProgress" #sortInProgress="matSort" matSort>
+                    <table mat-table [dataSource]="dataSourceInProgress" #sortInProgress="matSort" matSort matSortActive="createdAt" matSortDirection="desc">
 
 
 
-                        <ng-container matColumnDef="date">
+                        <ng-container matColumnDef="createdAt">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
                                 <mat-chip-list>
@@ -166,9 +166,9 @@
                 </mat-form-field>
 
                 <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="dataSourceFinalized" #sortFinalized="matSort" matSort>
+                    <table mat-table [dataSource]="dataSourceFinalized" #sortFinalized="matSort" matSort matSortActive="createdAt" matSortDirection="desc">
 
-                        <ng-container matColumnDef="date">
+                        <ng-container matColumnDef="createdAt">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
                                 <mat-chip-list>

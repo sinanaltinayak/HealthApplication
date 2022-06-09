@@ -69,6 +69,7 @@ export class HomeComponent implements OnInit{
       map((symptom: string | null) => (symptom ? this._filter(symptom) : this.options.slice())),
     );
   }
+  
   async ngOnInit(): Promise<void> {
     //function for if user have already a pending test
     await this._serviceTests.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(data=> {

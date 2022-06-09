@@ -1,58 +1,105 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="http://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
 <mat-dialog-content>
-    <h1 mat-dialog-title class="card-header title text-center"> User Information of {{data.patientName}}</h1>
+    <div class="row">
+        <div class="col-xl-4 profile">
+            <div class="card mb-4 mb-xl-0">
+                <h1 class="card-header title text-center">Profile</h1>
+                <div class="card-body">
 
-    <div class="card-body">
-            <table class="example-full-width" cellspacing="0">
-                <tr>
-                    <td>
-                        <mat-label>Full Name</mat-label>
-                        <p> {{ currentUser.fullname }} </p>
-                    </td>
-                    <td>
-                        <mat-label>Phone Number</mat-label>
-                        <p> {{ currentUser.phoneNumber }} </p>
-                    </td>
-                </tr>
-            </table>
-            <table class="example-full-width" cellspacing="0">
-                <tr>
-                    <td>
-                        <mat-label>Gender</mat-label>
-                        <p> {{ currentUser.gender }} </p>
-                    </td>
-                    <td>
+                    <img class="img-account-profile rounded-circle mb-2" mat-card-image [src]="getDownloadURL()">
+                </div>
+                <mat-divider></mat-divider>
+                <div class="card-body">
 
-                        <mat-label>Birth Year</mat-label>
-                        <p> {{ currentUser.birthday }} </p>
+                    <div class="title">{{ currentUser.email }}</div>
 
-                    </td>
-                </tr>
-            </table>
-    </div>
-    <h1 mat-dialog-title class="card-header title text-center"> Medical History of {{data.patientName}}</h1>
-    <div class="history">
-        <div class="card-body">
-            <p>What are your medical and surgical histories? Please specify.</p>
-            <textarea matInput disabled> {{currentMedicalHistory.question1}}</textarea>
+                </div>
 
-            <p>Do you take prescription or non-prescription medications? If yes, please specify.</p>
-            <textarea matInput disabled> {{currentMedicalHistory.question2}}</textarea>
-
-            <p> Do you have any allergies? If yes, please specify.</p>
-            <textarea matInput disabled> {{currentMedicalHistory.question3}}</textarea>
-            
-            <p>What is your smoking, alcohol, and illicit drug use history? Please specify.</p>
-            <textarea matInput disabled> {{currentMedicalHistory.question4}}</textarea>
-            
-            <p>Is there any diagnosed disease in your family? If yes, please specify.</p>
-            <textarea matInput disabled> {{currentMedicalHistory.question5}}</textarea>
-
+                <div class="documents">
+                    <h1 class="card-header title text-center">Documents</h1>
+                    <div class="card-body">
+                        <ul>
+                            <li *ngFor="let file of fileList | keyvalue">
+                                <a href="{{ file.value }}">{{file.key}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-xl-8 changes">
+            <div>
+                <div class="card card-changes">
+                    <h1 class="card-header title text-center">Account Details</h1>
+                    <div class="card-body">
+                        <form class="example-form">
+                            <table class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <div class="example-full-width col" appearance="fill">
+                                            <b>Full Name</b><br>
+                                            <span>{{currentUser.fullname}}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="example-full-width col" appearance="fill">
+                                            <b>Phone Number</b><br>
+                                            <span>{{ currentUser.phoneNumber }}</span> 
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table><br>
+                            <table class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <div appearance="fill" class="example-full-width col">
+                                            <b>Gender</b><br>
+                                            <span>{{ currentUser.gender }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="example-full-width col" appearance="fill">
+                                            <b>Birth Year</b><br>
+                                            <span>{{ currentUser.birthday }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div>
+                        <div class="history">
+                            <h1 class="card-header title text-center">Medical History</h1>
+                            <div class="card-body col">
+                                
+                                <b>What are your medical and surgical histories? Please specify.</b><br>
+                                <span> {{ currentMedicalHistory.question1 }} </span><br><br>
+                                    
+                                <b>Do you take prescription or non-prescription medications? If yes, please specify.</b><br>
+                                <span> {{ currentMedicalHistory.question2 }} </span><br><br>
+                                    
+                                <b>Do you have any allergies? If yes, please specify.</b><br>
+                                <span> {{ currentMedicalHistory.question3 }} </span><br><br>
+                                    
+                                <b>What is your smoking, alcohol, and illicit drug use history? Please specify.</b><br>
+                                <span> {{ currentMedicalHistory.question4 }} </span><br><br>
+
+                                <b>Is there any diagnosed disease in your family? If yes, please specify.</b><br>
+                                <span> {{ currentMedicalHistory.question5 }} </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
     </div>
-      
     
-       
     
 </mat-dialog-content>
 
