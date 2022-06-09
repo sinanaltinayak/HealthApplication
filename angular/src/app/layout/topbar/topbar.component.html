@@ -49,7 +49,7 @@
                                 </mat-form-field>
                                 <button tabindex="3" mat-raised-button color="primary" (click)='loginUser() ' [disabled]="!email || !password || emailInput.errors || passInput.errors">Log In</button>
                                 <button tabindex="4" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Don't you have an account? Sign Up</button>
-                                <button tabindex="5" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = true;signMode = '';">Forgot Password</button>
+                                <button tabindex="5" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = true;signMode = '';">Reset Password</button>
                             </div>
                             <div *ngIf="signMode=='signup'">
                                 <mat-form-field>
