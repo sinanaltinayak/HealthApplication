@@ -10,10 +10,14 @@
     <div class="container3">
         <div class="rating">
             <div>
-                <ngx-material-rating mat-button mat-dialog-close class="star" [(ngModel)]="this.data.rate" [max]="5" (click)="rate(this.data.testID, this.data.rate)">
+                <ngx-material-rating mat-button class="star" [(ngModel)]="this.data.rate" [max]="5" (click)="rate(this.data.testID, this.data.rate)">
                 </ngx-material-rating>
             </div>
         </div>
     </div>
 
 </mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
