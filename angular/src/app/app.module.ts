@@ -17,7 +17,7 @@ import { HistoryModule } from './pages/history/history.module';
 import { ProfileModule } from './pages/profile/profile.module';
 import { MapModule } from './pages/map/map.module';
 import { DialogsModule } from './dialogs/dialogs.module';
-
+import { AdminModule } from './pages/admin/admin.module';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 
@@ -60,6 +60,7 @@ const routes: Routes = [
     HomeModule,
     MonitoringModule,
     LayoutModule,
+    AdminModule,
     TestsModule,
     HistoryModule,
     ProfileModule,

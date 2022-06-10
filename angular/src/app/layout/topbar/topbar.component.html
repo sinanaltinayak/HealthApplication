@@ -6,7 +6,7 @@
 
     <span class="title">Health Application</span>
     <span class="example-spacer"></span>
-    <button *ngIf="userType != 'doctor'" mat-button aria-label="New Test Button" routerLink="../home" (click)='refresh("/home")'>
+    <button *ngIf="userType != 'doctor' && userType != 'admin'" mat-button aria-label="New Test Button" routerLink="../home" (click)='refresh("/home")'>
       <mat-icon>assignment</mat-icon> New Test
     </button>
     <button *ngIf="userType == 'doctor'" mat-button aria-label="Review Tests Button" routerLink="../tests" (click)='refresh("/tests")'>

@@ -160,7 +160,7 @@
                 </mat-card>
             </div>
             <div class="sendButton">
-                <button mat-raised-button (click)='recordTest()' color="accent">Create Test</button>             
+                <button mat-raised-button (click)='recordTest()' color="accent" *ngIf="role == 'patient' && showLoaderResult == false">Send Test</button>             
             </div>
         </mat-step>
     </mat-stepper>

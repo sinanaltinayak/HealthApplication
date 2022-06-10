@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument,
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { firstValueFrom, map, take } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Admin } from '../models/admin';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +32,7 @@ export class AuthService {
           this.name = (await firstValueFrom(user$)).payload.get("fullname");
           this.profilePicture = (await firstValueFrom(user$)).payload.get("profilePicture");
           this.db.collection('user_roles').doc(value.user?.uid).update({
-            password: password
+            password: password, lastLogin: Date.now()
           });
           this._snackBar.open("Welcome " +this.name, "Continue", {
             horizontalPosition: "right",
@@ -49,6 +50,9 @@ export class AuthService {
             this.router.navigate(['tests']);
             this.department = (await firstValueFrom(user$)).payload.get("department");
             localStorage.setItem('department', this.department);
+          }
+          if(this.role == 'admin'){
+            this.router.navigate(['admin']);
           }
           else{
             setTimeout(() => {
@@ -143,7 +147,7 @@ export class AuthService {
       });
     }
 
-    register(email: string, password: string, name: string) {
+    register(email: string, password: string, name: string, role: string  = "patient", department: string = "") {
 
       this.afAuth.createUserWithEmailAndPassword(email, password).then(value => {
         value.user?.sendEmailVerification();
@@ -152,7 +156,8 @@ export class AuthService {
           email: email,
           fullname: name,
           password: password,
-          role: 'patient',
+          role: role,
+          department: department,
           gender: '',
           birthday: '',
           phoneNumber: '',
@@ -200,6 +205,11 @@ export class AuthService {
     getUser(id: string): AngularFirestoreDocument<any>{
       
       return this.db.collection('/user_roles').doc(id);
+    }
+
+    getAllDoctors(): AngularFirestoreCollection<Admin>{
+      
+      return this.db.collection('/user_roles', ref => ref.where('role', '==', 'doctor'));
     }
 
     logout() {
