@@ -175,17 +175,13 @@ parseSymptoms(symptoms: string) : string{
   let unReadProgressTest: number = 0;
   let unReadReassignedTest: number = 0;
   let unReadChat: number = 0;
-  for(var i = 0; i <= this.chats.size-1; i++){
-     await this._chatService.getChat(Array.from(this.chats.keys())[i]).get().forEach(f=> {
-      this._testsService.getTestByID(f.data()!.testID).get().forEach(e=> {
-        if (e.data()?.unRead == true){
-          if(e.data()?.finalDiagnosis == ""){
-            unReadProgressTest++;
-          }
-        }
-      });
-    });
-  }
+  await this._testsService.getInProgressTestsByPatientId(localStorage.getItem("id")!).get().forEach(e=> {
+    e.docs.forEach(fe=> {
+      if (fe.data()?.unRead == true){
+        unReadProgressTest++;
+      }
+    })
+  });
   await this._testsService.getFinalizedTestsByPatientId(localStorage.getItem("id")!).get().forEach(af=> {
     af.docs.forEach(ab=> {
       if(ab.data().unRead == true){
