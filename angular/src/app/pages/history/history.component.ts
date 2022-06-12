@@ -223,8 +223,8 @@ setTimeout(() => {
     },
     {
       count: unReadReassignedTest,
-      text: "The department of " + unReadReassignedTest! + " test has been reassigned by the doctor",
-      text2: "The department of " + unReadReassignedTest! + " tests has been reassigned by the doctor",
+      text: "The department of " + unReadReassignedTest! + " test has been reassigned by the doctor.",
+      text2: "The department of " + unReadReassignedTest! + " tests has been reassigned by the doctor.",
       color: 'mat-primary'
     },
 ];

@@ -6,5 +6,5 @@ $my-warn: mat-palette($mat-pink, 900);
 $my-theme: mat-light-theme($my-primary, $my-accent, $my-warn);
 @include angular-material-theme($my-theme);
 .mat-simple-snackbar-action > button {
-    color: gray;
+    color: rgb(206, 206, 206);
 }

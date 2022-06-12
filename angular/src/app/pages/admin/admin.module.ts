@@ -21,6 +21,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { RemoveComponent } from './remove/remove.component';
 
 // importing classes that is needed for admin page
 
@@ -48,6 +49,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatIconModule,
 
   ],
-  declarations: [AdminComponent]
+  declarations: [AdminComponent, RemoveComponent]
 })
 export class AdminModule { }

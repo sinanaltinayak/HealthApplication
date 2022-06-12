@@ -88,8 +88,8 @@
                                     <input matInput [(ngModel)]="email" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" type="email" #emailInput="ngModel" required [email]="true">
                                     <mat-error>{{emailErrorMessage}}</mat-error>
                                 </mat-form-field>
-                                <button mat-raised-button color="primary" (click)="forgotPassword();" [disabled]="!email || emailInput.errors">Send</button>
                                 <button style="margin-top: 10px;" mat-button ngbDropdownItem (click)="forgotMode = false;signMode = 'signin';">Back</button>
+                                <button mat-raised-button color="primary" (click)="forgotPassword();" [disabled]="!email || emailInput.errors">Send</button>
                             </div>
                         </div>
                     </form>

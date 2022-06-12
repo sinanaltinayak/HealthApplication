@@ -144,7 +144,7 @@ export class ProfileComponent implements OnInit {
       
       this._userService.userRef.doc(this.currentUserId).update({fullname:_name, gender: _gender, birthday: _birthday, phoneNumber: _phoneNumber });
     
-      this._snackBar.open("Your changes were saved" , "Continue", {
+      this._snackBar.open("Your changes were saved." , "Continue", {
         horizontalPosition: "right",
         verticalPosition: "bottom",
         duration: 5000,
@@ -186,7 +186,7 @@ export class ProfileComponent implements OnInit {
 
     
     
-      this._snackBar.open("Your changes were saved" , "Continue", {
+      this._snackBar.open("Your changes were saved." , "Continue", {
         horizontalPosition: "right",
         verticalPosition: "bottom",
         duration: 5000,

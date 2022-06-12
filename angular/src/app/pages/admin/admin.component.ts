@@ -1,10 +1,13 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AppComponent } from 'src/app/app.component';
 import { Admin } from 'src/app/models/admin';
 import { AuthService } from 'src/app/service/auth.service';
 import { TestsService } from 'src/app/service/tests.service';
+import { RemoveComponent } from './remove/remove.component';
 
 @Component({
   selector: 'app-admin',
@@ -17,24 +20,26 @@ export class AdminComponent implements AfterViewInit {
   passwordErrorMessage: string = "Please enter a valid password";
   confirmPasswordErrorMessage: string = "The passwords does not match";
   nameErrorMessage: string = "Please fill in your name";
-  displayedColumnsDoctors: string[] = ['ID', 'Name', 'Email', 'Department', 'Rate', 'Month', 'Year', 'Last Login'];
+  displayedColumnsDoctors: string[] = ['ID', 'Name', 'Email', 'Department', 'Rate', 'Month', 'Year', 'Last Login', 'Remove'];
   dataSourceDoctors: MatTableDataSource<Admin> = new MatTableDataSource<Admin>();
   role = localStorage.getItem("role");
   hidePassword = true;
-  email!: string;
-  fullname!: string;
-  password!: string
+  email: string = "";
+  fullname: string = "";
+  password: string = "";
   confirmPassword: string = "";
-  selectedDepartment: string = "";
-
+  selectedDepartment: string = "";  
   departments: string[] = ["Dermatology", "Immunology", "Gastroenterology", "Internal Diseases", "Endocrinology", "Chest Diseases", "Neurology",
   "Rheumatology", "Infectious Diseases", "General Surgery", "Cardiology"];
 
   @ViewChild('paginatorDoctors') paginatorDoctors!: MatPaginator;
   @ViewChild('sortDoctors') sortDoctors!: MatSort;
+  @ViewChild('tabs', {static: false}) tabs: any;
 
   constructor(public _authService: AuthService,
-    public _testsService: TestsService) { }
+    public _testsService: TestsService,
+        public dialog: MatDialog,
+        public myapp: AppComponent) { }
 
   ngAfterViewInit(): void {
     
@@ -107,6 +112,11 @@ export class AdminComponent implements AfterViewInit {
 
   registerUser(){
     this._authService.register(this.email, this.password, this.fullname, 'doctor', this.selectedDepartment);
+    this.email = "";
+    this.fullname = "";
+    this.confirmPassword = "";
+    this.password = "";
+    this.selectedDepartment = "";
   }
 
   convertDate(date: string){
@@ -120,4 +130,15 @@ export class AdminComponent implements AfterViewInit {
     return datetime;
   }
 
+  realignInkBar() {
+    this.tabs.realignInkBar();
+  }
+
+  openRemoveDoctorDialog(doctorID: string, name: string) {    
+    const dialogRef = this.dialog.open(RemoveComponent, {
+      width: "20%", 
+      data: {doctorID: doctorID, name: name},
+      hasBackdrop: true,
+    });
+  }
 }

@@ -9,6 +9,7 @@ export class User{
     phoneNumber!: string;
     profilePicture!: string;
     lastLogin!: string;
+    department: string = "";
 
     constructor(id: string, fullname: string, email: string, password: string, role: string, gender: string, birthday: string, phoneNumber: string, profilePicture: string) {
         this.fullname = fullname;
