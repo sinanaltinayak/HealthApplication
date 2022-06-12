@@ -210,7 +210,7 @@
                         <ng-container matColumnDef="finalDiagnosis">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Final Diagnosis </th>
                             <td mat-cell *matCellDef="let row">
-                                <p>{{ row.finalDiagnosis }}</p>
+                                <p (click)="openDiagnosisDialog(row.finalDiagnosis)" class="clickableText">{{ row.finalDiagnosis }}</p>
                             </td>
                         </ng-container>
 
