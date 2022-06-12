@@ -172,7 +172,7 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                             <td mat-cell *matCellDef="let row">
                                 <mat-chip-list>
-                                    <mat-chip [ngClass]="row.finalDiagnosis == 'Canceled' ? 'canceled' : 'finalized'">
+                                    <mat-chip class="finalized">
                                         {{row.createdAt | date:'dd/MM/yyyy h:mm a'}}
                                     </mat-chip>
                                 </mat-chip-list>
@@ -218,6 +218,7 @@
                                 <p *ngIf="row.finalDiagnosis != 'Canceled'">
                                     {{row.finalDiagnosis}}
                                 </p>
+                                <p (click)="openDiagnosisDialog(row.finalDiagnosis)" class="clickableText">{{ row.finalDiagnosis }}</p>
                             </td>
                         </ng-container>
 
