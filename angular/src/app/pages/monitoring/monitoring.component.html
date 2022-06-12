@@ -13,54 +13,56 @@
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>Low Blood Pressure</mat-label>
-                            <input matInput [(ngModel)]="lowBP" min="10" max="120"  formControlName="lowBP"  type="number">
+                            <input matInput [(ngModel)]="lowBP" min="10" max="120" formControlName="lowBP" type="number">
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>Temperature</mat-label>
-                            <input matInput [(ngModel)]="temperature" min="0" max="100"  formControlName="temperature"  type="number">
+                            <input matInput [(ngModel)]="temperature" min="0" max="100" formControlName="temperature" type="number">
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>Blood Sugar Level</mat-label>
-                            <input matInput [(ngModel)]="bloodSugarLevel" min="50" max="150"  formControlName="bloodSugarLevel" type="number">
+                            <input matInput [(ngModel)]="bloodSugarLevel" min="50" max="150" formControlName="bloodSugarLevel" type="number">
                         </mat-form-field>
                         <div class="mt-5 text-center">
                             <button mat-raised-button color="primary" type="submit" (click)='saveResults()' [disabled]="!viewControl.valid">Save Changes</button>
                         </div>
                     </form>
                 </div>
-            
+
             </div>
         </div>
     </mat-card>
+    <div class="container3">
+        <mat-card>
+            <b>Displayed Columns</b>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <mat-checkbox (change)="controlView($event.checked, 'highBP')" [checked]="true">
+                <mat-label>High Blood Pressure</mat-label>
+            </mat-checkbox>
+            <br>
 
-    <mat-card>
-        <mat-card-title class="title">Displayed Columns</mat-card-title>
-        <mat-divider inset></mat-divider>
-        <mat-card-content>
-            <div class="container-display">
-                <mat-checkbox (change)="controlView($event.checked, 'highBP')" [checked]="true">
-                    <mat-label>High Blood Pressure</mat-label>
-                </mat-checkbox>
+            <mat-checkbox (change)="controlView($event.checked, 'lowBP')" [checked]="true">
+                <mat-label>Low Blood Pressure</mat-label>
+            </mat-checkbox>
+            <br>
 
-                <mat-checkbox (change)="controlView($event.checked, 'lowBP')" [checked]="true">
-                    <mat-label>Low Blood Pressure</mat-label>
-                </mat-checkbox>
+            <mat-checkbox (change)="controlView($event.checked, 'temperature')" [checked]="true">
+                <mat-label>Temperature</mat-label>
+            </mat-checkbox>
+            <br>
 
-                <mat-checkbox (change)="controlView($event.checked, 'temperature')" [checked]="true">
-                    <mat-label>Temperature</mat-label>
-                </mat-checkbox>
+            <mat-checkbox (change)="controlView($event.checked, 'bloodSugarLevel')" [checked]="true">
+                <mat-label>Blood Sugar Level</mat-label>
+            </mat-checkbox>
 
-                <mat-checkbox (change)="controlView($event.checked, 'bloodSugarLevel')" [checked]="true">
-                    <mat-label>Blood Sugar Level</mat-label>
-                </mat-checkbox>
-            </div>
-        </mat-card-content>
-    </mat-card>
+        </mat-card>
 
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="createdAt" matSortDirection="asc">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="createdAt" matSortDirection="asc">
 
-            <!-- <ng-container matColumnDef="createdAt"  >
+                <!-- <ng-container matColumnDef="createdAt"  >
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                 <td mat-cell *matCellDef="let row">
                     <mat-chip-list color="primary">
@@ -68,28 +70,28 @@
                     </mat-chip-list>
                 </td>
             </ng-container>   -->
-            
-            <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
-                <td mat-cell *matCellDef="let element"> 
-                    <p *ngIf="column != 'createdAt' && column != 'delete'; else misc">
-                        {{element[column]}}
-                    </p>
-                    <ng-template #misc>
-                            
-                        <mat-chip-list color="primary" *ngIf="column == 'createdAt';else deleteData">
-                            <mat-chip color="primary"> {{ element[column] | date:'dd/MM/yyyy h:mm a' }} </mat-chip>
-                        </mat-chip-list>
-                        <ng-template #deleteData>
-                            <button mat-icon-button (click)="removeRow(element, element.eventId)">
+
+                <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+                    <td mat-cell *matCellDef="let element">
+                        <p *ngIf="column != 'createdAt' && column != 'delete'; else misc">
+                            {{element[column]}}
+                        </p>
+                        <ng-template #misc>
+
+                            <mat-chip-list color="primary" *ngIf="column == 'createdAt';else deleteData">
+                                <mat-chip color="primary"> {{ element[column] | date:'dd/MM/yyyy h:mm a' }} </mat-chip>
+                            </mat-chip-list>
+                            <ng-template #deleteData>
+                                <button mat-icon-button (click)="removeRow(element, element.eventId)">
                                 <mat-icon>close</mat-icon>
                              </button>
-                        </ng-template>  
-                    </ng-template>  
-                </td>
-            </ng-container>
+                            </ng-template>
+                        </ng-template>
+                    </td>
+                </ng-container>
 
-            <!-- <ng-container matColumnDef="highBP">
+                <!-- <ng-container matColumnDef="highBP">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> High Blood Pressure </th>
                 <td mat-cell *matCellDef="let row"> {{checkNull(row.highBP)}} </td>
             </ng-container>
@@ -109,7 +111,7 @@
                 <td mat-cell *matCellDef="let row"> {{checkNull(row.bloodSugarLevel)}} </td>
             </ng-container> -->
 
-            <!-- <ng-container matColumnDef="delete">
+                <!-- <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                 <td mat-cell *matCellDef="let row"> 
                     <button mat-icon-button (click)="removeRow(row, row.eventId)">
@@ -117,15 +119,16 @@
                     </button>
                 </td>
             </ng-container> -->
-                    
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
 
-        </table>
-        <div style="text-align: center; padding:10px" *ngIf="dataSourceMonitor.data.length == 0">
-            <p>You do not have past values.</p>
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+            </table>
+            <div style="text-align: center; padding:10px" *ngIf="dataSourceMonitor.data.length == 0">
+                <p>You do not have past values.</p>
+            </div>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
         </div>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
     </div>
 </div>
