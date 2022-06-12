@@ -83,6 +83,9 @@ export class HomeComponent implements OnInit{
         this.testLimit = true;
       } 
     });
+    if (this.role == 'disabled'){
+      this.myapp.openSnackBar("This account is disabled.", "Continue", "mat-primary");
+    }
   }
 
   private _filter(value: string): string[] {

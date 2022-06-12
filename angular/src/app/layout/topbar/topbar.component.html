@@ -99,7 +99,7 @@
             <ng-template #logout>
                 <button mat-button [matMenuTriggerFor]="menu"> <mat-icon>account_circle</mat-icon> {{ currentUser }}</button>
                 <mat-menu #menu="matMenu" xPosition="after">
-                    <button mat-menu-item routerLink="../profile" (click)='refresh("/profile")'> <mat-icon>account_circle</mat-icon> Profile</button>
+                    <button mat-menu-item *ngIf="userType != 'disabled'" routerLink="../profile" (click)='refresh("/profile")'> <mat-icon>account_circle</mat-icon> Profile</button>
                     <button mat-menu-item (click)="logoutUser()"><mat-icon>output</mat-icon>Log Out</button>
                 </mat-menu>
             </ng-template>

@@ -75,6 +75,10 @@ mat-card {
     background-color: rgb(207, 245, 207);
 }
 
+.canceled {
+    background-color: rgb(253, 215, 215);
+}
+
 .inProgress {
     background-color: rgb(247, 241, 195);
 }

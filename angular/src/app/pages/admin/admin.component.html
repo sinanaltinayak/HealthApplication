@@ -57,97 +57,95 @@
         </mat-tab>
         <mat-tab label="Performance Review">
             <div class="container2">
-                <mat-card>
-                    <div class="container2">
-                        <mat-form-field appearance="standard">
-                            <mat-label>
-                                <mat-icon>filter_list</mat-icon> Filter</mat-label>
-                            <input matInput (keyup)="applyFilter($event, dataSourceDoctors)" placeholder="Ex. Mehmet Oz" #input>
-                        </mat-form-field>
-                
-                        <div class="mat-elevation-z8">
-                            <table mat-table [dataSource]="dataSourceDoctors" #sortDoctors="matSort" matSort>
-                
-                
-                                <ng-container matColumnDef="ID">
-                                    <th mat-header-cell style="width: 20%;" *matHeaderCellDef mat-sort-header> ID </th>
-                                    <td mat-cell style="width: 20%;" *matCellDef="let row">
-                                        {{row.id}}
-                                    </td>
-                                </ng-container>
-                
-                                <ng-container matColumnDef="Name">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                                    <td mat-cell *matCellDef="let row">
-                                        {{row.fullname}}
-                                    </td>
-                                </ng-container>
-                
-                                <ng-container matColumnDef="Email">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-                                    <td mat-cell *matCellDef="let row">
-                                        {{row.email}}
-                                    </td>
-                                </ng-container>
-                
-                                <ng-container matColumnDef="Department">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
-                                    <td mat-cell *matCellDef="let row">
-                                        {{row.department}}
-                                    </td>
-                                </ng-container>
-                
-                                <ng-container matColumnDef="Rate">
-                                    <th mat-header-cell style="width: 10%;" *matHeaderCellDef mat-sort-header> Rate </th>
-                                    <td mat-cell style="width: 10%;" *matCellDef="let row">
-                                        {{row.rate}}
-                                    </td>
-                                </ng-container>
-                
-                                <ng-container matColumnDef="Month">
-                                    <th mat-header-cell style="width: 10%;" *matHeaderCellDef mat-sort-header> Last Month </th>
-                                    <td mat-cell style="width: 10%;" *matCellDef="let row">
-                                        {{row.lastMonth}}
-                                    </td>
-                                </ng-container>
-                
-                                <ng-container matColumnDef="Year">
-                                    <th mat-header-cell style="width: 10%;" *matHeaderCellDef mat-sort-header> Last Year </th>
-                                    <td mat-cell style="width: 10%;" *matCellDef="let row">
-                                        {{row.lastYear}}
-                                    </td>
-                                </ng-container>
-                
-                                <ng-container matColumnDef="Last Login">
-                                    <th mat-header-cell style="width: 15%;" *matHeaderCellDef mat-sort-header> Last Login </th>
-                                    <td mat-cell style="width: 10%;" *matCellDef="let row">
-                                        {{row.lastLogin}}
-                                    </td>
-                                </ng-container>
+                <div class="container2">
+                    <mat-form-field appearance="standard">
+                        <mat-label>
+                            <mat-icon>filter_list</mat-icon> Filter</mat-label>
+                        <input matInput (keyup)="applyFilter($event, dataSourceDoctors)" placeholder="Ex. Mehmet Oz" #input>
+                    </mat-form-field>
+            
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSourceDoctors" #sortDoctors="matSort" matSort>
+            
+            
+                            <ng-container matColumnDef="ID">
+                                <th mat-header-cell style="width: 20%;" *matHeaderCellDef mat-sort-header> ID </th>
+                                <td mat-cell style="width: 20%;" *matCellDef="let row">
+                                    {{row.id}}
+                                </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                                <td mat-cell *matCellDef="let row">
+                                    {{row.fullname}}
+                                </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Email">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                <td mat-cell *matCellDef="let row">
+                                    {{row.email}}
+                                </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Department">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+                                <td mat-cell *matCellDef="let row">
+                                    {{row.department}}
+                                </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Rate">
+                                <th mat-header-cell style="width: 10%;" *matHeaderCellDef mat-sort-header> Rate </th>
+                                <td mat-cell style="width: 10%;" *matCellDef="let row">
+                                    {{row.rate}}
+                                </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Month">
+                                <th mat-header-cell style="width: 10%;" *matHeaderCellDef mat-sort-header> Last Month </th>
+                                <td mat-cell style="width: 10%;" *matCellDef="let row">
+                                    {{row.lastMonth}}
+                                </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Year">
+                                <th mat-header-cell style="width: 10%;" *matHeaderCellDef mat-sort-header> Last Year </th>
+                                <td mat-cell style="width: 10%;" *matCellDef="let row">
+                                    {{row.lastYear}}
+                                </td>
+                            </ng-container>
+            
+                            <ng-container matColumnDef="Last Login">
+                                <th mat-header-cell style="width: 15%;" *matHeaderCellDef mat-sort-header> Last Login </th>
+                                <td mat-cell style="width: 10%;" *matCellDef="let row">
+                                    {{row.lastLogin}}
+                                </td>
+                            </ng-container>
 
-                                <ng-container matColumnDef="Remove">
-                                    <th mat-header-cell style="width: 5%;" *matHeaderCellDef mat-sort-header> Remove </th>
-                                    <td mat-cell style="width: 5%;" *matCellDef="let row">
-                                        <button mat-icon-button>
-                                            <mat-icon color="warn" (click)="openRemoveDoctorDialog(row.id, row.fullname)">delete</mat-icon>
-                                         </button>
-                                    </td>
-                                </ng-container>
-                
-                
-                                <tr mat-header-row *matHeaderRowDef="displayedColumnsDoctors"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumnsDoctors;"></tr>
-                
-                            </table>
-                            <div *ngIf="dataSourceDoctors.data.length == 0" class="errorNote">
-                                <p>There are no Doctors.</p>
-                            </div>
-                
-                            <mat-paginator #paginatorDoctors [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
-                
+                            <ng-container matColumnDef="Remove">
+                                <th mat-header-cell style="width: 5%;" *matHeaderCellDef mat-sort-header> Remove </th>
+                                <td mat-cell style="width: 5%;" *matCellDef="let row">
+                                    <button mat-icon-button>
+                                        <mat-icon color="warn" (click)="openRemoveDoctorDialog(row.id, row.fullname)">close</mat-icon>
+                                     </button>
+                                </td>
+                            </ng-container>
+            
+            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsDoctors"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsDoctors;"></tr>
+            
+                        </table>
+                        <div *ngIf="dataSourceDoctors.data.length == 0" class="errorNote">
+                            <p>There are no Doctors.</p>
                         </div>
+            
+                        <mat-paginator #paginatorDoctors [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tests"></mat-paginator>
+            
                     </div>
-                </mat-card>
+                </div>
             </div>
         </mat-tab>
     </mat-tab-group>

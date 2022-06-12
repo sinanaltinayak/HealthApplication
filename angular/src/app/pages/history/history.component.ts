@@ -175,6 +175,7 @@ parseSymptoms(symptoms: string) : string{
   let unReadProgressTest: number = 0;
   let unReadReassignedTest: number = 0;
   let unReadChat: number = 0;
+  let unReadCanceledTest: number = 0;
   await this._testsService.getInProgressTestsByPatientId(localStorage.getItem("id")!).get().forEach(e=> {
     e.docs.forEach(fe=> {
       if (fe.data()?.unRead == true){
@@ -185,7 +186,12 @@ parseSymptoms(symptoms: string) : string{
   await this._testsService.getFinalizedTestsByPatientId(localStorage.getItem("id")!).get().forEach(af=> {
     af.docs.forEach(ab=> {
       if(ab.data().unRead == true){
-        unReadFinalizedTest++;
+        if (ab.data().finalDiagnosis == 'Canceled'){
+          unReadCanceledTest++;
+        }
+        else {
+          unReadFinalizedTest++;
+        }
       }
     });
   });
@@ -213,7 +219,7 @@ setTimeout(() => {
       count: unReadProgressTest,
       text: unReadProgressTest! + " test started to be monitoring!",
       text2: unReadProgressTest! + " tests started to be monitoring!",
-      color: 'mat-warn'
+      color: 'mat-accent'
     },
     {
       count: unReadFinalizedTest,
@@ -225,7 +231,13 @@ setTimeout(() => {
       count: unReadReassignedTest,
       text: "The department of " + unReadReassignedTest! + " test has been reassigned by the doctor.",
       text2: "The department of " + unReadReassignedTest! + " tests has been reassigned by the doctor.",
-      color: 'mat-primary'
+      color: 'mat-warn'
+    },
+    {
+      count: unReadCanceledTest,
+      text: unReadCanceledTest! + " test has been canceled due to deactivation of the doctor account.",
+      text2: unReadCanceledTest! + " tests have been canceled due to deactivation of the doctor account.",
+      color: 'mat-warn'
     },
 ];
   this.myapp.openMultiSnackBar(messages);    

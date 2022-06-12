@@ -54,7 +54,7 @@ export class AuthService {
           if(this.role == 'admin'){
             this.router.navigate(['admin']);
           }
-          else{
+          if(this.role == 'patient' || this.role == 'disabled'){
             setTimeout(() => {
               window.location.reload();
             },
@@ -95,7 +95,7 @@ export class AuthService {
           },
           150);
         }
-        else if (err.message.includes("The email address is badly formatted")) {
+        else if (err.message.includes("The email address is badly formatted.")) {
           setTimeout(() => {
             this._snackBar.open("The email address is badly formatted.", "Continue", {
               horizontalPosition: "right",
