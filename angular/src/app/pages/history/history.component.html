@@ -215,10 +215,9 @@
                                         {{row.finalDiagnosis}}
                                     </mat-chip>
                                 </mat-chip-list>
-                                <p *ngIf="row.finalDiagnosis != 'Canceled'">
+                                <p *ngIf="row.finalDiagnosis != 'Canceled'" (click)="openDiagnosisDialog(row.finalDiagnosis)" class="clickableText">
                                     {{row.finalDiagnosis}}
                                 </p>
-                                <p (click)="openDiagnosisDialog(row.finalDiagnosis)" class="clickableText">{{ row.finalDiagnosis }}</p>
                             </td>
                         </ng-container>
 

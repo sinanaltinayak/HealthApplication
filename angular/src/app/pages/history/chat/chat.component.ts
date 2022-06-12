@@ -111,6 +111,8 @@ export class ChatComponent implements OnInit {
           birthday: c.payload.doc.data()['birthday'], 
           phoneNumber: c.payload.doc.data()['phoneNumber'], 
           profilePicture: c.payload.doc.data()['profilePicture'], 
+          height: c.payload.doc.data()['height'], 
+          weight: c.payload.doc.data()['weight']
         })
         )
       )
@@ -118,7 +120,7 @@ export class ChatComponent implements OnInit {
 
       for (let i = 0; i < data.length; i++) {
         
-        this.allUsers.push(new User(data[i].id, data[i].fullname, data[i].email, data[i].password, data[i].role, data[i].gender, data[i].birthday, data[i].phoneNumber, data[i].profilePicture));
+        this.allUsers.push(new User(data[i].id, data[i].fullname, data[i].email, data[i].password, data[i].role, data[i].gender, data[i].birthday, data[i].phoneNumber, data[i].profilePicture, data[i].height, data[i].weight));
       }
     }); 
   }

@@ -10,18 +10,26 @@
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>High Blood Pressure</mat-label>
                             <input matInput [(ngModel)]="highBP" min="50" max="150" formControlName="highBP" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('highBP')?.errors?.['min']">Minimum High BP is 50.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('highBP')?.errors?.['max']">Maximum High BP is 150.</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>Low Blood Pressure</mat-label>
                             <input matInput [(ngModel)]="lowBP" min="10" max="120" formControlName="lowBP" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('lowBP')?.errors?.['min']">Minimum Low BP is 10.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('lowBP')?.errors?.['max']">Maximum Low BP is 120.</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>Temperature</mat-label>
                             <input matInput [(ngModel)]="temperature" min="0" max="100" formControlName="temperature" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('temperature')?.errors?.['min']">Minimum Temperature is 0.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('temperature')?.errors?.['max']">Maximum Temperature is 100.</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>Blood Sugar Level</mat-label>
                             <input matInput [(ngModel)]="bloodSugarLevel" min="50" max="150" formControlName="bloodSugarLevel" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('bloodSugarLevel')?.errors?.['min']">Minimum Blood Sugar Level is 50.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('bloodSugarLevel')?.errors?.['max']">Maximum Blood Sugar Level is 150.</mat-error>
                         </mat-form-field>
                         <div class="mt-5 text-center">
                             <button mat-raised-button color="primary" type="submit" (click)='saveResults()' [disabled]="!viewControl.valid">Save Changes</button>

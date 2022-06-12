@@ -21,13 +21,18 @@
 
                 <div class="documents">
                     <h1 class="card-header title text-center">Documents</h1>
-                    <div class="card-body">
-                        <ul>
+                    <div class="card-body" *ngIf="fileList.size > 0; else noDocuments">
+                        <ul >
                             <li *ngFor="let file of fileList | keyvalue">
                                 <a href="{{ file.value }}">{{file.key}}</a>
                             </li>
                         </ul>
                     </div>
+                    <ng-template class="card-body" #noDocuments>
+                        <div class="card-body">
+                            <p>No Documents.</p>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
@@ -36,60 +41,62 @@
                 <div class="card card-changes">
                     <h1 class="card-header title text-center">Account Details</h1>
                     <div class="card-body">
-                        <form class="example-form">
-                            <table class="example-full-width" cellspacing="0">
-                                <tr>
-                                    <td>
-                                        <div class="example-full-width col" appearance="fill">
-                                            <b>Full Name</b><br>
-                                            <span>{{currentUser.fullname}}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="example-full-width col" appearance="fill">
-                                            <b>Phone Number</b><br>
-                                            <span>{{ currentUser.phoneNumber }}</span> 
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table><br>
-                            <table class="example-full-width" cellspacing="0">
-                                <tr>
-                                    <td>
-                                        <div appearance="fill" class="example-full-width col">
-                                            <b>Gender</b><br>
-                                            <span>{{ currentUser.gender }}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="example-full-width col" appearance="fill">
-                                            <b>Birth Year</b><br>
-                                            <span>{{ currentUser.birthday }}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
+                        <mat-grid-list cols="2" rowHeight="3:1">
+                            <mat-grid-tile>
+                                <div appearance="fill" class="example-full-width col">
+                                    <b>Full Name</b><br>
+                                    <span>{{currentUser.fullname}}</span>
+                                </div>
+                            </mat-grid-tile> 
+                            <mat-grid-tile>
+                                <div appearance="fill" class="example-full-width col">
+                                    <b>Phone Number</b><br>
+                                    <span>{{ currentUser.phoneNumber }}</span> 
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <div appearance="fill" class="example-full-width col">
+                                    <b>Gender</b><br>
+                                    <span>{{ currentUser.gender }}</span>
+                                </div>
+                            </mat-grid-tile> 
+                            <mat-grid-tile>
+                                <div class="example-full-width col" appearance="fill">
+                                    <b>Birth Year</b><br>
+                                    <span>{{ currentUser.birthday }}</span>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
                     </div>
                     <div>
                         <div class="history">
                             <h1 class="card-header title text-center">Medical History</h1>
                             <div class="card-body col">
                                 
-                                <b>What are your medical and surgical histories? Please specify.</b><br>
-                                <span> {{ currentMedicalHistory.question1 }} </span><br><br>
+                                <div *ngIf="currentMedicalHistory.question1">
+                                    <b>What are your medical and surgical histories? Please specify.</b><br>
+                                    <span> {{ currentMedicalHistory.question1 }} </span><br><br>
+                                </div>
                                     
-                                <b>Do you take prescription or non-prescription medications? If yes, please specify.</b><br>
-                                <span> {{ currentMedicalHistory.question2 }} </span><br><br>
+                                <div *ngIf="currentMedicalHistory.question2">
+                                    <b>Do you take prescription or non-prescription medications? If yes, please specify.</b><br>
+                                    <span> {{ currentMedicalHistory.question2 }} </span><br><br>
+                                </div>
                                     
-                                <b>Do you have any allergies? If yes, please specify.</b><br>
-                                <span> {{ currentMedicalHistory.question3 }} </span><br><br>
+                                <div *ngIf="currentMedicalHistory.question3">
+                                    <b>Do you have any allergies? If yes, please specify.</b><br>
+                                    <span> {{ currentMedicalHistory.question3 }} </span><br><br>
+                                </div>
                                     
-                                <b>What is your smoking, alcohol, and illicit drug use history? Please specify.</b><br>
-                                <span> {{ currentMedicalHistory.question4 }} </span><br><br>
+                                <div *ngIf="currentMedicalHistory.question4">
+                                    <b>What is your smoking, alcohol, and illicit drug use history? Please specify.</b><br>
+                                    <span> {{ currentMedicalHistory.question4 }} </span><br><br>
+                                </div>
 
-                                <b>Is there any diagnosed disease in your family? If yes, please specify.</b><br>
-                                <span> {{ currentMedicalHistory.question5 }} </span>
+                                <div *ngIf="currentMedicalHistory.question5">
+                                    <b>Is there any diagnosed disease in your family? If yes, please specify.</b><br>
+                                    <span> {{ currentMedicalHistory.question5 }} </span>
+                                </div>
                             </div>
                         </div>
                     </div>

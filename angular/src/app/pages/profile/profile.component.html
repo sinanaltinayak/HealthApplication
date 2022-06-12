@@ -110,23 +110,42 @@
 
                                         <mat-form-field class="example-full-width" appearance="fill">
                                             <mat-label>Birth Year</mat-label>
-                                            <!-- <mat-select ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
-                                            <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
-                                        </mat-select> -->
-                                            <input matInput ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
+                                            <mat-select ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
+                                                <mat-option *ngFor="let option of years" [value]="option.toString()">{{option}}</mat-option>
+                                            </mat-select>
                                         </mat-form-field>
 
                                     </td>
                                 </tr>
                             </table>
-
+                            <table class="example-full-width" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <mat-form-field appearance="fill" class="example-full-width">
+                                            <mat-label>Height</mat-label>
+                                            <input matInput type="number" min="100" max="220" ngModel="{{inputHeight }}" [(ngModel)]="height" name="height" [formControl]="heightControl">
+                                            <mat-error class="warn" *ngIf="heightControl.errors?.['min']">Minimum height is 100.</mat-error>
+                                            <mat-error class="warn" *ngIf="heightControl.errors?.['max']">Maximum height is 220.</mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <mat-label>Weight</mat-label>
+                                            <input matInput type="number" min="40" max="300" ngModel="{{inputWeight }}" [(ngModel)]="weight" name="weight" [formControl]="weightControl">
+                                            <mat-error class="warn" *ngIf="weightControl.errors?.['min']">Minimum height is 40.</mat-error>
+                                            <mat-error class="warn" *ngIf="weightControl.errors?.['max']">Maximum height is 300.</mat-error>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                            </table>
                             <!-- <p>
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label>Address</mat-label>
                                 <textarea matInput></textarea>
                             </mat-form-field>
                         </p> -->
-                            <button mat-raised-button color="accent" (click)="saveChanges(name, gender, birthday, phoneNumber)">Save Changes</button>
+                            <button mat-raised-button color="accent" (click)="saveChanges(name, gender, birthday, phoneNumber, height, weight)" [disabled]="weightControl.errors || heightControl.errors">Save Changes</button>
+                        
                         </form>
                     </div>
                     <div>

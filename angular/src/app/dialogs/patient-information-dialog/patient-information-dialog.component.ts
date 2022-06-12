@@ -15,7 +15,7 @@ import { AngularFireStorage } from "@angular/fire/compat/storage";
 export class PatientInformationDialogComponent implements OnInit {
 
   currentMedicalHistory: MedicalHistory = new MedicalHistory("","","","","","");
-  currentUser: User = new User("","","","","","","","","");
+  currentUser: User = new User("","","","","","","","","","","");
 
   fileList = new Map<string, string>();
   profileImage: any;
@@ -31,11 +31,12 @@ export class PatientInformationDialogComponent implements OnInit {
   async ngOnInit() {
     this.getCurrentMedicalHistory();
     this.getPatientInformation();
+    this.getFileList();
 
+  
     await this.storage.storage.ref(this.currentUser.profilePicture).getDownloadURL().then(
       (url: string) => {
         this.profileImage = url;
-        console.log(this.profileImage);
       }
     )
   }
@@ -61,12 +62,31 @@ export class PatientInformationDialogComponent implements OnInit {
         data?.gender as string, 
         data?.birthday as string, 
         data?.phoneNumber as string, 
-        data?.profilePicture as string);
+        data?.profilePicture as string,
+        data?.height as string, 
+        data?.weight as string);
     });
   }
 
   getDownloadURL(){
     return this.profileImage;
+  }
+
+  getFileList() {
+    const ref = this.storage.ref(this.data.patientID);
+    let myurlsubscription = ref.listAll().subscribe((data) => {
+
+      for (let i = 0; i < data.items.length; i++) {
+        let name = data.items[i].name;
+        let newref = this.storage.ref(this.data.patientID + '/' + data.items[i].name);
+        let url = newref.getDownloadURL().subscribe((data) => {
+          this.fileList.set(
+            name, data
+          );
+        });
+      }
+      
+    });
   }
 
 }

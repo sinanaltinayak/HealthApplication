@@ -56,10 +56,13 @@
                             <th mat-header-cell *matHeaderCellDef> Actions </th>
                             <td mat-cell *matCellDef="let row">
                                 <div>
+                                    <button mat-raised-button class="actionbuttons" color="warn" (click)="openPatientMonitoringDialog(row.patientID, row.fullname)">
+                                        Patient Monitoring
+                                    </button> 
                                     <button class="actionbuttons" color="warn" mat-raised-button (click)="openConfirmTestDialog(row.id)">
                                         Start a Chat
                                     </button>
-                                    <button class="actionbuttons" color="warn" class="final" mat-raised-button (click)="openFinalizeDialog(row.id)">
+                                    <button class="actionbuttons" color="warn" mat-raised-button (click)="openFinalizeDialog(row.id)">
                                         Finalize the Test
                                     </button>
                                 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
@@ -18,13 +18,19 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ProfileComponent implements OnInit {
   years: number[] = Array(71).fill(1).map((_, idx) => 2021 - idx)
+  
+  heightControl = new FormControl("", [Validators.max(220), Validators.min(100)])
+  weightControl = new FormControl("", [Validators.max(300), Validators.min(40)])
+
   name= "";
   gender = "";
   birthday = "";
   phoneNumber= "";
+  height = "";
+  weight= "";
   address= "";
   rate = 0;
-  cities: string[] = ["Adana","Adiyaman","Afyon","Agri","Aksaray","Amasya","Ankara","Antalya","Ardahan","Artvin","Aydin","Balikesir","Bartin","Batman","Bayburt","Bilecik","Bingol","Bitlis","Bolu","Burdur","Bursa","Canakkale","Cankiri","Corum","Denizli","Diyarbakir","Duzce","Edirne","Elazig","Erzincan","Erzurum","Eskisehir","Gaziantep","Giresun","Gumushane","Hakkari","Hatay","Igdir","Isparta","Istanbul","Izmir","Kahramanmaras","Karabuk","Karaman","Kars","Kastamonu","Kayseri","Kilis","Kirikkale","Kirklareli","Kirsehir","Kocaeli","Konya","Kutahya","Malatya","Manisa","Mardin","Mersin","Mugla","Mus","Nevsehir","Nigde","Ordu","Osmaniye","Rize","Sakarya","Samsun","Sanliurfa","Siirt","Sinop","Sirnak","Sivas","Tekirdag","Tokat","Trabzon","Tunceli","Usak","Van","Yalova","Yozgat","Zonguldak"];
+  
   currentUserName = localStorage.getItem('name') as string;
   currentUserMail = localStorage.getItem('email') as string;
   currentUserId = localStorage.getItem('id') as string;
@@ -34,6 +40,8 @@ export class ProfileComponent implements OnInit {
   inputGender = this.currentUser.get(this.currentUserId)?.gender;
   inputBirthday = this.currentUser.get(this.currentUserId)?.birthday;
   inputPhoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+  inputHeight = this.currentUser.get(this.currentUserId)?.height;
+  inputWeight = this.currentUser.get(this.currentUserId)?.weight;
   userRole = this.currentUser.get(this.currentUserId)?.role;
   profilePicture = localStorage.getItem('profilePicture') as string;
   inputDepartment = "";
@@ -97,6 +105,8 @@ export class ProfileComponent implements OnInit {
       this.inputGender = Array.from(this.currentUser.values())[0].gender;
       this.inputBirthday = Array.from(this.currentUser.values())[0].birthday;
       this.inputPhoneNumber = Array.from(this.currentUser.values())[0].phoneNumber;
+      this.inputHeight = Array.from(this.currentUser.values())[0].height;
+      this.inputWeight = Array.from(this.currentUser.values())[0].weight;
       this.userRole = Array.from(this.currentUser.values())[0].role;
     });
     
@@ -125,8 +135,7 @@ export class ProfileComponent implements OnInit {
   }
 
 
-
-  saveChanges(_name: any, _gender: any, _birthday: any, _phoneNumber: any){
+  saveChanges(_name: any, _gender: any, _birthday: any, _phoneNumber: any, _height: any, _weight: any){
       
       if(_name == "") {
         _name = this.currentUser.get(this.currentUserId)?.fullname;
@@ -140,9 +149,15 @@ export class ProfileComponent implements OnInit {
       if(_phoneNumber == "") {
         _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
       }
+      if(_height == "") {
+        _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+      }
+      if(_weight == "") {
+        _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+      }
       localStorage.setItem('name', _name)
       
-      this._userService.userRef.doc(this.currentUserId).update({fullname:_name, gender: _gender, birthday: _birthday, phoneNumber: _phoneNumber });
+      this._userService.userRef.doc(this.currentUserId).update({fullname:_name, gender: _gender, birthday: _birthday, phoneNumber: _phoneNumber, height: _height, weight: _weight });
     
       this._snackBar.open("Your changes were saved." , "Continue", {
         horizontalPosition: "right",
