@@ -17,22 +17,22 @@ import { Observable, of } from 'rxjs';
   templateUrl: './monitoring.component.html',
 })
 export class MonitoringComponent implements AfterViewInit {
-  displayedColumns: string[] = ['createdAt', 'highBP', 'lowBP', 'temperature', 'bloodSugarLevel', 'delete'];
+  displayedColumns: string[] = ['createdAt', 'SystolicBP', 'DiastolicBP', 'Temperature', 'RandomBloodSugarLevel', 'delete'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   
   dataSourceMonitor: MatTableDataSource<Monitor> = new MatTableDataSource<Monitor>();
 
-  highBP!: string;
-  lowBP!: string;
-  bloodSugarLevel!: string;
-  temperature!: string;
+  SystolicBP!: string;
+  DiastolicBP!: string;
+  Temperature!: string;
+  RandomBloodSugarLevel!: string;
 
 
   viewControl = this.fb.group({
-    highBP:  [Validators.min(50), Validators.max(150)],
-    lowBP:  [Validators.min(10), Validators.max(120)],
-    temperature:  [Validators.min(0), Validators.max(100)],
-    bloodSugarLevel:  [Validators.min(50), Validators.max(150)],
+    SystolicBP:  [Validators.min(50), Validators.max(200)],
+    DiastolicBP:  [Validators.min(20), Validators.max(120)],
+    Temperature:  [Validators.min(33), Validators.max(45)],
+    RandomBloodSugarLevel:  [Validators.min(20), Validators.max(1000)],
   });
 
   saveMonitorDisabled = false;
@@ -59,13 +59,13 @@ export class MonitoringComponent implements AfterViewInit {
   saveResults(){
 
     let patientID = localStorage.getItem("id")!;
-    let monitor = new Monitor(patientID, Date.now(), Number(this.highBP), Number(this.lowBP), Number(this.bloodSugarLevel), Number(this.temperature));
-
+    let monitor = new Monitor(patientID, Date.now(), Number(this.SystolicBP), Number(this.DiastolicBP), Number(this.RandomBloodSugarLevel), Number(this.Temperature));
+   
     this._monitorService.setPatientMonitors(monitor);
-    this.highBP =  '';
-    this.lowBP =  '';
-    this.bloodSugarLevel =  '';
-    this.temperature =  '';
+    this.SystolicBP =  '';
+    this.DiastolicBP =  '';
+    this.Temperature =  '';
+    this.RandomBloodSugarLevel =  '';
   }
 
   removeRow(i: number, id: string){

@@ -8,28 +8,28 @@
                 <div class="row mt-2">
                     <form [formGroup]="viewControl">
                         <mat-form-field appearance="legacy" style="padding:10px">
-                            <mat-label>High Blood Pressure</mat-label>
-                            <input matInput [(ngModel)]="highBP" min="50" max="150" formControlName="highBP" type="number">
-                            <mat-error class="warn" *ngIf="viewControl.get('highBP')?.errors?.['min']">Minimum High BP is 50.</mat-error>
-                            <mat-error class="warn" *ngIf="viewControl.get('highBP')?.errors?.['max']">Maximum High BP is 150.</mat-error>
+                            <mat-label>Systolic Blood Pressure</mat-label>
+                            <input matInput [(ngModel)]="SystolicBP" min="50" max="150" formControlName="SystolicBP" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('SystolicBP')?.errors?.['min']">Minimum Systolic BP is 50.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('SystolicBP')?.errors?.['max']">Maximum Systolic BP is 200.</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
-                            <mat-label>Low Blood Pressure</mat-label>
-                            <input matInput [(ngModel)]="lowBP" min="10" max="120" formControlName="lowBP" type="number">
-                            <mat-error class="warn" *ngIf="viewControl.get('lowBP')?.errors?.['min']">Minimum Low BP is 10.</mat-error>
-                            <mat-error class="warn" *ngIf="viewControl.get('lowBP')?.errors?.['max']">Maximum Low BP is 120.</mat-error>
+                            <mat-label>Diastolic Blood Pressure</mat-label>
+                            <input matInput [(ngModel)]="DiastolicBP" min="20" max="120" formControlName="DiastolicBP" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('DiastolicBP')?.errors?.['min']">Minimum Diastolic BP is 20.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('DiastolicBP')?.errors?.['max']">Maximum Diastolic BP is 120.</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
                             <mat-label>Temperature</mat-label>
-                            <input matInput [(ngModel)]="temperature" min="0" max="100" formControlName="temperature" type="number">
-                            <mat-error class="warn" *ngIf="viewControl.get('temperature')?.errors?.['min']">Minimum Temperature is 0.</mat-error>
-                            <mat-error class="warn" *ngIf="viewControl.get('temperature')?.errors?.['max']">Maximum Temperature is 100.</mat-error>
+                            <input matInput [(ngModel)]="Temperature" min="33" max="45" formControlName="Temperature" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('Temperature')?.errors?.['min']">Minimum Temperature is 33.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('Temperature')?.errors?.['max']">Maximum Temperature is 45.</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="legacy" style="padding:10px">
-                            <mat-label>Blood Sugar Level</mat-label>
-                            <input matInput [(ngModel)]="bloodSugarLevel" min="50" max="150" formControlName="bloodSugarLevel" type="number">
-                            <mat-error class="warn" *ngIf="viewControl.get('bloodSugarLevel')?.errors?.['min']">Minimum Blood Sugar Level is 50.</mat-error>
-                            <mat-error class="warn" *ngIf="viewControl.get('bloodSugarLevel')?.errors?.['max']">Maximum Blood Sugar Level is 150.</mat-error>
+                            <mat-label>Random Blood Sugar Level</mat-label>
+                            <input matInput [(ngModel)]="RandomBloodSugarLevel" min="20" max="1000" formControlName="RandomBloodSugarLevel" type="number">
+                            <mat-error class="warn" *ngIf="viewControl.get('RandomBloodSugarLevel')?.errors?.['min']">Minimum Random Blood Sugar Level is 20.</mat-error>
+                            <mat-error class="warn" *ngIf="viewControl.get('RandomBloodSugarLevel')?.errors?.['max']">Maximum Random Blood Sugar Level is 1000.</mat-error>
                         </mat-form-field>
                         <div class="mt-5 text-center">
                             <button mat-raised-button color="primary" type="submit" (click)='saveResults()' [disabled]="!viewControl.valid">Save Changes</button>
@@ -46,23 +46,23 @@
             <br>
             <mat-divider></mat-divider>
             <br>
-            <mat-checkbox (change)="controlView($event.checked, 'highBP')" [checked]="true">
-                <mat-label>High Blood Pressure</mat-label>
+            <mat-checkbox (change)="controlView($event.checked, 'SystolicBP')" [checked]="true">
+                <mat-label>Systolic Blood Pressure</mat-label>
             </mat-checkbox>
             <br>
 
-            <mat-checkbox (change)="controlView($event.checked, 'lowBP')" [checked]="true">
-                <mat-label>Low Blood Pressure</mat-label>
+            <mat-checkbox (change)="controlView($event.checked, 'DiastolicBP')" [checked]="true">
+                <mat-label>Diastolic Blood Pressure</mat-label>
             </mat-checkbox>
             <br>
 
-            <mat-checkbox (change)="controlView($event.checked, 'temperature')" [checked]="true">
+            <mat-checkbox (change)="controlView($event.checked, 'Temperature')" [checked]="true">
                 <mat-label>Temperature</mat-label>
             </mat-checkbox>
             <br>
 
-            <mat-checkbox (change)="controlView($event.checked, 'bloodSugarLevel')" [checked]="true">
-                <mat-label>Blood Sugar Level</mat-label>
+            <mat-checkbox (change)="controlView($event.checked, 'RandomBloodSugarLevel')" [checked]="true">
+                <mat-label>Random Blood Sugar Level</mat-label>
             </mat-checkbox>
 
         </mat-card>
