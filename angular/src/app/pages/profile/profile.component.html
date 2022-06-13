@@ -118,7 +118,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <table class="example-full-width" cellspacing="0">
+                            <table *ngIf="userRole == 'patient'" class="example-full-width" cellspacing="0">
                                 <tr>
                                     <td>
                                         <mat-form-field appearance="fill" class="example-full-width">
@@ -145,11 +145,11 @@
                             </mat-form-field>
                         </p> -->
                             <button mat-raised-button color="accent" (click)="saveChanges(name, gender, birthday, phoneNumber, height, weight)" [disabled]="weightControl.errors || heightControl.errors">Save Changes</button>
-                        
+
                         </form>
                     </div>
                     <div>
-                        <div class="history" *ngIf="userRole != 'doctor'">
+                        <div class="history" *ngIf="userRole == 'patient'">
                             <h1 class="card-header title text-center">Medical History</h1>
                             <div class="card-body">
                                 <form class="example-form">
