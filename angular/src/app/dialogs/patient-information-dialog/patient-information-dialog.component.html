@@ -51,52 +51,70 @@
                             <mat-grid-tile>
                                 <div appearance="fill" class="example-full-width col">
                                     <b>Phone Number</b><br>
-                                    <span>{{ currentUser.phoneNumber }}</span> 
+                                    <span>{{ (currentUser.phoneNumber) ? currentUser.phoneNumber : '-' }}</span> 
                                 </div>
                             </mat-grid-tile>
                             <mat-grid-tile>
                                 <div appearance="fill" class="example-full-width col">
                                     <b>Gender</b><br>
-                                    <span>{{ currentUser.gender }}</span>
+                                    <span>{{ (currentUser.gender) ? currentUser.birthday : '-' }}</span>
                                 </div>
                             </mat-grid-tile> 
                             <mat-grid-tile>
                                 <div class="example-full-width col" appearance="fill">
                                     <b>Birth Year</b><br>
-                                    <span>{{ currentUser.birthday }}</span>
+                                    <span>{{ (currentUser.birthday) ? currentUser.birthday : '-' }}</span>
+                                </div>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <div appearance="fill" class="example-full-width col">
+                                    <b>Height</b><br>
+                                    <span>{{ (currentUser.height) ? currentUser.height : '-' }}</span>
+                                </div>
+                            </mat-grid-tile> 
+                            <mat-grid-tile>
+                                <div class="example-full-width col" appearance="fill">
+                                    <b>Weight</b><br>
+                                    <span>{{ (currentUser.weight) ? currentUser.weight : '-'}}</span>
                                 </div>
                             </mat-grid-tile>
                         </mat-grid-list>
                     </div>
                     <div>
                         <div class="history">
-                            <h1 class="card-header title text-center">Medical History</h1>
+                            <h1 class="card-header title text-center" >Medical History</h1>
                             <div class="card-body col">
                                 
-                                <div *ngIf="currentMedicalHistory.question1">
-                                    <b>What are your medical and surgical histories? Please specify.</b><br>
-                                    <span> {{ currentMedicalHistory.question1 }} </span><br><br>
+                                <div *ngIf="currentMedicalHistory; then noMedicalHistory">
+                                    <div *ngIf="currentMedicalHistory.question1">
+                                        <b>What are your medical and surgical histories? Please specify.</b><br>
+                                        <span> {{ currentMedicalHistory.question1 }} </span><br><br>
+                                    </div>
+                                        
+                                    <div *ngIf="currentMedicalHistory.question2">
+                                        <b>Do you take prescription or non-prescription medications? If yes, please specify.</b><br>
+                                        <span> {{ currentMedicalHistory.question2 }} </span><br><br>
+                                    </div>
+                                        
+                                    <div *ngIf="currentMedicalHistory.question3">
+                                        <b>Do you have any allergies? If yes, please specify.</b><br>
+                                        <span> {{ currentMedicalHistory.question3 }} </span><br><br>
+                                    </div>
+                                        
+                                    <div *ngIf="currentMedicalHistory.question4">
+                                        <b>What is your smoking, alcohol, and illicit drug use history? Please specify.</b><br>
+                                        <span> {{ currentMedicalHistory.question4 }} </span><br><br>
+                                    </div>
+    
+                                    <div *ngIf="currentMedicalHistory.question5">
+                                        <b>Is there any diagnosed disease in your family? If yes, please specify.</b><br>
+                                        <span> {{ currentMedicalHistory.question5 }} </span>
+                                    </div>
                                 </div>
-                                    
-                                <div *ngIf="currentMedicalHistory.question2">
-                                    <b>Do you take prescription or non-prescription medications? If yes, please specify.</b><br>
-                                    <span> {{ currentMedicalHistory.question2 }} </span><br><br>
-                                </div>
-                                    
-                                <div *ngIf="currentMedicalHistory.question3">
-                                    <b>Do you have any allergies? If yes, please specify.</b><br>
-                                    <span> {{ currentMedicalHistory.question3 }} </span><br><br>
-                                </div>
-                                    
-                                <div *ngIf="currentMedicalHistory.question4">
-                                    <b>What is your smoking, alcohol, and illicit drug use history? Please specify.</b><br>
-                                    <span> {{ currentMedicalHistory.question4 }} </span><br><br>
-                                </div>
-
-                                <div *ngIf="currentMedicalHistory.question5">
-                                    <b>Is there any diagnosed disease in your family? If yes, please specify.</b><br>
-                                    <span> {{ currentMedicalHistory.question5 }} </span>
-                                </div>
+                                <ng-template #noMedicalHistory>
+                                    <p>{{currentUser.fullname}} does not have a medical history.</p>
+                                </ng-template>
+                                
                             </div>
                         </div>
                     </div>

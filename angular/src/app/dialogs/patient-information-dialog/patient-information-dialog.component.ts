@@ -28,23 +28,27 @@ export class PatientInformationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {patientID: string, patientName: string}
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.getCurrentMedicalHistory();
     this.getPatientInformation();
     this.getFileList();
 
   
-    await this.storage.storage.ref(this.currentUser.profilePicture).getDownloadURL().then(
-      (url: string) => {
-        this.profileImage = url;
-      }
-    )
+    
   }
 
   getCurrentMedicalHistory(){
     
     this._medicalHistoryService.getMedicalHistory(this.data.patientID).valueChanges().subscribe((data: MedicalHistory) => {
-      this.currentMedicalHistory = data;
+      if(data){
+        console.log('data var',data)
+        this.currentMedicalHistory = data;
+      }
+      else{
+
+        console.log("data yok",data);
+      }
+
       console.log(this.currentMedicalHistory);
     });
   }
@@ -52,7 +56,6 @@ export class PatientInformationDialogComponent implements OnInit {
   getPatientInformation(){
     
     this._userService.getUser(this.data.patientID).valueChanges().subscribe( data => {
-      console.log(data);
       this.currentUser = new User(
         this.data.patientID, 
         data?.fullname as string, 
@@ -65,6 +68,12 @@ export class PatientInformationDialogComponent implements OnInit {
         data?.profilePicture as string,
         data?.height as string, 
         data?.weight as string);
+
+        this.storage.storage.ref(this.currentUser.profilePicture).getDownloadURL().then(
+          (url: string) => {
+            this.profileImage = url;
+          }
+        )
     });
   }
 
