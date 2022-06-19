@@ -14,4 +14,11 @@ export class MedicalHistory{
         this.question4 = question4;
         this.question5 = question5;
     }
+
+    isEmpty(): boolean{
+        if(this.patientID)
+            return false
+        else
+            return true
+    }
 }

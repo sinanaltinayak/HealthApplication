@@ -12,7 +12,7 @@ import { MonitorService } from 'src/app/service/monitor.service';
   styleUrls: ['./patient-monitoring-dialog.component.css']
 })
 export class PatientMonitoringDialogComponent implements OnInit {
-  displayedColumns: string[] = ['createdAt', 'highBP', 'lowBP', 'temperature', 'bloodSugarLevel'];
+  displayedColumns: string[] = ['Date', 'SystolicBP', 'DiastolicBP', 'Temperature', 'RandomBloodSugarLevel'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
 
   dataSourceMonitor: MatTableDataSource<Monitor> = new MatTableDataSource<Monitor>();

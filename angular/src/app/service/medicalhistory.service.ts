@@ -15,7 +15,7 @@ export class MedicalHistoryService {
     this.MedicalHistoryRef = db.collection(this.dbPath);
   }
 
-  getMedicalHistory(id: string): AngularFirestoreDocument<any>{
+  getMedicalHistory(id: string): AngularFirestoreDocument<MedicalHistory>{
       
     return this.db.collection('/medical_history').doc(id);
   }

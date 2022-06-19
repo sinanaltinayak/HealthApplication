@@ -43,9 +43,9 @@
                                     <mat-label>Password</mat-label>
                                     <input matInput [(ngModel)]="password" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" #passInput="ngModel" minlength="6" [type]="hidePassword ? 'password' : 'text'" required tabindex="2">
                                     <mat-error>{{passwordErrorMessage}}</mat-error>
-                                    <button tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                              <mat-icon>{{hidePassword ? 'visibility_off ' : 'visibility '}}</mat-icon>                        
-                            </button>
+                                    <div tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                        <mat-icon>{{hidePassword ? 'visibility_off ' : 'visibility '}}</mat-icon>                        
+                                    </div>
                                 </mat-form-field>
                                 <button tabindex="3" mat-raised-button color="primary" (click)='loginUser() ' [disabled]="!email || !password || emailInput.errors || passInput.errors">Log In</button>
                                 <button tabindex="4" style="margin-top: 10px;" mat-button ngbDropdownItem (click)="changeSignMode()">Don't you have an account? Sign Up</button>

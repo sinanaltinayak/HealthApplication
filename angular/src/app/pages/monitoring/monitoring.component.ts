@@ -17,7 +17,7 @@ import { Observable, of } from 'rxjs';
   templateUrl: './monitoring.component.html',
 })
 export class MonitoringComponent implements AfterViewInit {
-  displayedColumns: string[] = ['createdAt', 'SystolicBP', 'DiastolicBP', 'Temperature', 'RandomBloodSugarLevel', 'delete'];
+  displayedColumns: string[] = ['Date', 'SystolicBP', 'DiastolicBP', 'Temperature', 'RandomBloodSugarLevel', 'Delete'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   
   dataSourceMonitor: MatTableDataSource<Monitor> = new MatTableDataSource<Monitor>();
@@ -93,7 +93,7 @@ export class MonitoringComponent implements AfterViewInit {
     this.columnsToDisplay.push(this.displayedColumns[index]);
 
     this.columnsToDisplay.push(...tempList);
-    this.columnsToDisplay.push("delete");
+    this.columnsToDisplay.push("Delete");
 
   }
   

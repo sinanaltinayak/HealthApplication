@@ -1,14 +1,14 @@
 export class Monitor{
     patientID!: string;
-    createdAt!: number;
+    Date!: number;
     SystolicBP!: number;
     DiastolicBP!: number;
     Temperature!: number;
     RandomBloodSugarLevel!: number;
 
-    constructor(patientID: string, createdAt: number, highBP: number, lowBP: number, temperature: number, bloodSugarLevel: number) {
+    constructor(patientID: string, Date: number, highBP: number, lowBP: number, temperature: number, bloodSugarLevel: number) {
         this.patientID = patientID;
-        this.createdAt = createdAt;
+        this.Date = Date;
         this.SystolicBP = highBP;
         this.DiastolicBP = lowBP;
         this.Temperature = temperature;

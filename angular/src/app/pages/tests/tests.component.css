@@ -1,54 +1,19 @@
+
+
 .container {
-    padding: 100px;
-}
-
-.mat-form-field {
-    font-size: 16px;
-}
-
-.container2 {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 12px;
 }
 
-td,
-th {
-    width: 18%;
-}
-
-mat-card {
-    margin: 20px;
-}
-
-.errorNote {
-    padding: 25px;
-}
-
 .title {
     font-family: 'Poppins', sans-serif;
 }
 
-.mat-table {
-    width: 1400px;
-}
 
-.final {
-    margin-top: 5px;
-}
-
-.finalized {
-    background-color: rgb(207, 245, 207);
-}
-
-.inProgress {
-    background-color: rgb(247, 241, 195);
-}
-
-.pending {
-    background-color: rgb(253, 215, 215);
-}
+/* #region ANIMATIONS */
 
 @keyframes weekago {
     0%   {background-color: rgb(255, 248, 184);}
@@ -74,11 +39,28 @@ mat-card {
     animation-iteration-count: infinite;
 }
 
-.actionbuttons {
-    display: flex;
-    margin: 15px;
-    flex-direction: column;
-    align-content: center;
+a,
+a:visited,
+a:hover,
+a:active {
+    color: inherit;
+}
+/* #endregion */
+
+/* #region TABLE */
+
+::ng-deep .mat-tab-body-content{
+    overflow: hidden!important;
+    height: auto!important;
+}
+
+::ng-deep .mat-sort-header-container, .mat-header-cell{
+    text-align: center;
+    justify-content: center;
+}
+
+::ng-deep td{
+    padding: 16px!important;
 }
 
 .clickableText{
@@ -88,3 +70,24 @@ mat-card {
 .clickableText:hover{
     text-shadow: 1px 1px #251d4b9b;
 }
+
+.actionbuttons {
+    display: flex;
+    margin: 15px;
+    flex-direction: column;
+    align-content: center;
+}
+
+.finalized {
+    background-color: rgb(207, 245, 207);
+}
+
+.inProgress {
+    background-color: rgb(247, 241, 195);
+}
+
+.pending {
+    background-color: rgb(253, 215, 215);
+}
+
+/* #endregion */

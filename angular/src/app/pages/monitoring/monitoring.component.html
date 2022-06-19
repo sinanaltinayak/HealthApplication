@@ -68,26 +68,17 @@
         </mat-card>
 
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="createdAt" matSortDirection="asc">
-
-                <!-- <ng-container matColumnDef="createdAt"  >
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-chip-list color="primary">
-                        <mat-chip color="primary"> {{ row.createdAt | date:'dd/MM/yyyy h:mm a' }} </mat-chip>
-                    </mat-chip-list>
-                </td>
-            </ng-container>   -->
+            <table mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="Date" matSortDirection="asc">
 
                 <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
                     <td mat-cell *matCellDef="let element">
-                        <p *ngIf="column != 'createdAt' && column != 'delete'; else misc">
+                        <p *ngIf="column != 'Date' && column != 'Delete'; else misc">
                             {{element[column]}}
                         </p>
                         <ng-template #misc>
 
-                            <mat-chip-list color="primary" *ngIf="column == 'createdAt';else deleteData">
+                            <mat-chip-list color="primary" *ngIf="column == 'Date';else deleteData">
                                 <mat-chip color="primary"> {{ element[column] | date:'dd/MM/yyyy h:mm a' }} </mat-chip>
                             </mat-chip-list>
                             <ng-template #deleteData>
@@ -98,35 +89,6 @@
                         </ng-template>
                     </td>
                 </ng-container>
-
-                <!-- <ng-container matColumnDef="highBP">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> High Blood Pressure </th>
-                <td mat-cell *matCellDef="let row"> {{checkNull(row.highBP)}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="lowBP">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Low Blood Pressure </th>
-                <td mat-cell *matCellDef="let row"> {{checkNull(row.lowBP)}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="temp">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
-                <td mat-cell *matCellDef="let row"> {{checkNull(row.temperature)}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="sugar">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Blood Sugar Level </th>
-                <td mat-cell *matCellDef="let row"> {{checkNull(row.bloodSugarLevel)}} </td>
-            </ng-container> -->
-
-                <!-- <ng-container matColumnDef="delete">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-                <td mat-cell *matCellDef="let row"> 
-                    <button mat-icon-button (click)="removeRow(row, row.eventId)">
-                       <mat-icon>close</mat-icon>
-                    </button>
-                </td>
-            </ng-container> -->
 
                 <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
                 <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>

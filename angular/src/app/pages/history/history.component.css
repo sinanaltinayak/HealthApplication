@@ -1,82 +1,69 @@
 .container {
-    padding: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.mat-form-field {
-    font-size: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-td,
-th {
-    width: 25%;
-}
-
-.errorNote {
-    padding: 25px;
-}
-
-.title {
-    font-family: 'Poppins', sans-serif;
-}
-
-.mat-table {
-    width: 1000px;
-}
-
-.container {
-    padding: 100px;
-}
-
-.mat-form-field {
-    font-size: 16px;
-}
-
-.container2 {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 12px;
 }
 
-td,
-th {
-    width: 18%;
-}
-
-mat-card {
-    margin: 20px;
-}
-
-.errorNote {
-    padding: 25px;
-}
-
 .title {
     font-family: 'Poppins', sans-serif;
 }
 
-.mat-table {
-    width: 1400px;
+/* #region ANIMATIONS */
+
+
+
+.read {
+
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 
-.final {
-    margin-top: 5px;
+@keyframes example {
+    0%   {background-color: #c8e0de;}
+    50%  {background-color: white;}
+    100% {background-color: #c8e0de;}
+  }
+
+/* #endregion */
+
+
+
+/* #region TABLE */
+
+::ng-deep .mat-tab-body-content{
+    overflow: hidden!important;
+    height: auto!important;
+}
+
+::ng-deep .mat-sort-header-container, .mat-header-cell{
+    text-align: center;
+    justify-content: center;
+}
+
+::ng-deep td{
+    padding: 16px!important;
+}
+
+.clickableText{
+    cursor: pointer!important;
+}
+
+.clickableText:hover{
+    text-shadow: 1px 1px #251d4b9b;
+}
+
+.actionbuttons {
+    display: flex;
+    margin: 15px;
+    flex-direction: column;
+    align-content: center;
 }
 
 .finalized {
     background-color: rgb(207, 245, 207);
-}
-
-.canceled {
-    background-color: rgb(253, 215, 215);
 }
 
 .inProgress {
@@ -87,28 +74,8 @@ mat-card {
     background-color: rgb(253, 215, 215);
 }
 
-.read {
-    
-    animation-name: example;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
+.canceled {
+    background-color: rgb(253, 215, 215);
 }
 
-.star{
-    display: flex;
-    flex-direction: row;
-}
-
-@keyframes example {
-    0%   {background-color: #c8e0de;}
-    50%  {background-color: white;}
-    100% {background-color: #c8e0de;}
-  }
-
-.clickableText{
-    cursor: pointer!important;
-}
-
-.clickableText:hover{
-    text-shadow: 1px 1px #251d4b9b;
-}
+/* #endregion */

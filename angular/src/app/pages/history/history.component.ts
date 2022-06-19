@@ -159,6 +159,7 @@ export class HistoryComponent implements AfterViewInit {
       } 
     });
   }
+  
   isChatUnread(id : string){
     if(this.chats.get(id) == true){
       return true;
@@ -166,91 +167,94 @@ export class HistoryComponent implements AfterViewInit {
     else {
       return false;
     }
-}
-parseSymptoms(symptoms: string) : string{
-  return symptoms.replace(/,/g,", ");
-}
+  }
+
+  parseSymptoms(symptoms: string) : string[]{
+    var list = symptoms.split(",");
+    return list;
+  }
+  
   async notifMessages(){
-  let unReadFinalizedTest: number = 0;
-  let unReadProgressTest: number = 0;
-  let unReadReassignedTest: number = 0;
-  let unReadChat: number = 0;
-  let unReadCanceledTest: number = 0;
-  await this._testsService.getInProgressTestsByPatientId(localStorage.getItem("id")!).get().forEach(e=> {
-    e.docs.forEach(fe=> {
-      if (fe.data()?.unRead == true){
-        unReadProgressTest++;
-      }
-    })
-  });
-  await this._testsService.getFinalizedTestsByPatientId(localStorage.getItem("id")!).get().forEach(af=> {
-    af.docs.forEach(ab=> {
-      if(ab.data().unRead == true){
-        if (ab.data().finalDiagnosis == 'Canceled'){
-          unReadCanceledTest++;
+    let unReadFinalizedTest: number = 0;
+    let unReadProgressTest: number = 0;
+    let unReadReassignedTest: number = 0;
+    let unReadChat: number = 0;
+    let unReadCanceledTest: number = 0;
+    await this._testsService.getInProgressTestsByPatientId(localStorage.getItem("id")!).get().forEach(e=> {
+      e.docs.forEach(fe=> {
+        if (fe.data()?.unRead == true){
+          unReadProgressTest++;
         }
-        else {
-          unReadFinalizedTest++;
+      })
+    });
+    await this._testsService.getFinalizedTestsByPatientId(localStorage.getItem("id")!).get().forEach(af=> {
+      af.docs.forEach(ab=> {
+        if(ab.data().unRead == true){
+          if (ab.data().finalDiagnosis == 'Canceled'){
+            unReadCanceledTest++;
+          }
+          else {
+            unReadFinalizedTest++;
+          }
         }
-      }
+      });
     });
-  });
-  await this._testsService.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(fe=> {
-    fe.docs.forEach(x=> {
-      if(x.get("unRead") == true){
-        unReadReassignedTest++;
-      }
+    await this._testsService.getPendingTestsByPatientId(localStorage.getItem("id")!).get().forEach(fe=> {
+      fe.docs.forEach(x=> {
+        if(x.get("unRead") == true){
+          unReadReassignedTest++;
+        }
+      });
     });
+    this.chats.forEach(a=> {
+      if(a == true){
+        unReadChat++;
+      }
   });
-  this.chats.forEach(a=> {
-    if(a == true){
-      unReadChat++;
-    }
-  });
-setTimeout(() => {
-  let messages = [
-    {
-      count: unReadChat,
-      text: "New messages from " + unReadChat! +  " unread chat!",
-      text2: "New messages from " + unReadChat! +  " unread chats!",
-      color: 'mat-primary'
-    },
-    {
-      count: unReadProgressTest,
-      text: unReadProgressTest! + " test started to be monitoring!",
-      text2: unReadProgressTest! + " tests started to be monitoring!",
-      color: 'mat-accent'
-    },
-    {
-      count: unReadFinalizedTest,
-      text: unReadFinalizedTest! + " test has been finalized!",
-      text2: unReadFinalizedTest! + " tests has been finalized!",
-      color: 'mat-accent'
-    },
-    {
-      count: unReadReassignedTest,
-      text: "The department of " + unReadReassignedTest! + " test has been reassigned by the doctor.",
-      text2: "The department of " + unReadReassignedTest! + " tests has been reassigned by the doctor.",
-      color: 'mat-warn'
-    },
-    {
-      count: unReadCanceledTest,
-      text: unReadCanceledTest! + " test has been canceled due to deactivation of the doctor account.",
-      text2: unReadCanceledTest! + " tests have been canceled due to deactivation of the doctor account.",
-      color: 'mat-warn'
-    },
-];
-  this.myapp.openMultiSnackBar(messages);    
+  setTimeout(() => {
+    let messages = [
+      {
+        count: unReadChat,
+        text: "New messages from " + unReadChat! +  " unread chat!",
+        text2: "New messages from " + unReadChat! +  " unread chats!",
+        color: 'mat-primary'
+      },
+      {
+        count: unReadProgressTest,
+        text: unReadProgressTest! + " test started to be monitoring!",
+        text2: unReadProgressTest! + " tests started to be monitoring!",
+        color: 'mat-accent'
+      },
+      {
+        count: unReadFinalizedTest,
+        text: unReadFinalizedTest! + " test has been finalized!",
+        text2: unReadFinalizedTest! + " tests has been finalized!",
+        color: 'mat-accent'
+      },
+      {
+        count: unReadReassignedTest,
+        text: "The department of " + unReadReassignedTest! + " test has been reassigned by the doctor.",
+        text2: "The department of " + unReadReassignedTest! + " tests has been reassigned by the doctor.",
+        color: 'mat-warn'
+      },
+      {
+        count: unReadCanceledTest,
+        text: unReadCanceledTest! + " test has been canceled due to deactivation of the doctor account.",
+        text2: unReadCanceledTest! + " tests have been canceled due to deactivation of the doctor account.",
+        color: 'mat-warn'
+      },
+  ];
+    this.myapp.openMultiSnackBar(messages);    
 
-},
-750);
-}
+  },
+  750);
+  }
 
-async getDoctor(id: string){
-  let name: string;
-  await this._authService.getUser(id).ref.get().then((doc) => {
-    name = doc.get("fullname");
-  });
-  return name!;
-}
+  async getDoctor(id: string){
+    let name: string;
+    await this._authService.getUser(id).ref.get().then((doc) => {
+      name = doc.get("fullname");
+    });
+    return name!;
+  }
 }

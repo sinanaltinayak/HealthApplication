@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
 import { MedicalHistoryService } from 'src/app/service/medicalhistory.service';
 import { UserService } from 'src/app/service/user.service';
 import { AngularFireStorage } from "@angular/fire/compat/storage";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-patient-information-dialog',
@@ -14,8 +15,11 @@ import { AngularFireStorage } from "@angular/fire/compat/storage";
 })
 export class PatientInformationDialogComponent implements OnInit {
 
-  currentMedicalHistory: MedicalHistory = new MedicalHistory("","","","","","");
+  currentMedicalHistory: MedicalHistory = new MedicalHistory("sdasdasd","asdasdasd","","","","");
   currentUser: User = new User("","","","","","","","","","","");
+
+
+  cxd!: string;
 
   fileList = new Map<string, string>();
   profileImage: any;
@@ -29,6 +33,7 @@ export class PatientInformationDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.cxd = "cxd"
     this.getCurrentMedicalHistory();
     this.getPatientInformation();
     this.getFileList();
@@ -37,19 +42,14 @@ export class PatientInformationDialogComponent implements OnInit {
     
   }
 
+  xd(){
+    console.log(this.currentMedicalHistory);
+  }
+
   getCurrentMedicalHistory(){
     
-    this._medicalHistoryService.getMedicalHistory(this.data.patientID).valueChanges().subscribe((data: MedicalHistory) => {
-      if(data){
-        console.log('data var',data)
-        this.currentMedicalHistory = data;
-      }
-      else{
-
-        console.log("data yok",data);
-      }
-
-      console.log(this.currentMedicalHistory);
+    this._medicalHistoryService.getMedicalHistory(this.data.patientID).valueChanges().subscribe( data => {
+      this.currentMedicalHistory = data as MedicalHistory
     });
   }
 

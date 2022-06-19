@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild} from '@angular/core';
 import { Test } from 'src/app/models/test';
 import {MatTableDataSource} from '@angular/material/table';
 import { TestsService } from 'src/app/service/tests.service';
@@ -33,6 +33,7 @@ export class TestsComponent implements AfterViewInit {
   dataSourceFinalized: MatTableDataSource<Test> = new MatTableDataSource<Test>();
   department!: string;
   chats!: Map<String, boolean>;
+
   @ViewChild('paginatorPending') paginatorPending!: MatPaginator;
   @ViewChild('paginatorInProgress') paginatorInProgress!: MatPaginator;
   @ViewChild('paginatorFinalized') paginatorFinalized!: MatPaginator;
@@ -226,9 +227,12 @@ export class TestsComponent implements AfterViewInit {
       return false;
     }
   }
-  parseSymptoms(symptoms: string) : string{
-    return symptoms.replace(/,/g,", ");
+
+  parseSymptoms(symptoms: string) : string[]{
+    var list = symptoms.split(",");
+    return list;
   }
+  
   async notifMessages(){
     let unReadChat: number = 0;
     this.chats.forEach(a=> {
@@ -251,4 +255,7 @@ export class TestsComponent implements AfterViewInit {
     this.department = (await firstValueFrom(user$)).payload.get("department");
   }
   
+  realignInkBar() {
+    this.tabs.realignInkBar();
+  }
 }

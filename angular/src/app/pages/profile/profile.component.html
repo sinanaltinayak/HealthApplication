@@ -55,10 +55,10 @@
                     <div class="card-body">
                         <ul>
                             <li *ngFor="let file of fileList | keyvalue">
-                                <a href="{{ file.value }}">{{file.key}}</a>
+                                <a href="{{ file.value }}">• {{file.key}}</a>
                                 <button type="button" (click)="delete(file.key); refresh()" mat-icon-button color="warn">
-                                <mat-icon>delete</mat-icon>
-                            </button>
+                                    <mat-icon>delete</mat-icon>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -90,31 +90,21 @@
                             <table class="example-full-width" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <!-- <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Gender</mat-label>
-                                        <input matInput ngModel="{{ inputGender }}" [(ngModel)]="gender" name="gender">
-                                    </mat-form-field> -->
                                         <mat-form-field appearance="fill" class="example-full-width">
                                             <mat-label>Gender</mat-label>
                                             <mat-select ngModel="{{ inputGender }}" [(ngModel)]="gender" name="gender">
-                                                <mat-option value="female">Female</mat-option>
-                                                <mat-option value="male">Male</mat-option>
+                                                <mat-option value="Female">Female</mat-option>
+                                                <mat-option value="Male">Male</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </td>
                                     <td>
-                                        <!-- <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Birthday</mat-label>
-                                        <input matInput ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
-                                    </mat-form-field> -->
-
                                         <mat-form-field class="example-full-width" appearance="fill">
                                             <mat-label>Birth Year</mat-label>
                                             <mat-select ngModel="{{ inputBirthday }}" [(ngModel)]="birthday" name="birthday">
                                                 <mat-option *ngFor="let option of years" [value]="option.toString()">{{option}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
-
                                     </td>
                                 </tr>
                             </table>

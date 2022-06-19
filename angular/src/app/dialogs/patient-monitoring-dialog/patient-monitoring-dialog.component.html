@@ -6,43 +6,34 @@
         <br>
         <mat-divider></mat-divider>
         <br>
-        <mat-checkbox (change)="controlView($event.checked, 'highBP')" [checked]="true">
-            <mat-label>High Blood Pressure</mat-label>
+        <mat-checkbox (change)="controlView($event.checked, 'SystolicBP')" [checked]="true">
+            <mat-label>Systolic Blood Pressure</mat-label>
         </mat-checkbox>
         <br>
 
-        <mat-checkbox (change)="controlView($event.checked, 'lowBP')" [checked]="true">
-            <mat-label>Low Blood Pressure</mat-label>
+        <mat-checkbox (change)="controlView($event.checked, 'DiastolicBP')" [checked]="true">
+            <mat-label>Diastolic Blood Pressure</mat-label>
         </mat-checkbox>
         <br>
 
-        <mat-checkbox (change)="controlView($event.checked, 'temperature')" [checked]="true">
+        <mat-checkbox (change)="controlView($event.checked, 'Temperature')" [checked]="true">
             <mat-label>Temperature</mat-label>
         </mat-checkbox>
         <br>
 
-        <mat-checkbox (change)="controlView($event.checked, 'bloodSugarLevel')" [checked]="true">
-            <mat-label>Blood Sugar Level</mat-label>
+        <mat-checkbox (change)="controlView($event.checked, 'RandomBloodSugarLevel')" [checked]="true">
+            <mat-label>Random Blood Sugar Level</mat-label>
         </mat-checkbox>
 
     </mat-card>
 
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="createdAt" matSortDirection="asc">
-
-            <!-- <ng-container matColumnDef="createdAt"  >
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-chip-list color="primary">
-                        <mat-chip color="primary"> {{ row.createdAt | date:'dd/MM/yyyy h:mm a' }} </mat-chip>
-                    </mat-chip-list>
-                </td>
-            </ng-container>   -->
+        <table mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="Date" matSortDirection="asc">
 
             <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
                 <td mat-cell *matCellDef="let element">
-                    <p *ngIf="column != 'createdAt' && column != 'delete'; else misc">
+                    <p *ngIf="column != 'Date' && column != 'delete'; else misc">
                         {{element[column]}}
                     </p>
                     <ng-template #misc>

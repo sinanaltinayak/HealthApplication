@@ -1,128 +1,106 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="http://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
 <mat-dialog-content>
-    <div class="row">
-        <div class="col-xl-4 profile">
-            <div class="card mb-4 mb-xl-0">
-                <h1 class="card-header title text-center">Profile</h1>
-                <div class="card-body">
-
-                    <img class="img-account-profile rounded-circle mb-2" mat-card-image [src]="getDownloadURL()">
-                </div>
-                <mat-divider></mat-divider>
-                <div class="card-body">
-
-                    <div class="title">{{ currentUser.email }}</div>
-
-                </div>
-
-                <div class="documents">
-                    <h1 class="card-header title text-center">Documents</h1>
-                    <div class="card-body" *ngIf="fileList.size > 0; else noDocuments">
-                        <ul >
-                            <li *ngFor="let file of fileList | keyvalue">
-                                <a href="{{ file.value }}">{{file.key}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <ng-template class="card-body" #noDocuments>
-                        <div class="card-body">
-                            <p>No Documents.</p>
-                        </div>
-                    </ng-template>
-                </div>
+    <div class="grid grid-cols-3 gap-2">
+        <div class="profile rounded-lg border-2">
+            <h1 class="card-header text-center">Profile</h1>
+            <img class="img-account-profile rounded-circle p-2" mat-card-image [src]="getDownloadURL()">
+            <mat-divider></mat-divider>
+            <div class="p-6">
+                <div>{{ currentUser.email }}</div>
             </div>
         </div>
-        <div class="col-xl-8 changes">
-            <div>
-                <div class="card card-changes">
-                    <h1 class="card-header title text-center">Account Details</h1>
-                    <div class="card-body">
-                        <mat-grid-list cols="2" rowHeight="3:1">
-                            <mat-grid-tile>
-                                <div appearance="fill" class="example-full-width col">
-                                    <b>Full Name</b><br>
-                                    <span>{{currentUser.fullname}}</span>
-                                </div>
-                            </mat-grid-tile> 
-                            <mat-grid-tile>
-                                <div appearance="fill" class="example-full-width col">
-                                    <b>Phone Number</b><br>
-                                    <span>{{ (currentUser.phoneNumber) ? currentUser.phoneNumber : '-' }}</span> 
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile>
-                                <div appearance="fill" class="example-full-width col">
-                                    <b>Gender</b><br>
-                                    <span>{{ (currentUser.gender) ? currentUser.birthday : '-' }}</span>
-                                </div>
-                            </mat-grid-tile> 
-                            <mat-grid-tile>
-                                <div class="example-full-width col" appearance="fill">
-                                    <b>Birth Year</b><br>
-                                    <span>{{ (currentUser.birthday) ? currentUser.birthday : '-' }}</span>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile>
-                                <div appearance="fill" class="example-full-width col">
-                                    <b>Height</b><br>
-                                    <span>{{ (currentUser.height) ? currentUser.height : '-' }}</span>
-                                </div>
-                            </mat-grid-tile> 
-                            <mat-grid-tile>
-                                <div class="example-full-width col" appearance="fill">
-                                    <b>Weight</b><br>
-                                    <span>{{ (currentUser.weight) ? currentUser.weight : '-'}}</span>
-                                </div>
-                            </mat-grid-tile>
-                        </mat-grid-list>
-                    </div>
-                    <div>
-                        <div class="history">
-                            <h1 class="card-header title text-center" >Medical History</h1>
-                            <div class="card-body col">
-                                
-                                <div *ngIf="currentMedicalHistory; then noMedicalHistory">
-                                    <div *ngIf="currentMedicalHistory.question1">
-                                        <b>What are your medical and surgical histories? Please specify.</b><br>
-                                        <span> {{ currentMedicalHistory.question1 }} </span><br><br>
-                                    </div>
-                                        
-                                    <div *ngIf="currentMedicalHistory.question2">
-                                        <b>Do you take prescription or non-prescription medications? If yes, please specify.</b><br>
-                                        <span> {{ currentMedicalHistory.question2 }} </span><br><br>
-                                    </div>
-                                        
-                                    <div *ngIf="currentMedicalHistory.question3">
-                                        <b>Do you have any allergies? If yes, please specify.</b><br>
-                                        <span> {{ currentMedicalHistory.question3 }} </span><br><br>
-                                    </div>
-                                        
-                                    <div *ngIf="currentMedicalHistory.question4">
-                                        <b>What is your smoking, alcohol, and illicit drug use history? Please specify.</b><br>
-                                        <span> {{ currentMedicalHistory.question4 }} </span><br><br>
-                                    </div>
-    
-                                    <div *ngIf="currentMedicalHistory.question5">
-                                        <b>Is there any diagnosed disease in your family? If yes, please specify.</b><br>
-                                        <span> {{ currentMedicalHistory.question5 }} </span>
-                                    </div>
-                                </div>
-                                <ng-template #noMedicalHistory>
-                                    <p>{{currentUser.fullname}} does not have a medical history.</p>
-                                </ng-template>
-                                
-                            </div>
+        <div class="accountDetails col-span-2 rounded-lg border-2">
+            <h1 class="card-header text-center">Account Details</h1>
+            <div class="p-6">
+                <mat-grid-list cols="2" rowHeight="3:1">
+                    <mat-grid-tile>
+                        <div appearance="fill" class="w-full">
+                            <b>Full Name</b><br>
+                            <span>{{currentUser.fullname}}</span>
                         </div>
-                    </div>
-
-                </div>
+                    </mat-grid-tile> 
+                    <mat-grid-tile>
+                        <div appearance="fill" class="w-full">
+                            <b>Phone Number</b><br>
+                            <span>{{ (currentUser.phoneNumber) ? currentUser.phoneNumber : '-' }}</span> 
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div appearance="fill" class="w-full">
+                            <b>Gender</b><br>
+                            <span>{{ (currentUser.gender) ? currentUser.gender : '-' }}</span>
+                        </div>
+                    </mat-grid-tile> 
+                    <mat-grid-tile>
+                        <div appearance="fill" class="w-full">
+                            <b>Birth Year</b><br>
+                            <span>{{ (currentUser.birthday) ? currentUser.birthday : '-' }}</span>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div appearance="fill" class="w-full">
+                            <b>Height</b><br>
+                            <span>{{ (currentUser.height) ? currentUser.height : '-' }}</span>
+                        </div>
+                    </mat-grid-tile> 
+                    <mat-grid-tile>
+                        <div appearance="fill" class="w-full">
+                            <b>Weight</b><br>
+                            <span>{{ (currentUser.weight) ? currentUser.weight : '-'}}</span>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
             </div>
         </div>
-        
+        <div class="documents rounded-lg border-2">
+            <h1 class="card-header text-center">Documents</h1>
+            <div class="p-6" *ngIf="fileList.size > 0; else noDocuments">
+                <ul>
+                    <li *ngFor="let file of fileList | keyvalue">
+                        <a href="{{ file.value }}">• {{file.key}}</a>
+                    </li>
+                </ul>
+            </div>
+            <ng-template class="p-6" #noDocuments>
+                <div class="p-6">
+                    <p>No Documents.</p>
+                </div>
+            </ng-template>
+        </div>
+        <div class="medicalHistory col-span-2 rounded-lg border-2">
+            <h1 class="card-header text-center" >Medical History</h1>
+            <div class="p-6 col">
+                <div *ngIf="currentMedicalHistory">
+                    <div *ngIf="currentMedicalHistory.question1">
+                        <b>What are your medical and surgical histories? Please specify.</b><br>
+                        <span> {{ currentMedicalHistory.question1 }} </span><br><br>
+                    </div>
+                        
+                    <div *ngIf="currentMedicalHistory.question2">
+                        <b>Do you take prescription or non-prescription medications? If yes, please specify.</b><br>
+                        <span> {{ currentMedicalHistory.question2 }} </span><br><br>
+                    </div>
+                        
+                    <div *ngIf="currentMedicalHistory.question3">
+                        <b>Do you have any allergies? If yes, please specify.</b><br>
+                        <span> {{ currentMedicalHistory.question3 }} </span><br><br>
+                    </div>
+                        
+                    <div *ngIf="currentMedicalHistory.question4">
+                        <b>What is your smoking, alcohol, and illicit drug use history? Please specify.</b><br>
+                        <span> {{ currentMedicalHistory.question4 }} </span><br><br>
+                    </div>
+
+                    <div *ngIf="currentMedicalHistory.question5">
+                        <b>Is there any diagnosed disease in your family? If yes, please specify.</b><br>
+                        <span> {{ currentMedicalHistory.question5 }} </span>
+                    </div>
+                </div>
+                <div *ngIf="!currentMedicalHistory">
+                    <p>{{currentUser.fullname}} does not have a medical history.</p>
+                </div>
+                
+            </div>
+        </div>        
     </div>
     
     
