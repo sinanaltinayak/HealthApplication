@@ -59,7 +59,7 @@
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Full Name</mat-label>
-                                    <input matInput [(ngModel)]="fullname" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" required>
+                                    <input matInput [(ngModel)]="fullname" [ngModelOptions]="{standalone: true}" required>
                                     <mat-error>{{nameErrorMessage}}</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
@@ -99,7 +99,7 @@
             <ng-template #logout>
                 <button mat-button [matMenuTriggerFor]="menu"> <mat-icon>account_circle</mat-icon> {{ currentUser }}</button>
                 <mat-menu #menu="matMenu" xPosition="after">
-                    <button mat-menu-item *ngIf="userType != 'disabled'" routerLink="../profile" (click)='refresh("/profile")'> <mat-icon>account_circle</mat-icon> Profile</button>
+                    <button mat-menu-item *ngIf="userType != 'admin'" routerLink="../profile" (click)='refresh("/profile")'> <mat-icon>account_circle</mat-icon> Profile</button>
                     <button mat-menu-item (click)="logoutUser()"><mat-icon>output</mat-icon>Log Out</button>
                 </mat-menu>
             </ng-template>

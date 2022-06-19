@@ -48,17 +48,16 @@ export class TopbarComponent implements OnInit {
   { }
 
   // ngOnInit function is called in launch
-  ngOnInit() {
+  ngOnInit(){
     this.myapp.NotifCount = 0;
     this.myapp.NotifCount = this.testHistoryNotification();
   }
 
-  loginUser(){
+  loginUser() {
     this._authService.login(this.email, this.password);
   }
   
-
-  forgotPassword(){
+  forgotPassword() {
     this._authService.resetPassword(this.email);
   }
 
@@ -69,14 +68,15 @@ export class TopbarComponent implements OnInit {
     else {
       this._router.navigate([routerLink]);
     }
-}
+  }
 
-menuOpened() {
-  setTimeout(() => {
-    this.inputElement!.nativeElement.focus();
-  }, 0);
-}
-  logoutUser(){
+  menuOpened() {
+    setTimeout(() => {
+      this.inputElement!.nativeElement.focus();
+    }, 0);
+  }
+
+  logoutUser() {
     this._authService.logout();
     this._router.navigate(['home']).then(a => {window.location.reload()});
     this.userType = "default";
@@ -87,7 +87,7 @@ menuOpened() {
   }
 
   // changeSignMode function is a switch for changing the log in menu
-  changeSignMode(){
+  changeSignMode() {
     if(this.signMode == "signin"){
       this.signMode = "signup";
     }
@@ -98,7 +98,7 @@ menuOpened() {
     this.password = "";
   }
   // registerUser function is for creating a new patient account
-  registerUser(){
+  registerUser() {
 
     this._authService.register(this.email, this.password, this.fullname);
     setTimeout(() => {

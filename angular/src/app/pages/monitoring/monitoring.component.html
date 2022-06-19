@@ -1,5 +1,5 @@
-<div class="container2">
-    <mat-card>
+<div class="grid grid-cols-1">
+    <mat-card class="w-fit h-fit justify-self-center">
         <mat-card-title class="title"> Monitoring Values</mat-card-title>
         <mat-card-subtitle>Insert your results</mat-card-subtitle>
         <mat-divider inset></mat-divider>
@@ -31,7 +31,7 @@
                             <mat-error class="warn" *ngIf="viewControl.get('RandomBloodSugarLevel')?.errors?.['min']">Minimum Random Blood Sugar Level is 20.</mat-error>
                             <mat-error class="warn" *ngIf="viewControl.get('RandomBloodSugarLevel')?.errors?.['max']">Maximum Random Blood Sugar Level is 1000.</mat-error>
                         </mat-form-field>
-                        <div class="mt-5 text-center">
+                        <div class="text-center">
                             <button mat-raised-button color="primary" type="submit" (click)='saveResults()' [disabled]="!viewControl.valid">Save Changes</button>
                         </div>
                     </form>
@@ -40,26 +40,26 @@
             </div>
         </div>
     </mat-card>
-    <div class="container3">
-        <mat-card>
+    <div class="grid grid-cols-3 gap-2">
+        <mat-card class="m-3 h-fit">
             <b>Displayed Columns</b>
-            <br>
+            <br/>
             <mat-divider></mat-divider>
-            <br>
+            <br/>
             <mat-checkbox (change)="controlView($event.checked, 'SystolicBP')" [checked]="true">
                 <mat-label>Systolic Blood Pressure</mat-label>
             </mat-checkbox>
-            <br>
+            <br/>
 
             <mat-checkbox (change)="controlView($event.checked, 'DiastolicBP')" [checked]="true">
                 <mat-label>Diastolic Blood Pressure</mat-label>
             </mat-checkbox>
-            <br>
+            <br/>
 
             <mat-checkbox (change)="controlView($event.checked, 'Temperature')" [checked]="true">
                 <mat-label>Temperature</mat-label>
             </mat-checkbox>
-            <br>
+            <br/>
 
             <mat-checkbox (change)="controlView($event.checked, 'RandomBloodSugarLevel')" [checked]="true">
                 <mat-label>Random Blood Sugar Level</mat-label>
@@ -67,8 +67,8 @@
 
         </mat-card>
 
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="Date" matSortDirection="asc">
+        <div class="mat-elevation-z8 col-span-2">
+            <table class="table-auto" mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="Date" matSortDirection="asc">
 
                 <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
@@ -98,7 +98,7 @@
                 <p>You do not have past values.</p>
             </div>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25]" aria-label="Select page of test results"></mat-paginator>
         </div>
     </div>
 </div>

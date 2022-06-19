@@ -24,7 +24,7 @@ export class AuthService {
 
       this.afAuth.signInWithEmailAndPassword(email, password)
       .then(async value => {
-        let v = true; /* value.user?.emailVerified; --> copy paste this command to v variable to activate the login with verified emails  */
+        let v = value.user?.emailVerified; /* value.user?.emailVerified; --> copy paste this command to v variable to activate the login with verified emails  */
         if (v == true) {
           localStorage.setItem('id',value.user!.uid);
           const user$ =  this.db.collection('/user_roles').doc(value.user!.uid).snapshotChanges().pipe(take(1));

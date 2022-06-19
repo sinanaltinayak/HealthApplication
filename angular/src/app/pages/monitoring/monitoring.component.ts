@@ -59,7 +59,7 @@ export class MonitoringComponent implements AfterViewInit {
   saveResults(){
 
     let patientID = localStorage.getItem("id")!;
-    let monitor = new Monitor(patientID, Date.now(), Number(this.SystolicBP), Number(this.DiastolicBP), Number(this.RandomBloodSugarLevel), Number(this.Temperature));
+    let monitor = new Monitor(patientID, Date.now(), Number(this.SystolicBP), Number(this.DiastolicBP), Number(this.Temperature), Number(this.RandomBloodSugarLevel));
    
     this._monitorService.setPatientMonitors(monitor);
     this.SystolicBP =  '';

@@ -24,7 +24,7 @@
                                     </mat-form-field>
                                     <mat-form-field appearance="legacy" style="padding:10px">
                                         <mat-label>Full Name</mat-label>
-                                        <input matInput [(ngModel)]="fullname" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" required>
+                                        <input matInput [(ngModel)]="fullname" [ngModelOptions]="{standalone: true}" required>
                                         <mat-error>{{nameErrorMessage}}</mat-error>
                                     </mat-form-field>
                                     <mat-form-field appearance="fill" style="padding:10px">

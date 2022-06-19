@@ -1,70 +1,22 @@
-.container {
-    padding: 100px;
-}
-
-.container2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 12px;
-}
-
-.container3 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 12px;
-}
-
-.container-display {
-    padding: 30px;
-}
-
-mat-checkbox {
-    padding-right: 30px;
-}
-
 mat-form-field {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 30px;
 }
 
-.container-input {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-table {
-    width: 100%;
-}
-
 mat-chip {
     height: 40px;
 }
 
-.mat-form-field {
-    font-size: 14px;
-}
-
-td {
-    width: 25%;
+::ng-deep td{
+    padding: 12px!important;
     text-align: center !important;
 }
 
 ::ng-deep .mat-sort-header-container,
 .mat-header-cell {
-    justify-content: center!important;
     text-align: center !important;
-}
-
-.mat-column-productId {
-    flex: 0 0 10%;
-}
-
-.mat-column-productName {
-    flex: 0 0 50%;
+    justify-content: center!important;
 }
 
 mat-card {

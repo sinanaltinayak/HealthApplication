@@ -49,6 +49,10 @@ a:active {
 
 /* #region TABLE */
 
+mat-chip {
+    height: 40px;
+}
+
 ::ng-deep .mat-tab-body-content{
     overflow: hidden!important;
     height: auto!important;
