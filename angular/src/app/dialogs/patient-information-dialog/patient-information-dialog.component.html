@@ -1,6 +1,6 @@
 <mat-dialog-content>
     <div class="grid grid-cols-3 gap-2">
-        <div class="profile rounded-lg border-2">
+        <div class="profile rounded-xl border-2">
             <h1 class="card-header text-center">Profile</h1>
             <img class="img-account-profile rounded-circle p-2" mat-card-image [src]="getDownloadURL()">
             <mat-divider></mat-divider>
@@ -8,7 +8,7 @@
                 <div>{{ currentUser.email }}</div>
             </div>
         </div>
-        <div class="accountDetails col-span-2 rounded-lg border-2">
+        <div class="accountDetails col-span-2 rounded-xl border-2">
             <h1 class="card-header text-center">Account Details</h1>
             <div class="p-6">
                 <mat-grid-list cols="2" rowHeight="3:1">
@@ -51,7 +51,7 @@
                 </mat-grid-list>
             </div>
         </div>
-        <div class="documents rounded-lg border-2">
+        <div class="documents rounded-xl border-2">
             <h1 class="card-header text-center">Documents</h1>
             <div class="p-6" *ngIf="fileList.size > 0; else noDocuments">
                 <ul>
@@ -66,7 +66,7 @@
                 </div>
             </ng-template>
         </div>
-        <div class="medicalHistory col-span-2 rounded-lg border-2">
+        <div class="medicalHistory col-span-2 rounded-xl border-2">
             <h1 class="card-header text-center" >Medical History</h1>
             <div class="p-6 col">
                 <div *ngIf="currentMedicalHistory">

@@ -19,6 +19,7 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatNativeDateModule} from '@angular/material/core';
 import { NgxMaterialRatingModule } from 'ngx-material-rating';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // importing classes that is needed for profile page
 
@@ -43,6 +44,7 @@ import { NgxMaterialRatingModule } from 'ngx-material-rating';
     MatRippleModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule
     
 
 

@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     margin: 12px;
+    max-width:none!important;
 }
 
 .title {
@@ -43,7 +44,7 @@
     justify-content: center;
 }
 
-::ng-deep td{
+::ng-deep td, th{
     padding: 16px!important;
 }
 

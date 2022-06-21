@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1">
-    <mat-card class="w-fit h-fit justify-self-center">
+    <mat-card class="mat-elevation-z8 m-5 w-fit h-fit justify-self-center">
         <mat-card-title class="title"> Monitoring Values</mat-card-title>
         <mat-card-subtitle>Insert your results</mat-card-subtitle>
         <mat-divider inset></mat-divider>
@@ -40,8 +40,8 @@
             </div>
         </div>
     </mat-card>
-    <div class="grid grid-cols-3 gap-2">
-        <mat-card class="m-3 h-fit">
+    <div class="flex justify-center">
+        <mat-card class="mat-elevation-z8 mx-3 h-fit w-fit justify-self-end">
             <b>Displayed Columns</b>
             <br/>
             <mat-divider></mat-divider>
@@ -67,7 +67,7 @@
 
         </mat-card>
 
-        <div class="mat-elevation-z8 col-span-2">
+        <div class="mat-elevation-z8 w-fit">
             <table class="table-auto" mat-table [dataSource]="dataSourceMonitor" matSort matSortActive="Date" matSortDirection="asc">
 
                 <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">

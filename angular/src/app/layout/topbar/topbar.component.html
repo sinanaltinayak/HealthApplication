@@ -73,9 +73,9 @@
                                 <mat-form-field>
                                     <mat-label>Confirm Password</mat-label>
                                     <input matInput [(ngModel)]="confirmPassword" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" [ngModelOptions]="{standalone: true}" minlength="6" [type]="hidePassword ? 'password' : 'text'" required>
-                                    <button tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                                  <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                              </button>
+                                    <a tabindex="-1" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </a>
                                     <mat-hint *ngIf="!(password==confirmPassword)">{{confirmPasswordErrorMessage}}</mat-hint>
                                     <mat-error>{{passwordErrorMessage}}</mat-error>
                                 </mat-form-field>

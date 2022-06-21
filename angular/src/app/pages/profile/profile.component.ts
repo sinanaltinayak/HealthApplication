@@ -43,13 +43,7 @@ export class ProfileComponent implements OnInit {
   currentUserMail = localStorage.getItem('email') as string;
   currentUserId = localStorage.getItem('id') as string;
   currentUser = new Map<string, User>();
-  inputName = this.currentUser.get(this.currentUserId)?.fullname;
-  inputMail = this.currentUser.get(this.currentUserId)?.email;
-  inputGender = this.currentUser.get(this.currentUserId)?.gender;
-  inputBirthday = this.currentUser.get(this.currentUserId)?.birthday;
-  inputPhoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
-  inputHeight = this.currentUser.get(this.currentUserId)?.height;
-  inputWeight = this.currentUser.get(this.currentUserId)?.weight;
+  
   userRole = this.currentUser.get(this.currentUserId)?.role;
   profilePicture = localStorage.getItem('profilePicture') as string;
   inputDepartment = '';
@@ -66,15 +60,11 @@ export class ProfileComponent implements OnInit {
   question3 = '';
   question4 = '';
   question5 = '';
-  inputQuestion1 = this.medicalHistory.get(this.currentUserId)?.question1;
-  inputQuestion2 = this.medicalHistory.get(this.currentUserId)?.question2;
-  inputQuestion3 = this.medicalHistory.get(this.currentUserId)?.question3;
-  inputQuestion4 = this.medicalHistory.get(this.currentUserId)?.question4;
-  inputQuestion5 = this.medicalHistory.get(this.currentUserId)?.question5;
   angularFirestore: any;
   selectedFile: any;
   selectedFile2: any;
   fileList = new Map<string, string>();
+  fileLoading = false;
 
   constructor(
     public _authService: AuthService,
@@ -99,19 +89,19 @@ export class ProfileComponent implements OnInit {
               .valueChanges()
               .subscribe((xd) => {
                 this.medicalHistory.set(this.currentUserId, xd!);
-                this.inputQuestion1 = Array.from(
+                this.question1 = Array.from(
                   this.medicalHistory.values()
                 )[0].question1;
-                this.inputQuestion2 = Array.from(
+                this.question2 = Array.from(
                   this.medicalHistory.values()
                 )[0].question2;
-                this.inputQuestion3 = Array.from(
+                this.question3 = Array.from(
                   this.medicalHistory.values()
                 )[0].question3;
-                this.inputQuestion4 = Array.from(
+                this.question4 = Array.from(
                   this.medicalHistory.values()
                 )[0].question4;
-                this.inputQuestion5 = Array.from(
+                this.question5 = Array.from(
                   this.medicalHistory.values()
                 )[0].question5;
               });
@@ -122,17 +112,17 @@ export class ProfileComponent implements OnInit {
     this._authService
       .getUser(this.currentUserId)
       .valueChanges()
-      .subscribe((xd) => {
-        this.currentUser.set(this.currentUserId, xd!);
-        this.inputName = Array.from(this.currentUser.values())[0].fullname;
-        this.inputMail = Array.from(this.currentUser.values())[0].email;
-        this.inputGender = Array.from(this.currentUser.values())[0].gender;
-        this.inputBirthday = Array.from(this.currentUser.values())[0].birthday;
-        this.inputPhoneNumber = Array.from(
+      .subscribe((data) => {
+        console.log(data)
+        this.currentUser.set(this.currentUserId, data!);
+        this.name = Array.from(this.currentUser.values())[0].fullname;
+        this.gender = Array.from(this.currentUser.values())[0].gender;
+        this.birthday = Array.from(this.currentUser.values())[0].birthday;
+        this.phoneNumber = Array.from(
           this.currentUser.values()
         )[0].phoneNumber;
-        this.inputHeight = Array.from(this.currentUser.values())[0].height;
-        this.inputWeight = Array.from(this.currentUser.values())[0].weight;
+        this.height = Array.from(this.currentUser.values())[0].height;
+        this.weight = Array.from(this.currentUser.values())[0].weight;
         this.userRole = Array.from(this.currentUser.values())[0].role;
       });
 
@@ -167,7 +157,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  saveChanges(
+  saveAccountDetails(
     _name: any,
     _gender: any,
     _birthday: any,
@@ -188,10 +178,10 @@ export class ProfileComponent implements OnInit {
       _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
     }
     if (_height == '') {
-      _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+      _height = this.currentUser.get(this.currentUserId)?.height;
     }
     if (_weight == '') {
-      _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
+      _weight = this.currentUser.get(this.currentUserId)?.weight;
     }
     localStorage.setItem('name', _name);
 
@@ -202,8 +192,8 @@ export class ProfileComponent implements OnInit {
         gender: _gender,
         birthday: _birthday,
         phoneNumber: _phoneNumber,
-        height: _height,
-        weight: _weight,
+        height: this.height,
+        weight: this.weight,
       });
 
     this._snackBar.open('Your changes were saved.', 'Continue', {
@@ -214,7 +204,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  saveChanges2(
+  saveMedicalHistory(
     _question1: any,
     _question2: any,
     _question3: any,
@@ -273,12 +263,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  refresh() {
-    window.location.reload();
-  }
-
   // takes the file uploaded
-  onFileSelected(event: any) {
+  changeProfilePicture(event: any) {
     this.selectedImage = event.target.files[0];
     if (this.selectedImage.size > 1048576) {
       alert('Please select an image smaller than 1MB');
@@ -291,20 +277,43 @@ export class ProfileComponent implements OnInit {
         .doc(this.currentUserId)
         .update({ profilePicture: 'ProfileImages/' + name });
       localStorage.setItem('profilePicture', 'ProfileImages/' + name);
+      
+      window.location.reload();
     }
   }
+  
+  removeProfilePicture() {
+    this._userService.userRef
+      .doc(this.currentUserId)
+      .update({ profilePicture: 'ProfileImages/default.jpg' });
+    localStorage.setItem('profilePicture', 'ProfileImages/default.jpg');
+    
+    window.location.reload();
+  }
 
-  onFileSelected2(event: any) {
+  async uploadFile(event: any) {
     let patientID = localStorage.getItem('id')!;
     this.selectedFile = event.target.files[0];
     if (this.selectedFile.size > 1048576) {
       alert('Please select a file smaller than 1MB');
     } else {
+      this.fileLoading = true;
       this.control2 = 'yes';
       const file = this.selectedFile;
       const name = this.selectedFile.name;
-      this.storage.upload(patientID + '/' + name, file);
+      await this.storage.upload(patientID + '/' + name, file);
+
+      this.fileLoading = false;
+      this.getFileList();
+      
+      this._snackBar.open('File uploaded.', 'Continue', {
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+        duration: 5000,
+        panelClass: ['mat-toolbar', 'mat-primary'],
+      });
     }
+
   }
 
   // gets the url of the necessary picture
@@ -313,6 +322,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getFileList() {
+    this.fileList.clear();
     const ref = this.storage.ref(this.currentUserId);
     let myurlsubscription = ref.listAll().subscribe((data) => {
       for (let i = 0; i < data.items.length; i++) {
@@ -327,7 +337,16 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  delete(name: string) {
-    return this.storage.storage.ref(this.currentUserId + '/' + name).delete();
+  deleteFile(name: string) {
+    this.storage.storage.ref(this.currentUserId + '/' + name).delete();
+
+    this.getFileList();
+    
+    this._snackBar.open('File Deleted.', 'Continue', {
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      duration: 5000,
+      panelClass: ['mat-toolbar', 'mat-primary'],
+    });
   }
 }
