@@ -33,9 +33,11 @@
             <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
                 <td mat-cell *matCellDef="let element">
-                    <p *ngIf="column != 'Date' && column != 'delete'; else misc">
-                        {{element[column]}}
-                    </p>
+                    <div *ngIf="column != 'Date' && column != 'delete'; else misc">
+                        <p *ngIf="element[column] != 0"> {{element[column]}} </p>
+                        <p *ngIf="element[column] == 0 || element[column] == 'NaN'"> - </p>
+                        
+                    </div>
                     <ng-template #misc>
 
                         <mat-chip-list color="primary">

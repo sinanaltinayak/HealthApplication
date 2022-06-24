@@ -1,120 +1,31 @@
 .container {
-    padding: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.mat-form-field {
-    font-size: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-td,
-th {
-    width: 25%;
-}
-
-.errorNote {
-    padding: 25px;
-}
-
-.title {
-    font-family: 'Poppins', sans-serif;
-}
-
-.mat-table {
-    width: 1000px;
-}
-
-.container {
-    padding: 100px;
-}
-
-.mat-form-field {
-    font-size: 16px;
-}
-
-.container2 {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 12px;
-}
-
-td,
-th {
-    width: 18%;
-}
-
-mat-card {
-    margin: 20px;
-}
-
-.errorNote {
-    padding: 25px;
+    max-width:none!important;
 }
 
 .title {
     font-family: 'Poppins', sans-serif;
 }
 
-.mat-table {
-    width: 1400px;
+
+/* #region TABLE */
+
+::ng-deep .mat-tab-body-content{
+    overflow: hidden!important;
+    height: auto!important;
 }
 
-.final {
-    margin-top: 5px;
+::ng-deep .mat-sort-header-container, .mat-header-cell{
+    text-align: center;
+    justify-content: center;
 }
 
-.finalized {
-    background-color: rgb(207, 245, 207);
+::ng-deep td, th{
+    padding: 16px!important;
 }
 
-.inProgress {
-    background-color: rgb(247, 241, 195);
-}
-
-.pending {
-    background-color: rgb(253, 215, 215);
-}
-
-.read {
-    
-    animation-name: example;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-}
-
-.star{
-    display: flex;
-    flex-direction: row;
-}
-
-@keyframes example {
-    0%   {background-color: #c8e0de;}
-    50%  {background-color: white;}
-    100% {background-color: #c8e0de;}
-  }
-
-mat-hint {
-    color: red!important;
-}
-
-.clickableDiagnosis{
-    cursor: pointer!important;
-}
-
-.clickableDiagnosis:hover{
-    text-shadow: 1px 1px #251d4b9b;
-    
-}
-
-.form{
-    display: flex;
-    flex-direction: row;
-}
+/* #endregion */

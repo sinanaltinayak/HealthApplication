@@ -4,8 +4,11 @@
     <div class="grid grid-cols-3 gap-2 max-w-4xl">
         <div class="profile rounded-xl border-2">
             <h1 class="card-header text-center">Profile</h1>
-            <div class="flex justify-center">
+            <div *ngIf="!profilePictureLoading"  class="flex justify-center">
                 <img class="img-account-profile rounded-circle p-2" mat-card-image [src]="getDownloadURL()">
+            </div>
+            <div *ngIf="profilePictureLoading" class="flex justify-center m-6">
+                <mat-spinner diameter="100"></mat-spinner>
             </div>
             <div>
                 <div class="flex justify-center p-3">
@@ -14,7 +17,7 @@
                     </button>
                     <input hidden accept=".png, .jpg, .webp" (change)="changeProfilePicture($event)" #fileInput type="file" id="file">
                     
-                    <button type="button" mat-icon-button color="warn" (click)="removeProfilePicture()">
+                    <button type="button" mat-icon-button color="warn" (click)="removeProfilePicture()" [disabled]="profilePicture == 'ProfileImages/default.jpg'">
                         <mat-icon>delete</mat-icon>
                     </button>
                

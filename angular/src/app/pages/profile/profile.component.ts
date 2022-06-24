@@ -45,7 +45,9 @@ export class ProfileComponent implements OnInit {
   currentUser = new Map<string, User>();
   
   userRole = this.currentUser.get(this.currentUserId)?.role;
+
   profilePicture = localStorage.getItem('profilePicture') as string;
+  profileImage: any;
   inputDepartment = '';
   control: any;
   control2: any;
@@ -53,7 +55,6 @@ export class ProfileComponent implements OnInit {
   selectedImage!: any;
   fb!: string;
   downloadURL!: Observable<string>;
-  profileImage: any;
   medicalHistory = new Map<string, MedicalHistory>();
   question1 = '';
   question2 = '';
@@ -65,6 +66,7 @@ export class ProfileComponent implements OnInit {
   selectedFile2: any;
   fileList = new Map<string, string>();
   fileLoading = false;
+  profilePictureLoading = false;
 
   constructor(
     public _authService: AuthService,
@@ -113,7 +115,6 @@ export class ProfileComponent implements OnInit {
       .getUser(this.currentUserId)
       .valueChanges()
       .subscribe((data) => {
-        console.log(data)
         this.currentUser.set(this.currentUserId, data!);
         this.name = Array.from(this.currentUser.values())[0].fullname;
         this.gender = Array.from(this.currentUser.values())[0].gender;
@@ -165,24 +166,7 @@ export class ProfileComponent implements OnInit {
     _height: any,
     _weight: any
   ) {
-    if (_name == '') {
-      _name = this.currentUser.get(this.currentUserId)?.fullname;
-    }
-    if (_gender == '') {
-      _gender = this.currentUser.get(this.currentUserId)?.gender;
-    }
-    if (_birthday == '') {
-      _birthday = this.currentUser.get(this.currentUserId)?.birthday;
-    }
-    if (_phoneNumber == '') {
-      _phoneNumber = this.currentUser.get(this.currentUserId)?.phoneNumber;
-    }
-    if (_height == '') {
-      _height = this.currentUser.get(this.currentUserId)?.height;
-    }
-    if (_weight == '') {
-      _weight = this.currentUser.get(this.currentUserId)?.weight;
-    }
+    
     localStorage.setItem('name', _name);
 
     this._userService.userRef
@@ -214,25 +198,9 @@ export class ProfileComponent implements OnInit {
     let patientID = localStorage.getItem('id')!;
 
     const followDoc = this.db.collection('medical_history').doc(patientID).ref;
-    followDoc.get().then((doc: any) => {
+    followDoc.get().then(async (doc: any) => {
       if (doc.exists) {
-        if (_question1 == '') {
-          _question1 = this.medicalHistory.get(this.currentUserId)?.question1;
-        }
-        if (_question2 == '') {
-          _question2 = this.medicalHistory.get(this.currentUserId)?.question2;
-        }
-        if (_question3 == '') {
-          _question3 = this.medicalHistory.get(this.currentUserId)?.question3;
-        }
-        if (_question4 == '') {
-          _question4 = this.medicalHistory.get(this.currentUserId)?.question4;
-        }
-        if (_question5 == '') {
-          _question5 = this.medicalHistory.get(this.currentUserId)?.question5;
-        }
-
-        this._medicalHistoryService.MedicalHistoryRef.doc(patientID).update({
+        await this._medicalHistoryService.MedicalHistoryRef.doc(patientID).update({
           question1: _question1,
           question2: _question2,
           question3: _question3,
@@ -264,25 +232,28 @@ export class ProfileComponent implements OnInit {
   }
 
   // takes the file uploaded
-  changeProfilePicture(event: any) {
+  async changeProfilePicture(event: any) {
     this.selectedImage = event.target.files[0];
     if (this.selectedImage.size > 1048576) {
       alert('Please select an image smaller than 1MB');
     } else {
+      this.profilePictureLoading = true;
       this.control = 'yes';
       const file = this.selectedImage;
       const name = this.selectedImage.name;
-      this.storage.upload('ProfileImages/' + name, file);
+      await this.storage.upload('ProfileImages/' + name, file);
       this._userService.userRef
         .doc(this.currentUserId)
         .update({ profilePicture: 'ProfileImages/' + name });
       localStorage.setItem('profilePicture', 'ProfileImages/' + name);
       
+      this.profilePictureLoading = false;
       window.location.reload();
     }
   }
   
   removeProfilePicture() {
+    this.storage.storage.ref('ProfileImages/' + this.profileImage).delete();
     this._userService.userRef
       .doc(this.currentUserId)
       .update({ profilePicture: 'ProfileImages/default.jpg' });

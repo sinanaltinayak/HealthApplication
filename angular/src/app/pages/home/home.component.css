@@ -2,26 +2,27 @@
     size: 10px;
 }
 
-.container {
-    padding-top: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 200px;
+.symptomsTable {
+    margin: 15px;
+    width: 200px;
 }
 
-.container2 {
-    display: flex;
-    flex-direction: row;
-    margin-top: 20px;
+.diagnosisTable {
+    margin: 15px;
+    width: 200px;
 }
 
 .diagnosis-card {
     margin: 15px;
+    padding: 20px;
     width: 400px;
 }
 
+.precautions-card {
+    margin: 15px;
+    padding: 20px;
+    width: 250px;
+}
 .symptomsForm {
     display: flex;
     flex-direction: column;
@@ -29,27 +30,9 @@
     margin-top: 20px;
 }
 
-.sendButton{
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-mat-card {
-    margin: 5px;
-}
-
-mat-form-field {
-    width: 350px;
-}
-
-mat-row {
+.clickable {
     cursor: pointer
-}
-
-.containerFirst {
-    padding-top: 100px;
 }
 
 .firstCard {
@@ -62,8 +45,7 @@ mat-row {
 
 .insideCard {
     width: 200px;
-    height: 250px;
-    /* background-color: #e5dce2; */
+    height: 275px;
 }
 
 .start {
@@ -92,22 +74,6 @@ mat-row {
     text-align: center;
 }
 
-.gridlist {
-    padding-top: 20px;
-}
-
-.center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-}
-
 ::ng-deep .mat-horizontal-stepper-header{
     pointer-events: none !important;
 }
-
-/* .symptom {
-    border: 3px solid #b2dfdb !important;
-    border-radius: 20px !important;
-} */

@@ -20,7 +20,7 @@ export class AdminComponent implements AfterViewInit {
   passwordErrorMessage: string = "Please enter a valid password";
   confirmPasswordErrorMessage: string = "The passwords does not match";
   nameErrorMessage: string = "Please fill in your name";
-  displayedColumnsDoctors: string[] = ['ID', 'Name', 'Email', 'Department', 'Rate', 'Month', 'Year', 'Last Login', 'Remove'];
+  displayedColumnsDoctors: string[] = ['id', 'fullname', 'email', 'department', 'rate', 'lastMonth', 'lastYear', 'lastLogin', 'Remove'];
   dataSourceDoctors: MatTableDataSource<Admin> = new MatTableDataSource<Admin>();
   role = localStorage.getItem("role");
   hidePassword = true;

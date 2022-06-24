@@ -15,11 +15,10 @@ import { Observable } from 'rxjs';
 })
 export class PatientInformationDialogComponent implements OnInit {
 
-  currentMedicalHistory: MedicalHistory = new MedicalHistory("sdasdasd","asdasdasd","","","","");
+  currentMedicalHistory: MedicalHistory = new MedicalHistory("","","","","","");
   currentUser: User = new User("","","","","","","","","","","");
 
 
-  cxd!: string;
 
   fileList = new Map<string, string>();
   profileImage: any;
@@ -33,17 +32,9 @@ export class PatientInformationDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cxd = "cxd"
     this.getCurrentMedicalHistory();
     this.getPatientInformation();
-    this.getFileList();
-
-  
-    
-  }
-
-  xd(){
-    console.log(this.currentMedicalHistory);
+    this.getFileList();    
   }
 
   getCurrentMedicalHistory(){
