@@ -2,7 +2,7 @@
     <div class="grid grid-cols-3 gap-2">
         <div class="profile rounded-xl border-2">
             <h1 class="card-header text-center">Profile</h1>
-            <img class="img-account-profile rounded-circle p-2" mat-card-image [src]="getDownloadURL()">
+            <img class="img-account-profile rounded-circle p-2" [src]="getDownloadURL()">
             <mat-divider></mat-divider>
             <div class="p-6">
                 <div>{{ currentUser.email }}</div>

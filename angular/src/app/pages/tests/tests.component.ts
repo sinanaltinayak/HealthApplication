@@ -170,7 +170,7 @@ export class TestsComponent implements AfterViewInit {
 
   openPatientMonitoringDialog(patientID: string, patientName: string) {    
     const dialogRef = this.dialog.open(PatientMonitoringDialogComponent, {
-      width: "50%", 
+      width: "fit", 
       data: {
         patientID: patientID,
         patientName: patientName
@@ -181,7 +181,7 @@ export class TestsComponent implements AfterViewInit {
 
   openChatDialog(chatId: string, testId: string) {    
     const dialogRef = this.dialog.open(ChatComponent, {
-      width: "50%", 
+      width: "fit", 
       data: {chatID: chatId,testID: testId},
       hasBackdrop: true,
     });

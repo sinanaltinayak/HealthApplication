@@ -17,10 +17,12 @@ import { ChatService } from 'src/app/service/chat.service';
 export class TopbarComponent implements OnInit {
 
   // These variables are for storing the values that are entered in the form fields in HTML file
-  email: string = "";
-  fullname: string = "";
-  password: string = "";
-  confirmPassword: string = "";
+  signInEmail: string = "";
+  signInPassword: string = "";
+  signUpEmail: string = "";
+  signUpFullname: string = "";
+  signUpPassword: string = "";
+  signUpConfirmPassword: string = "";
   hidePassword = true;
   forgotMode: boolean = false;
   currentUser: any = localStorage.getItem('name');
@@ -54,11 +56,11 @@ export class TopbarComponent implements OnInit {
   }
 
   loginUser() {
-    this._authService.login(this.email, this.password);
+    this._authService.login(this.signInEmail, this.signInPassword);
   }
   
   forgotPassword() {
-    this._authService.resetPassword(this.email);
+    this._authService.resetPassword(this.signInEmail);
   }
 
   refresh(routerLink: string): void {
@@ -80,8 +82,8 @@ export class TopbarComponent implements OnInit {
     this._authService.logout();
     this._router.navigate(['home']).then(a => {window.location.reload()});
     this.userType = "default";
-    this.email = "";
-    this.password = "";
+    this.signInEmail = "";
+    this.signInPassword = "";
     this.emailErrorMessage = "";       
     this.myapp.openSnackBar("Successfully logged out.", "Continue", 'mat-primary');    
   }
@@ -94,19 +96,22 @@ export class TopbarComponent implements OnInit {
     else{
       this.signMode = "signin";
     }
-    this.email = "";
-    this.password = "";
   }
   // registerUser function is for creating a new patient account
   registerUser() {
 
-    this._authService.register(this.email, this.password, this.fullname);
+    this._authService.register(this.signUpEmail, this.signUpPassword, this.signUpFullname);
     setTimeout(() => {
       if (this._authService.errorInRegister == false){
         this.loginUser();
       }
     },
     1000);
+
+    this.changeSignMode();
+
+    this.signInEmail = this.signUpEmail;
+    this.signInPassword = this.signUpPassword;
 
   }
   

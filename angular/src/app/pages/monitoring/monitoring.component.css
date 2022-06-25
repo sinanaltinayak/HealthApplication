@@ -10,7 +10,7 @@ mat-chip {
 
 ::ng-deep td{
     padding: 12px!important;
-    text-align: center !important;
+    
 }
 
 ::ng-deep .mat-sort-header-container,

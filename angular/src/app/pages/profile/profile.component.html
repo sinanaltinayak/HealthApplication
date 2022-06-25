@@ -5,7 +5,7 @@
         <div class="profile rounded-xl border-2">
             <h1 class="card-header text-center">Profile</h1>
             <div *ngIf="!profilePictureLoading"  class="flex justify-center">
-                <img class="img-account-profile rounded-circle p-2" mat-card-image [src]="getDownloadURL()">
+                <img class="img-account-profile rounded-circle p-2" [src]="getDownloadURL()">
             </div>
             <div *ngIf="profilePictureLoading" class="flex justify-center m-6">
                 <mat-spinner diameter="100"></mat-spinner>

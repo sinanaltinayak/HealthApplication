@@ -22,10 +22,10 @@ export class MonitoringComponent implements AfterViewInit {
   
   dataSourceMonitor: MatTableDataSource<Monitor> = new MatTableDataSource<Monitor>();
 
-  SystolicBP!: string;
-  DiastolicBP!: string;
-  Temperature!: string;
-  RandomBloodSugarLevel!: string;
+  SystolicBP: string = '';
+  DiastolicBP: string = '';
+  Temperature: string = '';
+  RandomBloodSugarLevel: string = '';
 
 
   viewControl = this.fb.group({

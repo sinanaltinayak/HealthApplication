@@ -25,7 +25,7 @@
             <table mat-table [dataSource]="possibleDiagnosis" class="mat-elevation-z8 diagnosisTable">
                 <ng-container matColumnDef="name">
                     <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
-                    <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
+                    <mat-cell class="flex justify-between items-center" mat-cell *matCellDef="let element"> <b>{{element.name}} </b> <p class="self-end">%{{ (element.probability * 100).toFixed(2)}}</p></mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></mat-header-row>

@@ -63,7 +63,7 @@ export class AuthService {
         }
         else {
           value.user?.sendEmailVerification();
-          this._snackBar.open("Your account is not verified, please verify your account. The verification link is re-sent.", "Continue", {
+          this._snackBar.open("Your account is not verified, please verify your account.", "Continue", {
             horizontalPosition: "right",
             verticalPosition: "bottom",
             duration: 5000,

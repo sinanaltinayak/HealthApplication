@@ -3,7 +3,7 @@
         <mat-grid-list class="pt-5" cols="3">
             <mat-grid-tile>
                 <mat-card class="insideCard">
-                    <mat-icon color="warn" class="icon">healing</mat-icon><br>
+                    <mat-icon color="warn" class="icon">gps_fixed</mat-icon><br>
                     <mat-card-title class="title">
                         PURPOSE
                     </mat-card-title>
@@ -14,7 +14,7 @@
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-card class="insideCard">
-                    <mat-icon color="warn" class="icon">more</mat-icon><br>
+                    <mat-icon color="warn" class="icon">view_module</mat-icon><br>
                     <mat-card-title class="title">
                         DATASET
                     </mat-card-title>
@@ -25,7 +25,7 @@
             </mat-grid-tile>
             <mat-grid-tile>
                 <mat-card class="insideCard">
-                    <mat-icon color="warn" class="icon">spa</mat-icon><br>
+                    <mat-icon color="warn" class="icon">memory</mat-icon><br>
                     <mat-card-title class="title">
                         MODEL
                     </mat-card-title>
@@ -98,19 +98,10 @@
                 </div>
             </ng-container>
                 <div class="flex justify-center mt-10" *ngIf="!showLoaderResult">
-                    <table class="symptomsTable mat-elevation-z8" mat-table [dataSource]="selectedSymptoms">
-                        <ng-container matColumnDef="name">
-                            <mat-header-cell mat-header-cell *matHeaderCellDef> Selected Symptoms </mat-header-cell>
-                            <mat-cell mat-cell *matCellDef="let element">{{element}}</mat-cell>
-                        </ng-container>
-    
-                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                    </table>
                     <table class="diagnosisTable mat-elevation-z8" mat-table [dataSource]="possibleDiagnosis">
                         <ng-container matColumnDef="name">
                             <mat-header-cell mat-header-cell *matHeaderCellDef> Possible Diagnosis </mat-header-cell>
-                            <mat-cell mat-cell *matCellDef="let element"> <b>{{element.name}} </b> %{{ (element.probability * 100).toFixed(2)}}</mat-cell>
+                            <mat-cell class="flex justify-between items-center" mat-cell *matCellDef="let element"> <b>{{element.name}} </b> <p class="self-end">%{{ (element.probability * 100).toFixed(2)}}</p></mat-cell>
                         </ng-container>
     
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
