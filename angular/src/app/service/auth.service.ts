@@ -45,7 +45,7 @@ export class AuthService {
           localStorage.setItem('password', password);
           localStorage.setItem('name', this.name);
           localStorage.setItem('profilePicture', this.profilePicture);
-          console.log('Nice, it worked!');
+          
           if(this.role == 'doctor'){
             this.router.navigate(['tests']);
             this.department = (await firstValueFrom(user$)).payload.get("department");
@@ -161,11 +161,13 @@ export class AuthService {
           gender: '',
           birthday: '',
           phoneNumber: '',
-          profilePicture: 'ProfileImages/default.jpg'
+          profilePicture: 'ProfileImages/default.jpg',
+          height: '',
+          weight: ''
         });
       }).catch(err => {
         this.errorInRegister = true;
-        console.log('Something went wrong: ',err.message);
+        
         if(err.message.includes("Password should be at least 6 characters")) {
           setTimeout(() => {
             this._snackBar.open("Password must be at least 6 characters.", "Continue", {
