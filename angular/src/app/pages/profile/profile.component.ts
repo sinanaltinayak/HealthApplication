@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
   userRole = this.currentUser.get(this.currentUserId)?.role;
 
   profilePicture = localStorage.getItem('profilePicture') as string;
-  profileImage: any;
+  profileURL: any;
   inputDepartment = '';
   control: any;
   control2: any;
@@ -145,7 +145,7 @@ export class ProfileComponent implements OnInit {
       .ref(this.profilePicture)
       .getDownloadURL()
       .then((url: string) => {
-        this.profileImage = url;
+        this.profileURL = url;
       });
 
     if (this.userRole == 'doctor') {
@@ -242,19 +242,20 @@ export class ProfileComponent implements OnInit {
       const file = this.selectedImage;
       const name = this.selectedImage.name;
       await this.storage.upload('ProfileImages/' + name, file);
-      this._userService.userRef
+      await this._userService.userRef
         .doc(this.currentUserId)
         .update({ profilePicture: 'ProfileImages/' + name });
       localStorage.setItem('profilePicture', 'ProfileImages/' + name);
       
       this.profilePictureLoading = false;
+
       window.location.reload();
     }
   }
   
-  removeProfilePicture() {
-    this.storage.storage.ref('ProfileImages/' + this.profileImage).delete();
-    this._userService.userRef
+  async removeProfilePicture() {
+    await this.storage.storage.ref(this.profilePicture).delete();
+    await this._userService.userRef
       .doc(this.currentUserId)
       .update({ profilePicture: 'ProfileImages/default.jpg' });
     localStorage.setItem('profilePicture', 'ProfileImages/default.jpg');
@@ -285,11 +286,6 @@ export class ProfileComponent implements OnInit {
       });
     }
 
-  }
-
-  // gets the url of the necessary picture
-  getDownloadURL() {
-    return this.profileImage;
   }
 
   getFileList() {
