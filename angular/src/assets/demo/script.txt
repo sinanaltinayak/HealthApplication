@@ -1,0 +1,260 @@
+YENİSEY
+
+Start:
+
+Hello, I am tuğçe and my team mates are sinan, derya and kerem. Today, we are going to present our project which is called “From Symptoms to Disease Diagnosis, Recommendation, Monitoring, and Follow Up”.
+
+Pligarism:
+
+As you can see, Our report has 4 percent similarity index without references and 6 percent with references.
+
+purpose:
+
+The purpose of this project is designing a solution that offers diagnosing, recommendation, monitoring, and follow up phases by using Machine Learning techniques. 
+
+GEÇ
+
+YENİSEY
+
+TARGETS:
+
+So for the targets of the project,
+
+-we intend to accurately identify the user’s diseases by examining their symptoms.
+-And suggest an effective treatment for their diseases.
+-Furthermore, our project also aims to be able to monitor the user instead of just diagnosing and prescribing treatments. We aim to maintain track of the user's vital values such as systolic and diastolic blood preassures.
+
+
+GEÇ
+
+-Our project also enables physician-patient interaction. So, we hope to provide accurate guidance to patients regarding their condition.
+-And finding nearby hospitals in 3 kilometer radius is one of our targets to inform user.
+
+
+GEÇ
+
+-Targets for the non users are, reducing physicians' workload, by assistimg physicians in diagnosing and treatment recommendation processes. 
+-Secondly, mild disorders will no longer necessitate a hospital visit, while patients with more serious illnesses will find it easier to schedule an appointment.
+-As a result the health process will be faster and improved.
+
+GEÇ
+
+KEREM
+
+ORIGINALITY
+
+Our project differs from the applications in the era in several ways
+- Many applications in the era, do not include several phases like diagnosing, monitoring and recommendation all in one. In this way, the patient can be guided through all the
+steps from diagnosis to treatment.  
+- The project do not focus on spefic disease or diseases, the dataset do include variety of diseases. In the era, the applications mainly focus on a few diseases.
+- Combining the ML model and interaction with the physicians for diagnosis is an innovative feature in the healthcare field.
+
+DATASET
+
+- The dataset that is used in the project consists of 4920 (four thousand nine hundred twenty) records with 41 diseases and 132 symptoms. 
+- Each record is a disease with the corresponding symptoms. Each disease can have multiple entries with many other different combinations of symptoms. 
+- Additional datasets like description and recommendations for each disease is also available for this dataset, which are used for the next phases like recommendation. 
+
+RESULT OF THE MODEL
+
+- We have made experiments to get pre-results for diagnosing phase of the project. In these experiments, 3 ML models were tested to determine the model
+- Various performance assessments for models were calculated to compare their performance. As a result, Random Forest Classifier model performed best and 
+it is decided to be used in the project.
+
+
+SİNAN
+
+USER INTERFACE
+
+we will show you our web application after this presentation but let's look at our user interface
+
+
+this is the form for our main feature. user has to select their symptoms through this autocomplete input field and click to the continue button
+
+this is the result step after clicking continue. the user can find the five most possible diagnosis on the left and the necessary information on the right
+
+this is the test history page for the users who have an account. the tests get recorded in 3 different sections which are pending, in progress and finalized. in pending tests section, there are tests that the doctors did not respond yet. Users can remove the test before a doctor responds it. users can also click to the diagnosis and check out the information about it in a dialog.
+
+in progress section keeps the tests that the doctor responded but did not decide to a final diagnosis. users can open the chat window to communicate with their doctor.
+
+and this is the finalized tests section, where the user can see their test result with the chat history of their doctors. users can also review the doctor in this section.
+
+this is the mentioned chat window. users can chat with their doctor until the doctor finalizes the test.
+
+on the left you can see the review dialog and on the right there is the diagnosis information dialog.
+
+this is the monitoring page where the users can fill out the form with numerical values and save them to their account. The doctors can see this table while reviewing a test.
+
+this is the map page, where the user can find the nearby hospitals to their location.
+
+this is the profile of the user where they can give more information about their medical history and upload some documents to help doctors deciding to a final diagnosis. the user can also change their account details and profile picture
+
+these are the pages for the doctor accounts. on the left there is the screen for starting a chat with the patient. and on the right there is the dialog for finalizing a test. the doctor can select from the five most possible diagnosis or find another diagnosis from our dataset.
+
+and finally, the dialogs of the patient. their profile and monitoring history.
+
+GEÇ 
+
+DERYA
+Our project aimed to have a comprehensive dataset with at least five thousand data points that has been approved by physicians. In addition, it was intended to recommend a treatment that is a hundred percent consistent with the diagnosis. Also, our project intended to identify the patient's diseases with at least eighty five percent accuracy by examining the symptoms. Furthermore, we aimed to maintain track of how the condition is progressing by storing at least twenty tests or status updates. Our project also aims to be able to monitor the patient. Finally, our program seek to find hospitals within a three-kilometer radius. We succeeded all of these that I have counted except for the comprehensive dataset. After consultations with the hospital, we couldn't get a comprehensive dataset approved by physicians.
+
+
+
+
+
+The main risk of the project was being unable to collect enough data to create a dataset. However, after consultations with the hospital, we cannot reach the requested data set. As a result, we continued with an open-source dataset.
+There was another scenario where our team was unable to find enough time to develop the additional features. In this case, these features were noted in the Future Studies section.
+Also, if there are lots of tests and chats in the project, it may take time to find and fetch them. In that case, indexing was our solution to this problem.
+Lastly, it was possible that the project could be slowed down due to the complexity of our model. While developing the project, this risk was not encountered.
+
+
+
+
+
+There are some features that could not be completed during the project but could be added later. These are:
+Disease prediction can be made using audio and photos captured by mobile sensors.
+Also, the machine learning model can be improved by including medical history and monitoring values of the user.
+In addition, a system can be developed to distribute the tests equally to the doctors to give them an equal workload.
+Finally, a hospital recommendation system can be added by taking data from hospitals and looking at the availability of hospitals.
+
+Thank you for listening. 
+
+Now, let’s continue with the demo.
+
+
+USER INTERFACE
+
+we will show you our web application after this presentation but let's look at our user interface
+
+
+this is the form for our main feature. user has to select their symptoms through this autocomplete input field and click to the continue button
+
+this is the result step after clicking continue. the user can find the five most possible diagnosis on the left and the necessary information on the right
+
+this is the test history page for the users who have an account. the tests get recorded in 3 different sections which are pending, in progress and finalized. in pending tests section, there are tests that the doctors did not respond yet. Users can remove the test before a doctor responds it. users can also click to the diagnosis and check out the information about it in a dialog.
+
+in progress section keeps the tests that the doctor responded but did not decide to a final diagnosis. users can open the chat window to communicate with their doctor.
+
+and this is the finalized tests section, where the user can see their test result with the chat history of their doctors. users can also review the doctor in this section.
+
+this is the mentioned chat window. users can chat with their doctor until the doctor finalizes the test.
+
+on the left you can see the review dialog and on the right there is the diagnosis information dialog.
+
+this is the monitoring page where the users can fill out the form with numerical values and save them to their account. The doctors can see this table while reviewing a test.
+
+this is the map page, where the user can find the nearby hospitals to their location.
+
+this is the profile of the user where they can give more information about their medical history and upload some documents to help doctors deciding to a final diagnosis. the user can also change their account details and profile picture
+
+these are the pages for the doctor accounts. on the left there is the screen for starting a chat with the patient. and on the right there is the dialog for finalizing a test. the doctor can select from the five most possible diagnosis or find another diagnosis from our dataset.
+
+and finally, the dialogs of the patient. their profile and monitoring history.
+
+
+
+
+
+DEMO
+
+so lets get started with the demo.
+this is our home page where you can see some information about our model.
+
+this is the form we saw in the presentation
+
+lets fill it out
+
+symptoms: 
+	vomiting
+	breathlessness
+	chest_pain	
+	sweating
+
+this is the results step, you can the information about the diagnosis but because we did not log in to an account our test won't be reviewed by the doctors. so lets try that by creating an account
+
+sign up:
+	sinanaltinayak@gmail.com
+	Sinan Altınayak
+	123123
+	123123
+
+we created an account but we have to verify our email. lets do that
+
+once we log in to an account, we gain access to new pages as you can see in the topbar. lets start with profile page.
+
+we can change our profile picture, account details and medical history as well as upload some documents.
+
+so lets change some stuff in our profile.
+
+another page for the users is the monitoring page. we can fill some numerical information about ourself so lets do that
+	systolic: 110
+	diastolic: 70
+
+as you can see it gives an error if we type in an absurd number. and we can delete records from the table.
+and from the left we can select the columns we want to see. if we will only fill the blood pressures for example we can just uncheck these two and see our monitoring history more clearly.
+
+so lets create a test while we are in an account
+
+	skin rash
+	nodal eruptions
+	itching
+
+results from the same model gets displayed but this time we have the option of sending this test to the doctor with the relevant department.
+
+we can check out the information about the diagnosis by clicking to them.
+
+
+lets log in to a doctor account to review this test
+
+DOCTOR ACCOUNT (YENİSEY):
+
+doctor accounts also have a profile but with less content in it.
+
+so this is the test we just sent from sinan's account.
+we can see the profile and the monitoring page of sinan.
+but we are still not sure about the final diagnosis. so we can start a chat with the patient
+
+Good evening Mr Altınayak, 
+For how many days do you have these symptoms?
+
+once we start a chat, the test status will go from pending to in progress. we can see the chat window from here.
+
+PATIENT ACCOUNT:
+
+lets see it from the patient perspective. and answer the question of the doctor.
+
+Good evening Doctor, I'm feeling like this for 3 	days.
+
+DOCTOR ACCOUNT (YENİSEY):
+
+and go back to the doctor account. you can see there are notifications for the things happened when you were offline.
+
+lets respond to sinan 
+
+I think you need a doctor from another department. 		I'm reassigning your test.
+
+and we assign this test to a doctor from another department
+for example internal diseases
+
+
+lets log in to a doctor account from internal diseases
+
+DOCTOR ACCOUNT (derya):
+
+you can see the test is here.
+this time lets finalize the test before starting a chat
+
+we can select the diagnosis from this table or write it ourself
+
+lets select drug reaction and finalize it
+
+PATIENT ACCOUNT:
+
+from the patient account we can see the test is finalized.
+we can review the doctor by clicking to this button.
+
+final page for the users is a map for displaying the nearby hospitals to the user location
+
+
+
+thanks for listening
