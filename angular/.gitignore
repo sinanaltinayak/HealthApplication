@@ -37,6 +37,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+/src/app/pages/map/api-key.ts
 
 # System files
 .DS_Store
