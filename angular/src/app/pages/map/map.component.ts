@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Loader } from '@googlemaps/js-api-loader';
+
+// google maps api key
+import { apiKey } from './api-key';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -21,9 +25,15 @@ export class MapComponent implements OnInit {
 }
 
 initMap(): void {
-  let loader =new Loader({
-    apiKey: 'AIzaSyAFRms9o-1WMDcaOXa58C7AYpfbsuoJ8pM&libraries=places'
-  })
+  let loader;
+  if (apiKey){
+    loader = new Loader({
+      apiKey: apiKey.googleMapsApiKey
+    })
+  }
+  else{
+    return;
+  }
 
   loader.load().then(() => {
     if (navigator.geolocation) {
